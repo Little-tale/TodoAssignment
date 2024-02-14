@@ -12,3 +12,15 @@ extension UIView {
         return String(describing: self)
     }
 }
+
+extension UIViewController {
+    func showAlert(title: String, message: String){
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        present(alert,animated: true)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            alert.dismiss(animated: true)
+        }
+    }
+}

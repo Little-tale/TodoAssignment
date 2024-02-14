@@ -10,6 +10,9 @@ import UIKit
 class NewTodoViewController: BaseViewController {
     let newtodoHomeView = NewTodoHomeView()
     
+    var titleText: String?
+    var memoText: String?
+    
     var dateInfo: Date? {
         didSet{
             newtodoHomeView.todoTableView.reloadData()
@@ -36,12 +39,36 @@ class NewTodoViewController: BaseViewController {
         deleagateDatasoure()
         self.view.backgroundColor = .white
         navigationItem.title = "새로운 할일"
+        settingNavigation()
+        
     }
-    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.isToolbarHidden = true
+        
+    }
     
     func deleagateDatasoure(){
         newtodoHomeView.todoTableView.delegate = self
         newtodoHomeView.todoTableView.dataSource = self
+    }
+    func settingNavigation(){
+        let rightButton = UIBarButtonItem(title: "저장", style: .plain, target: self, action: #selector(saveButtonCliecked))
+        navigationItem.rightBarButtonItem = rightButton
+    }
+    
+    @objc
+    func saveButtonCliecked(){
+       
+        guard let titleText = titleText else {
+            showAlert(title: "No Title", message: "타이틀은 필수입니다!")
+            return
+        }
+        let data = TodoList(title: titleText, memo: self.memoText ?? "", lastDate: self.dateInfo, tag: self.tafInfo, privority: self.prioritizationIndex)
+        
+        UserDefaultsManager.shared.appendData(data)
+        
+        navigationController?.popViewController(animated: true)
     }
 
 }
@@ -70,6 +97,8 @@ extension NewTodoViewController: UITableViewDelegate, UITableViewDataSource {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: TitleMemoTableCell.reuseabelIdentifier, for: indexPath) as? TitleMemoTableCell else {
                 return UITableViewCell()
             }
+            cell.delegate = self
+            
             return cell
         case .endDay:
             cell.titleLabel.text = section.getTile
@@ -161,3 +190,9 @@ extension NewTodoViewController: selectedPrioritization {
 
 
 
+extension NewTodoViewController: TitleMemoTextFieldProtocol {
+    func textFieldDidEndEditing(for cell: TitleMemoTableCell, title: String?, Info: String?) {
+        self.titleText = title
+        self.memoText = Info
+    }
+}

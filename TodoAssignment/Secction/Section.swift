@@ -47,6 +47,65 @@ enum NewToDoList: CaseIterable {
     }
 }
 
+enum AllListCellCase: CaseIterable {
+    case today
+    case upcoming
+    case all
+    case flag
+    case completed
+    
+    var name: String {
+        switch self {
+        case .today:
+            "오늘"
+        case .upcoming:
+            "예정"
+        case .all:
+            "전체"
+        case .flag:
+            "깃발표시"
+        case .completed:
+            "완료됨"
+        }
+    }
+    
+    var imageName: String {
+        switch self {
+        case .today:
+            "calendar.circle.fill"
+        case .upcoming:
+            "calendar.circle.fill"
+        case .all:
+            "archivebox.circle"
+        case .flag:
+            "flag.circle.fill"
+        case .completed:
+            "checkmark.circle.fill"
+        }
+    }
+    
+    var backColor: UIColor {
+        switch self {
+        case .today:
+            UIColor.systemBlue
+        case .upcoming:
+            UIColor.systemRed
+        case .all:
+            UIColor.systemGray
+        case .flag:
+            UIColor.systemYellow
+        case .completed:
+            UIColor.systemGray5
+        }
+    }
+    
+}
+
+
+
+
+
+
 
 
 //MARK: 상황별 섹션 분리

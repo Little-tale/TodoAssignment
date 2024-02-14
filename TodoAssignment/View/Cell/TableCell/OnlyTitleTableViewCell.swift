@@ -27,6 +27,7 @@ class OnlyTitleTableViewCell: BaseTableViewCell {
         contentView.addSubview(rightImage)
         contentView.addSubview(infoLabel)
     }
+    
     override func configureLayout() {
         titleLabel.snp.makeConstraints { make in
             make.verticalEdges.leading.equalToSuperview().inset(8)

@@ -36,12 +36,19 @@ class AllListHomeView: BaseView {
     override func configureHierarchy() {
         self.addSubview(collectionView)
     }
+    
+    
+    
     override func configureLayout() {
-        
+        collectionView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
     }
     override func designView() {
         rightButton.title = "목록 추가"
         leftButton.customView?.sizeToFit()
+        collectionView.isScrollEnabled = false
+        
     }
     @objc
     func goToNewToDoView(){
@@ -54,16 +61,17 @@ class AllListHomeView: BaseView {
         let layout = UICollectionViewFlowLayout()
         
         let spacing : CGFloat = 10
-        let cellWidth = UIScreen.main.bounds.width - (spacing * 2)
+        let cellWidth = UIScreen.main.bounds.width - (spacing * 3)
         
-        layout.itemSize = CGSize(width: cellWidth / 2, height: (cellWidth) / 2) // 셀의 크기
+        layout.itemSize = CGSize(width: cellWidth / 2, height: (cellWidth) / 4) // 셀의 크기
         layout.sectionInset = UIEdgeInsets(top: spacing, left: spacing, bottom: spacing, right: spacing)
         layout.scrollDirection = .vertical
-        
         return layout
     }
     
-    
+    override func register() {
+        collectionView.register(ToDoListCollectionViewCell.self, forCellWithReuseIdentifier: ToDoListCollectionViewCell.reuseabelIdentifier)
+    }
     
     
 }

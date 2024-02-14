@@ -8,11 +8,16 @@
 import UIKit
 import SnapKit
 
+// MARK: 딜리게이트 패턴을 위한 프로토콜
+protocol TitleMemoTextFieldProtocol: AnyObject {
+    func textFieldDidEndEditing(for cell: TitleMemoTableCell, title: String?, Info: String?)
+}
+
 class TitleMemoTableCell: BaseTableViewCell {
     let titleTextField = UITextField()
     let memoTextField = UITextField()
     
-    
+    weak var delegate: TitleMemoTextFieldProtocol?
     
     override func configureHierarchy() {
         contentView.addSubview(titleTextField)
@@ -37,8 +42,20 @@ class TitleMemoTableCell: BaseTableViewCell {
         titleTextField.textColor = .white
         memoTextField.textColor = .white
         self.backgroundColor = .lightGray
+        delegateDataSource()
+    }
+    func delegateDataSource(){
+        titleTextField.delegate = self
+        memoTextField.delegate = self
     }
     
-    
-    
+}
+// MARK: 딜리게이트 패턴을 이용한 값전달
+extension TitleMemoTableCell: UITextFieldDelegate {
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        let title = titleTextField.text
+        let infoText = memoTextField.text
+        
+        delegate?.textFieldDidEndEditing(for: self, title: title, Info: infoText)
+    }
 }
