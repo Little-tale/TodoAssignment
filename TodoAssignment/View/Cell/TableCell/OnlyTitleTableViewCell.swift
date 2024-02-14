@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class OnlyTitleTableViewCell: BaseTableViewCell {
+final class OnlyTitleTableViewCell: BaseTableViewCell {
     let titleLabel = UILabel()
     
     let rightImage: UIImageView = {

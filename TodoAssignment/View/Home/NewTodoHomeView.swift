@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class NewTodoHomeView: BaseView{
+final class NewTodoHomeView: BaseView{
     
     let todoTableView = UITableView(frame: .zero, style: .insetGrouped)
     

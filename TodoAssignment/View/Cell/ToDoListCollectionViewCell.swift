@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class ToDoListCollectionViewCell: BaseCollectionViewCell {
+final class ToDoListCollectionViewCell: BaseCollectionViewCell {
     
     let imageView = UIImageView(frame: .zero)
     let titleLabel = UILabel()

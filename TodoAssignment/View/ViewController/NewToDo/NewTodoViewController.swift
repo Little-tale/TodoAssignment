@@ -171,6 +171,11 @@ extension NewTodoViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
     
+    // MARK: 메모리 누수 방지를 위한 대처
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "tagData"), object: nil)
+    }
     
     @objc
     func getTagData(sender: Notification){

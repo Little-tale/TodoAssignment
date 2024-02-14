@@ -13,10 +13,11 @@ protocol TitleMemoTextFieldProtocol: AnyObject {
     func textFieldDidEndEditing(for cell: TitleMemoTableCell, title: String?, Info: String?)
 }
 
-class TitleMemoTableCell: BaseTableViewCell {
+final class TitleMemoTableCell: BaseTableViewCell {
     let titleTextField = UITextField()
     let memoTextField = UITextField()
     
+    // MARK: 약함 참조를 통해 ARC 를 방지합니다. -> 강하게 잡으면 충돌가능성 혹은 메모리 누수 현상 발생할 여지가 있습니다.
     weak var delegate: TitleMemoTextFieldProtocol?
     
     override func configureHierarchy() {
@@ -44,7 +45,7 @@ class TitleMemoTableCell: BaseTableViewCell {
         self.backgroundColor = .lightGray
         delegateDataSource()
     }
-    func delegateDataSource(){
+    fileprivate func delegateDataSource(){
         titleTextField.delegate = self
         memoTextField.delegate = self
     }
@@ -57,5 +58,6 @@ extension TitleMemoTableCell: UITextFieldDelegate {
         let infoText = memoTextField.text
         
         delegate?.textFieldDidEndEditing(for: self, title: title, Info: infoText)
+        
     }
 }

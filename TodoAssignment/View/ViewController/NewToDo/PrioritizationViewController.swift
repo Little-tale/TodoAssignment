@@ -37,7 +37,7 @@ protocol selectedPrioritization: AnyObject {
     func getPrioritization(for AllViewContoller: UIViewController ,prioitiNum: Int)
 }
 
-class PrioritizationViewController: BaseViewController {
+final class PrioritizationViewController: BaseViewController {
     let segmentView = UISegmentedControl(frame: .zero)
     
     var segmentIndex = 0

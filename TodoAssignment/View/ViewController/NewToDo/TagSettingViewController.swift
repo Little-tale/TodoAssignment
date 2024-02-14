@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class TagSettingViewController: BaseViewController {
+final class TagSettingViewController: BaseViewController {
     
     let textField = UITextField()
     override func viewDidLoad() {

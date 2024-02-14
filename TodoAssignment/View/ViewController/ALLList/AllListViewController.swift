@@ -42,16 +42,16 @@ class AllListViewController: BaseViewController {
     }
 
     
-    func setToolBar(){
+    fileprivate func setToolBar(){
         navigationController?.isToolbarHidden = false
         self.toolbarItems = allListHomeView.buttonArray
     }
-    func delegateDataSource(){
+    fileprivate func delegateDataSource(){
         allListHomeView.collectionView.dataSource = self
         allListHomeView.collectionView.delegate = self
     }
     
-    func next(){
+    fileprivate func next(){
         let vc = NewTodoViewController()
         
         navigationController?.pushViewController(vc, animated: true)

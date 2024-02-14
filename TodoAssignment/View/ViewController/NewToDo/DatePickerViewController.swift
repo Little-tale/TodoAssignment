@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class DatePickerViewController: BaseViewController {
+final class DatePickerViewController: BaseViewController {
     let datePickerView = UIDatePicker(frame: .zero)
     
     var DateInfo: ((Date) -> Void)?
@@ -39,8 +39,9 @@ class DatePickerViewController: BaseViewController {
         datePickerView.tintColor = .white
         datePickerView.addTarget(self, action: #selector(datePickerGetData), for: .valueChanged)
     }
-    @objc
     
+    
+    @objc
     func datePickerGetData(sender: UIDatePicker){
         // 2024-02-27 08:18:00 +0000
         print(sender.date)
