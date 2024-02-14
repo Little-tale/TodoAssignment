@@ -12,7 +12,10 @@ struct DateAssistance {
     
     // MARK: 날짜만 나오게 해드립니다.
     /// 날짜만 나오게 해드릴께요!
-    func getDate(date: Date) -> String{
+    func getDate(date: Date?) -> String{
+        guard let date = date else {
+            return ""
+        }
         dateAssistance.dateFormat = "yyyy년 M월 d일 "
         let dateString = dateAssistance.string(from: date)
         return dateString

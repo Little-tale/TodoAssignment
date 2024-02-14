@@ -11,9 +11,9 @@ import SnapKit
 class DatePickerViewController: BaseViewController {
     let datePickerView = UIDatePicker(frame: .zero)
     
-    var DateInfo: ((String) -> Void)?
+    var DateInfo: ((Date) -> Void)?
     
-    private var date = ""
+    var date : Date?
     
     override func configureHierarchy() {
         view.addSubview(datePickerView)
@@ -24,6 +24,13 @@ class DatePickerViewController: BaseViewController {
             make.height.equalTo(100)
         }
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        guard let date = date else {
+            return
+        }
+        datePickerView.date = date
+    }
     
     override func designView() {
         datePickerView.datePickerMode = .date
@@ -33,19 +40,18 @@ class DatePickerViewController: BaseViewController {
         datePickerView.addTarget(self, action: #selector(datePickerGetData), for: .valueChanged)
     }
     @objc
+    
     func datePickerGetData(sender: UIDatePicker){
         // 2024-02-27 08:18:00 +0000
         print(sender.date)
-        // print(DateAssistance().getDate(date: sender.date))
-        // DateInfo?(sender.date)
-        self.date = DateAssistance().getDate(date: sender.date)
+   
+        self.date = sender.date
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         
-        guard date != "" else {
-            
+        guard let date = date else {
             return
         }
         DateInfo?(date)

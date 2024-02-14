@@ -26,6 +26,8 @@
 		7B72D3842B7CAFAB00DBB1DB /* DateAssistance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B72D3832B7CAFAB00DBB1DB /* DateAssistance.swift */; };
 		7B72D3892B7CB78600DBB1DB /* TagSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B72D3882B7CB78600DBB1DB /* TagSettingViewController.swift */; };
 		7B72D38B2B7CC1E000DBB1DB /* PrioritizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B72D38A2B7CC1E000DBB1DB /* PrioritizationViewController.swift */; };
+		7B72D38F2B7CD67100DBB1DB /* AllListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B72D38E2B7CD67100DBB1DB /* AllListViewController.swift */; };
+		7B72D3912B7CD6CF00DBB1DB /* AllListHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B72D3902B7CD6CF00DBB1DB /* AllListHomeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +51,8 @@
 		7B72D3832B7CAFAB00DBB1DB /* DateAssistance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateAssistance.swift; sourceTree = "<group>"; };
 		7B72D3882B7CB78600DBB1DB /* TagSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagSettingViewController.swift; sourceTree = "<group>"; };
 		7B72D38A2B7CC1E000DBB1DB /* PrioritizationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrioritizationViewController.swift; sourceTree = "<group>"; };
+		7B72D38E2B7CD67100DBB1DB /* AllListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllListViewController.swift; sourceTree = "<group>"; };
+		7B72D3902B7CD6CF00DBB1DB /* AllListHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllListHomeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,10 +115,8 @@
 		7B72D3652B7C7E0F00DBB1DB /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				7B72D3692B7C7E7700DBB1DB /* NewTodoViewController.swift */,
-				7B72D3802B7C9C6400DBB1DB /* DatePickerViewController.swift */,
-				7B72D3882B7CB78600DBB1DB /* TagSettingViewController.swift */,
-				7B72D38A2B7CC1E000DBB1DB /* PrioritizationViewController.swift */,
+				7B72D38D2B7CD64F00DBB1DB /* ALLList */,
+				7B72D38C2B7CD61A00DBB1DB /* NewToDo */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -150,6 +152,7 @@
 			isa = PBXGroup;
 			children = (
 				7B72D3772B7C832600DBB1DB /* NewTodoHomeView.swift */,
+				7B72D3902B7CD6CF00DBB1DB /* AllListHomeView.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -175,6 +178,25 @@
 			children = (
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		7B72D38C2B7CD61A00DBB1DB /* NewToDo */ = {
+			isa = PBXGroup;
+			children = (
+				7B72D38A2B7CC1E000DBB1DB /* PrioritizationViewController.swift */,
+				7B72D3882B7CB78600DBB1DB /* TagSettingViewController.swift */,
+				7B72D3802B7C9C6400DBB1DB /* DatePickerViewController.swift */,
+				7B72D3692B7C7E7700DBB1DB /* NewTodoViewController.swift */,
+			);
+			path = NewToDo;
+			sourceTree = "<group>";
+		};
+		7B72D38D2B7CD64F00DBB1DB /* ALLList */ = {
+			isa = PBXGroup;
+			children = (
+				7B72D38E2B7CD67100DBB1DB /* AllListViewController.swift */,
+			);
+			path = ALLList;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -254,11 +276,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				7B72D3552B7C7D9800DBB1DB /* ViewController.swift in Sources */,
+				7B72D3912B7CD6CF00DBB1DB /* AllListHomeView.swift in Sources */,
 				7B72D3842B7CAFAB00DBB1DB /* DateAssistance.swift in Sources */,
 				7B72D3812B7C9C6400DBB1DB /* DatePickerViewController.swift in Sources */,
 				7B72D3682B7C7E3000DBB1DB /* BaseViewController.swift in Sources */,
 				7B72D3782B7C832600DBB1DB /* NewTodoHomeView.swift in Sources */,
 				7B72D3512B7C7D9800DBB1DB /* AppDelegate.swift in Sources */,
+				7B72D38F2B7CD67100DBB1DB /* AllListViewController.swift in Sources */,
 				7B72D37C2B7C847900DBB1DB /* Extension.swift in Sources */,
 				7B72D36E2B7C7FC600DBB1DB /* TitleMemoTableCell.swift in Sources */,
 				7B72D38B2B7CC1E000DBB1DB /* PrioritizationViewController.swift in Sources */,

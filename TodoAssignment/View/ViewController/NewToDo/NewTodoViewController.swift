@@ -10,7 +10,7 @@ import UIKit
 class NewTodoViewController: BaseViewController {
     let newtodoHomeView = NewTodoHomeView()
     
-    var dateInfo: String? {
+    var dateInfo: Date? {
         didSet{
             newtodoHomeView.todoTableView.reloadData()
         }
@@ -34,6 +34,8 @@ class NewTodoViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         deleagateDatasoure()
+        self.view.backgroundColor = .white
+        navigationItem.title = "새로운 할일"
     }
     
     
@@ -71,7 +73,7 @@ extension NewTodoViewController: UITableViewDelegate, UITableViewDataSource {
             return cell
         case .endDay:
             cell.titleLabel.text = section.getTile
-            cell.infoLabel.text = self.dateInfo
+            cell.infoLabel.text =  DateAssistance().getDate(date: self.dateInfo) 
             return cell
         case .tag:
             cell.titleLabel.text = section.getTile
@@ -84,10 +86,6 @@ extension NewTodoViewController: UITableViewDelegate, UITableViewDataSource {
             cell.titleLabel.text = section.getTile
         }
         
-        // cell.titleLabel.text = title
-    
-       
-        // cell.infoLabel.text = "asdasd"
         return cell
     }
 
@@ -117,15 +115,20 @@ extension NewTodoViewController: UITableViewDelegate, UITableViewDataSource {
         case .endDay:
             // MARK: 클로저 캡처를 이용한 역값전달
             let vc = DatePickerViewController()
+            
+            vc.date = self.dateInfo
+            
             vc.DateInfo = {
                 result in
-                print(result)
+                // print(result)
                 self.dateInfo = result
             }
+            
             navigationController?.pushViewController(vc, animated: true)
         case .tag:
             let vc = TagSettingViewController()
             NotificationCenter.default.addObserver(self, selector: #selector(getTagData), name: NSNotification.Name("tagData") , object: nil)
+            vc.tagData = self.tafInfo ?? ""
             navigationController?.pushViewController(vc, animated: true)
             return
         case .prioritization:

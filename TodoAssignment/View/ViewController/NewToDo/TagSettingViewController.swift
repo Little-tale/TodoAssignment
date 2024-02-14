@@ -74,6 +74,11 @@ class TagSettingViewController: BaseViewController {
         NotificationCenter.default.post(name: NSNotification.Name("tagData"), object: self, userInfo: ["tag":tagData])
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        textField.becomeFirstResponder()
+    }
 }
 
 
