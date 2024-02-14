@@ -14,7 +14,11 @@ class AllListViewController: BaseViewController {
     override func loadView() {
         self.view = allListHomeView
     }
-    var data: [TodoList]?
+    var data: [TodoList]? {
+        didSet{
+            allListHomeView.collectionView.reloadData()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,17 +34,13 @@ class AllListViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setToolBar()
-    }
-    //
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        
         guard let data = UserDefaultsManager.shared.todoList else {
             print("date viewWillAppear")
             return
         }
         self.data = data
     }
+
     
     func setToolBar(){
         navigationController?.isToolbarHidden = false
