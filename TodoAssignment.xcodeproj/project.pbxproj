@@ -25,7 +25,7 @@
 		7B72D3812B7C9C6400DBB1DB /* DatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B72D3802B7C9C6400DBB1DB /* DatePickerViewController.swift */; };
 		7B72D3842B7CAFAB00DBB1DB /* DateAssistance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B72D3832B7CAFAB00DBB1DB /* DateAssistance.swift */; };
 		7B72D3892B7CB78600DBB1DB /* TagSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B72D3882B7CB78600DBB1DB /* TagSettingViewController.swift */; };
-		7B72D38B2B7CC1E000DBB1DB /* SegmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B72D38A2B7CC1E000DBB1DB /* SegmentViewController.swift */; };
+		7B72D38B2B7CC1E000DBB1DB /* PrioritizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B72D38A2B7CC1E000DBB1DB /* PrioritizationViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,7 +48,7 @@
 		7B72D3802B7C9C6400DBB1DB /* DatePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerViewController.swift; sourceTree = "<group>"; };
 		7B72D3832B7CAFAB00DBB1DB /* DateAssistance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateAssistance.swift; sourceTree = "<group>"; };
 		7B72D3882B7CB78600DBB1DB /* TagSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagSettingViewController.swift; sourceTree = "<group>"; };
-		7B72D38A2B7CC1E000DBB1DB /* SegmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentViewController.swift; sourceTree = "<group>"; };
+		7B72D38A2B7CC1E000DBB1DB /* PrioritizationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrioritizationViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,7 +114,7 @@
 				7B72D3692B7C7E7700DBB1DB /* NewTodoViewController.swift */,
 				7B72D3802B7C9C6400DBB1DB /* DatePickerViewController.swift */,
 				7B72D3882B7CB78600DBB1DB /* TagSettingViewController.swift */,
-				7B72D38A2B7CC1E000DBB1DB /* SegmentViewController.swift */,
+				7B72D38A2B7CC1E000DBB1DB /* PrioritizationViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -261,7 +261,7 @@
 				7B72D3512B7C7D9800DBB1DB /* AppDelegate.swift in Sources */,
 				7B72D37C2B7C847900DBB1DB /* Extension.swift in Sources */,
 				7B72D36E2B7C7FC600DBB1DB /* TitleMemoTableCell.swift in Sources */,
-				7B72D38B2B7CC1E000DBB1DB /* SegmentViewController.swift in Sources */,
+				7B72D38B2B7CC1E000DBB1DB /* PrioritizationViewController.swift in Sources */,
 				7B72D3702B7C7FDE00DBB1DB /* BaseTableViewCell.swift in Sources */,
 				7B72D3892B7CB78600DBB1DB /* TagSettingViewController.swift in Sources */,
 				7B72D36A2B7C7E7700DBB1DB /* NewTodoViewController.swift in Sources */,

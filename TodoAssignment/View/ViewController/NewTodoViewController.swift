@@ -20,6 +20,11 @@ class NewTodoViewController: BaseViewController {
             newtodoHomeView.todoTableView.reloadData()
         }
     }
+    var prioritizationIndex = 0 {
+        didSet{
+            newtodoHomeView.todoTableView.reloadData()
+        }
+    }
     
     
     override func loadView() {
@@ -74,6 +79,7 @@ extension NewTodoViewController: UITableViewDelegate, UITableViewDataSource {
             return cell
         case .prioritization:
             cell.titleLabel.text = section.getTile
+            cell.infoLabel.text = prioritization.allCases[prioritizationIndex].name
         case .addImage:
             cell.titleLabel.text = section.getTile
         }
@@ -123,6 +129,10 @@ extension NewTodoViewController: UITableViewDelegate, UITableViewDataSource {
             navigationController?.pushViewController(vc, animated: true)
             return
         case .prioritization:
+            let vc = PrioritizationViewController()
+            vc.prioritizationDelegate = self
+            vc.segmentIndex = self.prioritizationIndex
+            navigationController?.pushViewController(vc, animated: true)
             return
         case .addImage:
             return
@@ -138,3 +148,13 @@ extension NewTodoViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
 }
+
+extension NewTodoViewController: selectedPrioritization {
+    func getPrioritization(for AllViewContoller: UIViewController, prioitiNum: Int) {
+        print(prioritization.allCases[prioitiNum].name)
+        self.prioritizationIndex = prioritization.allCases[prioitiNum].rawValue
+    }
+}
+
+
+
