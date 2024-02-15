@@ -18,13 +18,6 @@ class DetailHomeView: BaseView{
         return button
     }()
     
-    lazy var menuItems: [UIAction] = {
-        return[
-            UIAction(title: "마감일순으로 보기", handler: { _ in
-                print("Test")
-            })
-        ]
-    }()
     
     override func configureHierarchy() {
         self.addSubview(tableView)
@@ -33,7 +26,6 @@ class DetailHomeView: BaseView{
         tableView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
-        
     }
 
     override func register() {
@@ -47,3 +39,5 @@ class DetailHomeView: BaseView{
     
     
 }
+
+

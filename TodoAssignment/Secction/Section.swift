@@ -136,9 +136,37 @@ enum AllListCellCase: CaseIterable {
     
     
     // func
-    
-    
+
 }
+
+
+enum SortSction: String, CaseIterable {
+    case titleSet = "titleTexts"
+    case dateSet = "endDay"
+    case prioritySet = "priorityNumber"
+}
+
+
+//enum DetailViewActionCase:String, CaseIterable{
+//    case endDaySorted = "마감일순"
+//    case titleSorted = "제목순"
+//    case priveritSorted = "우선순위 낮음순"
+//    
+//    var action: UIAction {
+//        return compltionAction(title: self.rawValue) {
+//            <#code#>
+//        }
+//    }
+//    
+//    private func compltionAction(title: String, compltionHanler: @escaping (() -> Void) ) -> UIAction {
+//        
+//        let action = UIAction(title: title) { _ in
+//            compltionHanler()
+//        }
+//        return action
+//    }
+//}
+
 
 /*
  // 2.1 이때 클래스의 속성(어튜류뷰트 or 컬럼)을 필터링하여 필요한 값만 가져올수 있습니다.
