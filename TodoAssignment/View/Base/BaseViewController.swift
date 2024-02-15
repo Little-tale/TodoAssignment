@@ -18,6 +18,7 @@ class BaseViewController: UIViewController {
         configureHierarchy()
         configureLayout()
         designView()
+        dataSourceAndDelegate()
     }
     
     func configureHierarchy(){
@@ -29,5 +30,7 @@ class BaseViewController: UIViewController {
     func designView(){
         
     }
-    
+    func dataSourceAndDelegate(){
+        
+    }
 }

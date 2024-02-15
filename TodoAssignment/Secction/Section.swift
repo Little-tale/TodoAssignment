@@ -120,8 +120,9 @@ enum AllListCellCase: CaseIterable {
             print(loadObject.count, dates)
             return loadObject.count
         case .upcoming:
-            // let start = Calendar.current.startOfDay(for: <#T##Date#>)
-            let loadObject = loadRealm.objects(model).filter("date < %@", Date())
+            //MARK: 쿼리 언어를 통해 해결하는 방법
+            // https://www.mongodb.com/docs/realm/realm-query-language/
+            let loadObject = loadRealm.objects(model).filter("endDay >= %@", Date())
             return loadObject.count
         case .all:
             let loadObject = loadRealm.objects(model)

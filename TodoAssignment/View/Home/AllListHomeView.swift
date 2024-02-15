@@ -18,14 +18,12 @@ final class AllListHomeView: BaseView {
     lazy var leftButton: UIBarButtonItem = {
         let view = UIButton(type: .contactAdd )
         view.setImage(UIImage(systemName: "plus.circle.fill"), for: .normal)
-        view.setTitle("  새로운 할일", for: .normal)
+        view.setTitle("새로운 할일", for: .normal)
         view.titleLabel?.textColor = .black
-        
+        view.frame = CGRect(x: 0, y: 0, width: 150, height: 30)
         view.addTarget(self, action: #selector(goToNewToDoView), for: .touchUpInside)
-        // view.titleEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0 )
-        
-        view.sizeToFit()
-        
+        // view.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 5)
+        // view.sizeToFit()
         return UIBarButtonItem(customView: view)
     }()
     
