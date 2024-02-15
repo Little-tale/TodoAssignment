@@ -140,10 +140,24 @@ enum AllListCellCase: CaseIterable {
 }
 
 
-enum SortSction: String, CaseIterable {
-    case titleSet = "titleTexts"
-    case dateSet = "endDay"
-    case prioritySet = "priorityNumber"
+enum SortSction: CaseIterable {
+    case titleSet
+    case dateSet
+    case prioritySet
+    case onlyprioritySet
+    
+    var getQuery: String {
+        switch self {
+        case .titleSet:
+            "titleTexts"
+        case .dateSet:
+            "endDay"
+        case .prioritySet:
+            "priorityNumber"
+        case .onlyprioritySet:
+            "priorityNumber"
+        }
+    }
 }
 
 
