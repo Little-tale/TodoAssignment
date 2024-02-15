@@ -57,10 +57,16 @@ class DetailViewController: BaseViewController {
             
         case .dateSet:
             print( secction.rawValue)
-            
+// https://www.mongodb.com/docs/realm/sdk/swift/crud/filter-data/#std-label-ios-nspredicate-query
+            // 쿼리 엔진의 비교연산자를 통해 날짜순으로 정렬해 보려고 합니다.
+            // 아.... 그건 다른걸로!
+            let getObject = loadRealm.objects(model).sorted(byKeyPath: secction.rawValue, ascending: true)
+            modelData = getObject
             
         case .prioritySet:
             print( secction.rawValue)
+            let getObject = loadRealm.objects(model).sorted(byKeyPath: secction.rawValue, ascending: true)
+            modelData = getObject
         }
         homeView.tableView.reloadData()
     }
