@@ -106,23 +106,44 @@ enum AllListCellCase: CaseIterable {
     var howMany: Int {
         // MARK: Realm 값 불러오는 시점
         // 1. 값을 가져올 구조체를 생성합니다.
+        // 딱히 디테일뷰에는 떠오르는 것이 없어서 여기를 왔다.
+        // 표현식
+        // "progressMinutes > 1 AND assignee == $0", "Ali"
+
         let loadRealm = try! Realm()
         let model = NewToDoTable.self
         switch self {
         case .today:
-            let date = DateAssistance().getOnlyDate(date: Date())
-            guard let dates = date else {
-                return 0
-            }
-            let loadObject = loadRealm.objects(model).where { result in
-                result.onlyDate == dates
-            }
-            print(loadObject.count, dates)
-            return loadObject.count
+            // MARK: 이렇게 할 필요가 없음 어느정도는 있겠지만
+//            let date = DateAssistance().getOnlyDate(date: Date())
+//            print(Date() )
+//            guard let dates = date else {
+//                return 0
+//            }
+//            let loadObject = loadRealm.objects(model).where { result in
+//                result.onlyDate == dates
+//            }
+//            print(loadObject.count, dates)
+            
+            // 현재 캘린더 생성
+            let calender = Calendar.current
+            // 캘린더 시작 날짜 현재 설정 ->
+            let start = calender.startOfDay(for: Date())
+            //DateAssistance().
+            let end = calender.date(byAdding: .day, value: 1, to: start)
+            // print(start, end) // 이둘의 사이를 하면 됨
+            // 예시 let result = realm.objects(CompanyInfo.self).filter("id == 0")
+            // 단 매게변수는 $0 스타일
+            // 와 .... $0 으로 했는데 계속 터지다가
+            // %@ 로 매개변수 받으니 에러가 아나네
+            // MiGration 알아보기
+            let data = loadRealm.objects(model).filter("endDay > %@ AND endDay < %@", start, end ?? "")
+            return data.count
         case .upcoming:
             //MARK: 쿼리 언어를 통해 해결하는 방법
-            // https://www.mongodb.com/docs/realm/realm-query-language/
+            //  https://www.mongodb.com/docs/realm/realm-query-language/
             let loadObject = loadRealm.objects(model).filter("endDay >= %@", Date())
+            // 수정된 사항
             return loadObject.count
         case .all:
             let loadObject = loadRealm.objects(model)
@@ -156,6 +177,18 @@ enum SortSction: CaseIterable {
             "priorityNumber"
         case .onlyprioritySet:
             "priorityNumber"
+        }
+    }
+    var setTitle: String {
+        switch self {
+        case .titleSet:
+            "제목순"
+        case .dateSet:
+            "날짜순"
+        case .prioritySet:
+            "우산순위순"
+        case .onlyprioritySet:
+            "우선순위만"
         }
     }
 }

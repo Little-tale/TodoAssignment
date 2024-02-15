@@ -29,13 +29,31 @@ class DetailViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // pullButtonSetting()
-        settUpActtion(ations: [
-            ("제목순",{self.dataSort(secction: .titleSet)}),
-            (("날짜순"),{self.dataSort(secction: .dateSet)}),
-            (("우선순위순"),{self.dataSort(secction: .prioritySet)}),
-            (("우선순위만"),{self.dataSort(secction: .onlyprioritySet)})
-        ])
+        // 개선작업
+//        settUpActtion(ations: [
+//            ("제목순",{self.dataSort(secction: .titleSet)}),
+//            (("날짜순"),{self.dataSort(secction: .dateSet)}),
+//            (("우선순위순"),{self.dataSort(secction: .prioritySet)}),
+//            (("우선순위만"),{self.dataSort(secction: .onlyprioritySet)})
+//        ])
+//        var data: [(String, () -> Void)] = []
+//        for (index, value) in SortSction.allCases.enumerated() {
+//            data.append {
+//                [(value.setTitle), () -> Void ]
+//            }
+//        }
+         // settUpActtion(ations: <#T##[(String, () -> Void)]#>)
+        // var test: (String, ()-> Void, Int)
+        var actions: [(String, () -> Void)] = []
         
+        for section in SortSction.allCases {
+            
+            let actting: () -> Void = {
+                self.dataSort(secction: section)
+            }
+            actions.append((section.setTitle, actting))
+        }
+        settUpActtion(ations: actions)
     }
     
     //MARK: 타이틀 말고 섹션 , 액션 를 함수타입으로 받을려합니다.
