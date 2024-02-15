@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 class NewTodoViewController: BaseViewController {
     let newtodoHomeView = NewTodoHomeView()
@@ -18,7 +19,7 @@ class NewTodoViewController: BaseViewController {
             newtodoHomeView.todoTableView.reloadData()
         }
     }
-    var tafInfo: String? {
+    var tagInfo: String? {
         didSet{
             newtodoHomeView.todoTableView.reloadData()
         }
@@ -64,14 +65,47 @@ class NewTodoViewController: BaseViewController {
             showAlert(title: "No Title", message: "타이틀은 필수입니다!")
             return
         }
-        let data = TodoList(title: titleText, memo: self.memoText ?? "", lastDate: self.dateInfo, tag: self.tafInfo, privority: self.prioritizationIndex)
+        // MARK: UserDefaults 로 했었을때 저장 시점
+//        let data = TodoList(title: titleText, memo: self.memoText ?? "", lastDate: self.dateInfo, tag: self.tafInfo, privority: self.prioritizationIndex)
+//        
+//        UserDefaultsManager.shared.appendData(data)
+        // MARK: Realm 궁전을 통해 저장 시점
         
-        UserDefaultsManager.shared.appendData(data)
+        // 1. 값을 넣어줄 구조체를 생성합니다
+        do{
+            let saveRealm = try Realm()
+            // 2. 클래스 init을 통해 값을 넣어 줍니다.
+                // 2.1 해당 테이블이 어디에 있는지 찾아봅니다.
+            print(saveRealm.configuration.fileURL ?? "테이블 경로를 못찾음")
+            
+            let date = DateAssistance().getOnlyDate(date: dateInfo)
+            print(date, "asdsadasdasad")
+            
+            // 2.2 클래스에 넣어줄 데이터(레코드!)를 구성합니다.
+            let newToDoRecord = NewToDoTable(title: titleText, memoTexts: memoText, endDay: dateInfo, tagText: tagInfo, priorityNumber: prioritizationIndex, onlyDate: date)
+            
+            // 3. 해당 데이터를 Realm 데이터 베이스에 저장합니다.
+            do {
+                try saveRealm.write {
+                    saveRealm.add(newToDoRecord)
+                    showAlert(title: "저장 성공", message: "")
+                }
+            } catch {
+                showAlert(title: "값을 저장하지 못했어요", message: "앱을 삭제하고 재시도 하세요!")
+            }
+            
+        } catch {
+            showAlert(title: "테이블 에러!()", message: "앱을 삭제하고 재시도 하세요!")
+        }
+        
+    
         
         navigationController?.popViewController(animated: true)
     }
 
 }
+
+
 
 extension NewTodoViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -107,8 +141,8 @@ extension NewTodoViewController: UITableViewDelegate, UITableViewDataSource {
             
         case .tag:
             cell.titleLabel.text = section.getTile
-            print("🙊🙊🙊🙊🙊",self.tafInfo)
-            cell.infoLabel.text = self.tafInfo
+            print("🙊🙊🙊🙊🙊",self.tagInfo)
+            cell.infoLabel.text = self.tagInfo
             return cell
         case .prioritization:
             cell.titleLabel.text = section.getTile
@@ -160,7 +194,7 @@ extension NewTodoViewController: UITableViewDelegate, UITableViewDataSource {
             let vc = TagSettingViewController()
             NotificationCenter.default.addObserver(self, selector: #selector(getTagData), name: NSNotification.Name("tagData") , object: nil)
             
-            let data = self.tafInfo
+            let data = self.tagInfo
             navigationController?.pushViewController(vc, animated: true)
             
             guard let data = data else {
@@ -194,7 +228,7 @@ extension NewTodoViewController: UITableViewDelegate, UITableViewDataSource {
         // print(sender.userInfo?["tag"] as String)
         if let value = sender.userInfo?["tag"] as? String {
             print("🐷🐷🐷🐷🐷🐷",value)
-            tafInfo = value
+            tagInfo = value
         }
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "tagData"), object: nil)
         

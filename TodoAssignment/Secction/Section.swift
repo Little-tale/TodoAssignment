@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RealmSwift
 // MARK: 잭님이 주신 과제의 원본 섹션
 
 enum NewToDoList: CaseIterable {
@@ -46,6 +47,9 @@ enum NewToDoList: CaseIterable {
         }
     }
 }
+
+
+
 
 enum AllListCellCase: CaseIterable {
     case today
@@ -99,10 +103,54 @@ enum AllListCellCase: CaseIterable {
         }
     }
     
+    var howMany: Int {
+        // MARK: Realm 값 불러오는 시점
+        // 1. 값을 가져올 구조체를 생성합니다.
+        let loadRealm = try! Realm()
+        let model = NewToDoTable.self
+        switch self {
+        case .today:
+            let date = DateAssistance().getOnlyDate(date: Date())
+            guard let dates = date else {
+                return 0
+            }
+            let loadObject = loadRealm.objects(model).where { result in
+                result.onlyDate == dates
+            }
+            print(loadObject.count, dates)
+            return loadObject.count
+        case .upcoming:
+            // let start = Calendar.current.startOfDay(for: <#T##Date#>)
+            let loadObject = loadRealm.objects(model).filter("date < %@", Date())
+            return loadObject.count
+        case .all:
+            let loadObject = loadRealm.objects(model)
+            return loadObject.count
+        case .flag:
+            return 0
+        case .completed:
+            return 0
+        }
+    }
+    
+    
+    // func
+    
+    
 }
 
-
-
+/*
+ // 2.1 이때 클래스의 속성(어튜류뷰트 or 컬럼)을 필터링하여 필요한 값만 가져올수 있습니다.
+//        let loadObjectFilter = loadRealm.objects(NewToDoTable.self).where { myObject in
+//            myObject.titleTexts == ""
+//            myObject.memoTexts == ""
+//            // .... etc
+//        }
+ 
+ // 2.2 MARK: 역관계 쿼리 알아보기
+ 
+ // 3. MARK: 가져온 데이터의 갯수를 가져옵니다.
+ */
 
 
 

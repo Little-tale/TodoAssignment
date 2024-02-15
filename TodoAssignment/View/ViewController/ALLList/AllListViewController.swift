@@ -6,26 +6,48 @@
 //
 
 import UIKit
+import RealmSwift
+
+//class AllListViewControllerSectionCounter {
+//    var today = 0
+//    var remind = 0
+//    var alls = 0
+//    var flags = 0
+//    var complited = 0
+//    
+//    convenience // -> 이게 클래스일때 가능하다. 구조체는 안된다.
+//    init(today: Int = 0, remind: Int = 0, alls: Int = 0, flags: Int = 0, complited: Int = 0) {
+//        self.init()
+//        self.today = today
+//        self.remind = remind
+//        self.alls = alls
+//        self.flags = flags
+//        self.complited = complited
+//    }
+//    
+//}
+
+
 
 class AllListViewController: BaseViewController {
 
     let allListHomeView = AllListHomeView()
+    var allCellCount = 0
     
     override func loadView() {
         self.view = allListHomeView
     }
-    var data: [TodoList]? {
-        didSet{
-            allListHomeView.collectionView.reloadData()
-        }
-    }
+
+    // MARK: Realm 데이터 담아둘 공간! !를 권장한다?? -> 물어보기
+    var NewTodoListRecords: Results<NewToDoTable>!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
         
         delegateDataSource()
-        // navigationController.
+        
         allListHomeView.whereGoToView = {
             self.next()
         }
@@ -34,12 +56,9 @@ class AllListViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setToolBar()
-        guard let data = UserDefaultsManager.shared.todoList else {
-            print("date viewWillAppear")
-            return
-        }
-        self.data = data
+        allListHomeView.collectionView.reloadData()
     }
+
 
     
     fileprivate func setToolBar(){
@@ -76,16 +95,8 @@ extension AllListViewController : UICollectionViewDelegate, UICollectionViewData
         cell.imageView.image = UIImage(systemName: data.imageName)
         cell.titleLabel.text = data.name
         cell.imageView.tintColor = data.backColor
+        cell.countLabel.text = "\(data.howMany)"
         
-        
-        if data.self == AllListCellCase.all {
-            guard let dataNum = self.data else {
-                return cell
-            }
-            
-            cell.countLabel.text = "\(dataNum.count)"
-            return cell
-        }
         
         return cell
     }
@@ -95,3 +106,35 @@ extension AllListViewController : UICollectionViewDelegate, UICollectionViewData
     }
     
 }
+
+
+// MARK: 유저 디폴트로 구현했었던 잔재들
+/* 
+ 
+ //    var data: [TodoList]? {
+ //        didSet{
+ //            allListHomeView.collectionView.reloadData()
+ //        }
+ //    }
+ 
+ 
+ 
+ //        guard let data = UserDefaultsManager.shared.todoList else {
+ //            print("date viewWillAppear")
+ //            return
+ //        }
+ //        self.data = data
+         
+ 
+ 
+ if data.self == AllListCellCase.all {
+ guard let dataNum = self.data else {
+     return cell
+ }
+ 
+ cell.countLabel.text = "\(dataNum.count)"
+ return cell
+}
+
+ 
+ */
