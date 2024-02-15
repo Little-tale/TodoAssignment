@@ -43,7 +43,7 @@ final class TagSettingViewController: BaseViewController {
         return textArray
     }
     
-    // MARK: 문자열배열을 주시면 #을 단 문자열로 돌려드립니다.
+    // MARK: 문자열배열을 주시면 #을 단 문자열로 돌려드립니다. -> MAP 리듀스
     ///  [abc,bd,ceq,das,ecv] -> #abc, #bd, #ceq, #das, #ecv
     private func addSHAP(stringArray: [String]) -> String{
         let SHAPArray = stringArray.map { value in

@@ -50,10 +50,9 @@ class AllListViewController: BaseViewController {
         allListHomeView.collectionView.dataSource = self
         allListHomeView.collectionView.delegate = self
     }
-    
+    // MARK: 홈뷰에서 사용할 메서드
     fileprivate func next(){
         let vc = NewTodoViewController()
-        
         navigationController?.pushViewController(vc, animated: true)
         
     }
