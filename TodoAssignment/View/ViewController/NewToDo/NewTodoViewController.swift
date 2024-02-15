@@ -104,8 +104,10 @@ extension NewTodoViewController: UITableViewDelegate, UITableViewDataSource {
             cell.titleLabel.text = section.getTile
             cell.infoLabel.text =  DateAssistance().getDate(date: self.dateInfo) 
             return cell
+            
         case .tag:
             cell.titleLabel.text = section.getTile
+            print("🙊🙊🙊🙊🙊",self.tafInfo)
             cell.infoLabel.text = self.tafInfo
             return cell
         case .prioritization:
@@ -157,31 +159,45 @@ extension NewTodoViewController: UITableViewDelegate, UITableViewDataSource {
         case .tag:
             let vc = TagSettingViewController()
             NotificationCenter.default.addObserver(self, selector: #selector(getTagData), name: NSNotification.Name("tagData") , object: nil)
-            vc.tagData = self.tafInfo ?? ""
+            
+            let data = self.tafInfo
             navigationController?.pushViewController(vc, animated: true)
+            
+            guard let data = data else {
+                return
+            }
+            print("🦉🦉🦉🦉🦉🦉",data) //MARK: 생각해보기
+            vc.tagData = data
             return
+            
         case .prioritization:
             let vc = PrioritizationViewController()
             vc.prioritizationDelegate = self
             vc.segmentIndex = self.prioritizationIndex
             navigationController?.pushViewController(vc, animated: true)
             return
+            
         case .addImage:
             return
         }
+        
     }
     
     // MARK: 메모리 누수 방지를 위한 대처
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "tagData"), object: nil)
-    }
+//    override func viewDidDisappear(_ animated: Bool) {
+//
+//    }
     
     @objc
     func getTagData(sender: Notification){
+        // print(sender.userInfo?["tag"])
+        // print(sender.userInfo?["tag"] as String)
         if let value = sender.userInfo?["tag"] as? String {
+            print("🐷🐷🐷🐷🐷🐷",value)
             tafInfo = value
         }
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "tagData"), object: nil)
+        
     }
     
 }

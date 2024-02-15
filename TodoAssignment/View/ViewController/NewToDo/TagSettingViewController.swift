@@ -66,11 +66,12 @@ final class TagSettingViewController: BaseViewController {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        guard tagData != "" else {
-            return
-        }
+        // MARK: 쉬는시간 확인
+//        guard tagData != "" else {
+//            return
+//        }
         // getTagDatas?(tagData)
-        
+        print(tagData)
         NotificationCenter.default.post(name: NSNotification.Name("tagData"), object: self, userInfo: ["tag":tagData])
     }
     
