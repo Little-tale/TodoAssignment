@@ -24,18 +24,6 @@ class DetailTableViewCell: BaseTableViewCell {
         contentView.addSubview(subTitleLabel)
         contentView.addSubview(dateLabel)
         contentView.addSubview(tagLabel)
-        priLabel.text = "asdsad"
-        mainLabel.text = "asdsad"
-        subTitleLabel.text = "asdsad"
-        dateLabel.text = "asdsad"
-        tagLabel.text = "sadasd"
-//        
-//        priLabel.backgroundColor = .gray
-//        mainLabel.backgroundColor = .red
-//        subTitleLabel.backgroundColor = .blue
-//        dateLabel.backgroundColor = .green
-//        tagLabel.backgroundColor = .cyan
-
     }
     override func configureLayout() {
         leftButton.snp.makeConstraints { make in
@@ -102,13 +90,7 @@ class DetailTableViewCell: BaseTableViewCell {
 
     override func setNeedsLayout() {
         super.setNeedsLayout()
-//        print(leftButton.layer.cornerRadius)
-//        print(leftButton.frame.height / 2)
-//        if leftButton.layer.cornerRadius != leftButton.frame.height / 2 {
-//            print("asdasdsadasdasd")
-//            leftButton.layer.cornerRadius = leftButton.frame.height / 2
-//            leftButton.clipsToBounds = true
-//        }
+
     }
     
 }

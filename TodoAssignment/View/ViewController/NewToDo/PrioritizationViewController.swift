@@ -13,6 +13,7 @@ import UIKit
 import SnapKit
 
 // 숫자는 생략해도 되지만 그래도 있어빌리티
+// MARK: 우선순위 케이스 분리
 enum prioritization: Int, CaseIterable {
     case none = 0
     case low = 1
@@ -29,6 +30,18 @@ enum prioritization: Int, CaseIterable {
             return "중간"
         case .high:
             return "높음"
+        }
+    }
+    var exclamationMark : String {
+        switch self {
+        case .none:
+            ""
+        case .low:
+            "!"
+        case .middle:
+            "!!"
+        case .high:
+            "!!!"
         }
     }
 }

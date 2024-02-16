@@ -275,3 +275,11 @@ enum detailsGroup{
     case prioritization
     case addImage
 }
+
+
+
+// MARK: TagInfo Case
+//enum tagInfoCase: CaseIterable {
+//    case none
+//    case
+//}

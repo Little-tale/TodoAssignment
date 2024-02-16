@@ -18,8 +18,8 @@ final class NewToDoRepository {
     let model = NewToDoTable.self
     
     
-    func fetchRecord(){
-        
+    func fetchRecord() -> Results<NewToDoTable> {
+      return realm.objects(model)
     }
     
     func createOfRecord(object: Object) {
@@ -85,7 +85,19 @@ final class NewToDoRepository {
         
     }
     
+    func compliteUpdater(id_Hash: Int) {
+//        do{
+//            let data = try realm.objects(model).where { 
+//                
+//            }
+//        } catch {
+//            
+//        }
+    }
+    
 }
+
+
 
 
 

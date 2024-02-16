@@ -21,6 +21,7 @@ class NewToDoTable: Object{
     @Persisted var tagText: String? // 태그안에 텍스트
     @Persisted var priorityNumber : Int // 우선순위 넘버
     @Persisted var flagBool : Bool // 플래그 Bool
+    @Persisted var complite : Bool // 완료 했는지 Bool
     // @Persisted var onlyDate: Date? // 마감일 날짜만
     
     //MARK: convenience Init -> 모든 값을 넣어주지 않았을때 에러를 방지하기 위함이다.

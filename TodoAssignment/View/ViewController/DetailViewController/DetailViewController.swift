@@ -64,8 +64,6 @@ class DetailViewController: BaseViewController {
         button.changesSelectionAsPrimaryAction = true
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: button)
-        
-        // button.changesSelectionAsPrimaryAction = true
        
     }
     
@@ -77,37 +75,27 @@ class DetailViewController: BaseViewController {
 //        let model = NewToDoTable.self
         // MARK: 해당 코드에서 그냥 이 섹션들은 해당하는 케이스에 대해 true 인가 false 인가로 해보면 될것가틈 bool을 어떻게 처리하지....?
         modelData = repository.dataSort(section: secction, toggle: true)
-        // print(modelData)
+
         homeView.tableView.reloadData()
     }
   
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        let loadRealm = try! Realm()
-        
-        let model = NewToDoTable.self
-        
-        let loadObject = loadRealm.objects(model)
-        modelData = loadObject
+       
+        modelData = repository.fetchRecord()
         homeView.tableView.reloadData()
         print(#function)
     }
-    
-    // https://www.mongodb.com/docs/realm/sdk/swift/crud/filter-data/#std-label-ios-nspredicate-query
 
     override func dataSourceAndDelegate() {
         homeView.tableView.delegate = self
         homeView.tableView.dataSource = self
-        // homeView.tableView.allowsMultipleSelection = true
-        // homeView.tableView.allowsSelectionDuringEditing = true
         homeView.tableView.rowHeight = UITableView.automaticDimension
         homeView.tableView.estimatedRowHeight = 100
     }
     override func designView() {
         navigationItem.title = "전체"
-        
     }
-    
 }
 // MARK: 디테일 부 컨트롤러 딜리게이트 데이타 소스
 extension DetailViewController: UITableViewDelegate, UITableViewDataSource{
@@ -117,27 +105,50 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = UITableViewCell(style: .subtitle , reuseIdentifier: UITableViewCell.reuseabelIdentifier)
-//        print(#function)
-//        
+      
         guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailTableViewCell.reuseabelIdentifier, for: indexPath) as? DetailTableViewCell else {
             print("셀 레지스터 문제")
             return UITableViewCell()
         }
         
-        
-        cell.mainLabel.text = modelData[indexPath.row].titleTexts
-        let date = DateAssistance().getDate(date: modelData[indexPath.row].endDay)
-        print("***","\(date)")
-        //cell.dateLabel.text = date
+        let modelDatas = modelData[indexPath.row]
 
-        // cell.allow
+        let date = DateAssistance().getDate(date: modelDatas.endDay)
+        let prioritynum = modelDatas.priorityNumber
+        
+        cell.mainLabel.text = modelDatas.titleTexts
+        cell.dateLabel.text = date
+        cell.tagLabel.text = modelDatas.tagText
+        cell.priLabel.text = getPrivorityText(number: prioritynum)
+        cell.subTitleLabel.text = modelDatas.memoTexts
+        
+        cell.leftButton.addTarget(self, action: #selector(testButton), for: .touchUpInside)
+        // cell.leftButton.tag = modelDatas.id
+//        print(modelDatas.id)
+//        print(modelDatas.id.hash)
+//        print(modelDatas.id.hashValue)
+//        print(modelDatas.id.stringValue) // -> 이방법이 좋은지 모르겠으나 이걸로 해결 도전
+//        print(modelDatas.id)
+        
         return cell
     }
+    // MARK: 모든 버튼에 타겟 단 태그로 구분
+    @objc
+    func testButton(_ sender: UIButton) {
+        print(sender.tag)
+    }
  
-    
-    
 }
+
+
+
+extension DetailViewController {
+    // MARK: 우선순위 값을 변경해드립니다.
+    func getPrivorityText(number: Int) -> String{
+        prioritization.allCases[number].exclamationMark
+    }
+}
+
 
 /*
  //        case .titleSet:
