@@ -9,7 +9,7 @@ import UIKit
 import RealmSwift
 
 // MARK: 테이블 이름이 될 클래스 생성
-class NewToDoTable: Object {
+class NewToDoTable: Object{
     // MARK: 이제 컬럼 또는 어튜류뷰트 를 선언
     // 1. 프라이머리가 될 하나의 컬럼을 선정
     @Persisted(primaryKey: true) var id: ObjectId
@@ -20,11 +20,12 @@ class NewToDoTable: Object {
     @Persisted var endDay: Date? // 마감일 지정
     @Persisted var tagText: String? // 태그안에 텍스트
     @Persisted var priorityNumber : Int // 우선순위 넘버
-    @Persisted var onlyDate: Date? // 마감일 날짜만
+    @Persisted var flagBool : Bool // 플래그 Bool
+    // @Persisted var onlyDate: Date? // 마감일 날짜만
     
     //MARK: convenience Init -> 모든 값을 넣어주지 않았을때 에러를 방지하기 위함이다.
     convenience
-    init(title: String, memoTexts: String? = nil, endDay: Date? = nil, tagText: String? = nil, priorityNumber: Int, onlyDate: Date?) {
+    init(title: String, memoTexts: String? = nil, endDay: Date? = nil, tagText: String? = nil, priorityNumber: Int, flagBool: Bool) {
         self.init()
         
         self.titleTexts = title
@@ -32,7 +33,8 @@ class NewToDoTable: Object {
         self.endDay = endDay
         self.tagText = tagText
         self.priorityNumber = priorityNumber
-        self.onlyDate = onlyDate
+        //self.onlyDate = onlyDate
+        self.flagBool = flagBool
     }
     
     

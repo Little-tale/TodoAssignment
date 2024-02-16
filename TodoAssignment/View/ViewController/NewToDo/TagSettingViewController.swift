@@ -77,8 +77,8 @@ final class TagSettingViewController: BaseViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
         textField.becomeFirstResponder()
+        
     }
 }
 

@@ -24,26 +24,12 @@ class DetailViewController: BaseViewController {
         self.view = homeView
     }
     var modelData: Results<NewToDoTable>!
+    let repository = NewToDoRepository()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // pullButtonSetting()
-        // 개선작업
-//        settUpActtion(ations: [
-//            ("제목순",{self.dataSort(secction: .titleSet)}),
-//            (("날짜순"),{self.dataSort(secction: .dateSet)}),
-//            (("우선순위순"),{self.dataSort(secction: .prioritySet)}),
-//            (("우선순위만"),{self.dataSort(secction: .onlyprioritySet)})
-//        ])
-//        var data: [(String, () -> Void)] = []
-//        for (index, value) in SortSction.allCases.enumerated() {
-//            data.append {
-//                [(value.setTitle), () -> Void ]
-//            }
-//        }
-         // settUpActtion(ations: <#T##[(String, () -> Void)]#>)
-        // var test: (String, ()-> Void, Int)
+        
         var actions: [(String, () -> Void)] = []
         
         for section in SortSction.allCases {
@@ -54,6 +40,7 @@ class DetailViewController: BaseViewController {
             actions.append((section.setTitle, actting))
         }
         settUpActtion(ations: actions)
+        
     }
     
     //MARK: 타이틀 말고 섹션 , 액션 를 함수타입으로 받을려합니다.
@@ -87,23 +74,11 @@ class DetailViewController: BaseViewController {
         let loadRealm = try! Realm()
         let model = NewToDoTable.self
         // MARK: 해당 코드에서 그냥 이 섹션들은 해당하는 케이스에 대해 true 인가 false 인가로 해보면 될것가틈 bool을 어떻게 처리하지....?
-        switch secction {
-        case .onlyprioritySet:
-            let getOvject = loadRealm.objects(model).where {
-                $0.priorityNumber != 0
-            }
-            modelData = getOvject
-        default :
-            print(#function)
-            let getOvject = loadRealm.objects(model).sorted(byKeyPath: secction.getQuery, ascending: true)
-            modelData = getOvject
-        }
-        print(modelData)
+        modelData = repository.dataSort(section: secction, toggle: true)
+        // print(modelData)
         homeView.tableView.reloadData()
     }
-    
-    
-    
+  
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         let loadRealm = try! Realm()
@@ -182,4 +157,38 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource{
 //        navigationItem.rightBarButtonItem = UIBarButtonItem(customView:  homeView.pullDownbutton)
 //    }
  https://medium.com/@rohit236c/ios-pull-down-menus-the-newer-way-of-interaction-a255ceb3a28e
+ */
+
+
+/*
+ 
+ /*
+  case .onlyprioritySet:
+      let getOvject = loadRealm.objects(model).where {
+          $0.priorityNumber != 0
+      }
+      modelData = getOvject
+  default :
+      print(#function)
+      let getOvject = loadRealm.objects(model).sorted(byKeyPath: secction.getQuery, ascending: true)
+      modelData = getOvject
+  */
+ 
+ 
+ // pullButtonSetting()
+ // 개선작업
+//        settUpActtion(ations: [
+//            ("제목순",{self.dataSort(secction: .titleSet)}),
+//            (("날짜순"),{self.dataSort(secction: .dateSet)}),
+//            (("우선순위순"),{self.dataSort(secction: .prioritySet)}),
+//            (("우선순위만"),{self.dataSort(secction: .onlyprioritySet)})
+//        ])
+//        var data: [(String, () -> Void)] = []
+//        for (index, value) in SortSction.allCases.enumerated() {
+//            data.append {
+//                [(value.setTitle), () -> Void ]
+//            }
+//        }
+  // settUpActtion(ations: <#T##[(String, () -> Void)]#>)
+ // var test: (String, ()-> Void, Int)
  */

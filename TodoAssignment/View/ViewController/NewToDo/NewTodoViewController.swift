@@ -14,22 +14,26 @@ class NewTodoViewController: BaseViewController {
     var titleText: String?
     var memoText: String?
     
-    var dateInfo: Date? {
+    var dateInfo: Date?
+    var tagInfo: String?
+    var flagBool: Bool?
+    
+    var prioritizationIndex = 0 { didSet{ newtodoHomeView.todoTableView.reloadData() } }
+    
+    let toDoReomsitory = NewToDoRepository()
+    
+    
+    
+    // var dataBox: [Int:]
+    // MARK: 값 변화 감지 못함... 인스턴스가 교체되는 방식이 아니라 그럼
+    var list: Results<NewToDoTable>! {
         didSet{
-            newtodoHomeView.todoTableView.reloadData()
-        }
-    }
-    var tagInfo: String? {
-        didSet{
-            newtodoHomeView.todoTableView.reloadData()
-        }
-    }
-    var prioritizationIndex = 0 {
-        didSet{
+            print("adsadsadsada")
             newtodoHomeView.todoTableView.reloadData()
         }
     }
     
+   
     
     override func loadView() {
         self.view = newtodoHomeView
@@ -60,45 +64,21 @@ class NewTodoViewController: BaseViewController {
     
     @objc
     func saveButtonCliecked(){
-       
+        
         guard let titleText = titleText else {
             showAlert(title: "No Title", message: "타이틀은 필수입니다!")
             return
         }
-        // MARK: UserDefaults 로 했었을때 저장 시점
-//        let data = TodoList(title: titleText, memo: self.memoText ?? "", lastDate: self.dateInfo, tag: self.tafInfo, privority: self.prioritizationIndex)
-//        
-//        UserDefaultsManager.shared.appendData(data)
-        // MARK: Realm 궁전을 통해 저장 시점
-        
-        // 1. 값을 넣어줄 구조체를 생성합니다
-        do{
-            let saveRealm = try Realm()
-            // 2. 클래스 init을 통해 값을 넣어 줍니다.
-                // 2.1 해당 테이블이 어디에 있는지 찾아봅니다.
-            print(saveRealm.configuration.fileURL ?? "테이블 경로를 못찾음")
-            
-            let date = DateAssistance().getOnlyDate(date: dateInfo)
-            print(date, "asdsadasdasad")
-            
-            // 2.2 클래스에 넣어줄 데이터(레코드!)를 구성합니다.
-            let newToDoRecord = NewToDoTable(title: titleText, memoTexts: memoText, endDay: dateInfo, tagText: tagInfo, priorityNumber: prioritizationIndex, onlyDate: date)
-            
-            // 3. 해당 데이터를 Realm 데이터 베이스에 저장합니다.
-            do {
-                try saveRealm.write {
-                    saveRealm.add(newToDoRecord)
-                    showAlert(title: "저장 성공", message: "")
-                }
-            } catch {
-                showAlert(title: "값을 저장하지 못했어요", message: "앱을 삭제하고 재시도 하세요!")
-            }
-            
-        } catch {
-            showAlert(title: "테이블 에러!()", message: "앱을 삭제하고 재시도 하세요!")
+        let text = titleText.trimmingCharacters(in: .whitespaces)
+       
+        if text == "" {
+            showAlert(title: "No Title", message: "타이틀은 필수입니다!")
+            return
         }
+       
+        let newToDoRecord = NewToDoTable(title: titleText, memoTexts: memoText, endDay: dateInfo, tagText: tagInfo, priorityNumber: prioritizationIndex, flagBool: flagBool ?? false)
         
-    
+        toDoReomsitory.createOfRecord(object: newToDoRecord)
         
         navigationController?.popViewController(animated: true)
     }
@@ -111,7 +91,6 @@ extension NewTodoViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         
         return NewToDoList.allCases.count
-        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -121,39 +100,51 @@ extension NewTodoViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let section = NewToDoList.allCases[indexPath.section]
+        
         guard let cell = tableView.dequeueReusableCell(withIdentifier: OnlyTitleTableViewCell.reuseabelIdentifier, for: indexPath) as? OnlyTitleTableViewCell else {
             print("TitleMemoTableCell 아이덴티 이슈")
             return UITableViewCell()
+            
         }
+        
         cell.backgroundColor = .systemGray
+        cell.titleLabel.text = section.getTile
+        
         switch section{
         case .memo:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: TitleMemoTableCell.reuseabelIdentifier, for: indexPath) as? TitleMemoTableCell else {
                 return UITableViewCell()
             }
             cell.delegate = self
-            
             return cell
         case .endDay:
-            cell.titleLabel.text = section.getTile
             cell.infoLabel.text =  DateAssistance().getDate(date: self.dateInfo) 
             return cell
             
         case .tag:
-            cell.titleLabel.text = section.getTile
-            print("🙊🙊🙊🙊🙊",self.tagInfo)
+
             cell.infoLabel.text = self.tagInfo
             return cell
         case .prioritization:
-            cell.titleLabel.text = section.getTile
             cell.infoLabel.text = prioritization.allCases[prioritizationIndex].name
         case .addImage:
-            cell.titleLabel.text = section.getTile
+            break
+        case .flag:
+            cell.obserVerToggle(imageHiddenBool: true)
+            cell.switchToggleAction = {
+                controll in
+                self.switchButton(control: controll)
+            }
+            break
         }
         
         return cell
     }
-
+    // MARK: 스위치 버튼 액션
+    func switchButton(control: UISwitch){
+        // print(control.isOn)
+        flagBool = control.isOn
+    }
 
     
     // MARK: 헤더 푸터 크기 줄여서 여백 죽이기
@@ -187,6 +178,7 @@ extension NewTodoViewController: UITableViewDelegate, UITableViewDataSource {
                 result in
                 // print(result)
                 self.dateInfo = result
+                self.newtodoHomeView.todoTableView.reloadData()
             }
             
             navigationController?.pushViewController(vc, animated: true)
@@ -213,6 +205,9 @@ extension NewTodoViewController: UITableViewDelegate, UITableViewDataSource {
             
         case .addImage:
             return
+            
+        case .flag:
+            return
         }
         
     }
@@ -232,22 +227,37 @@ extension NewTodoViewController: UITableViewDelegate, UITableViewDataSource {
         }
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "tagData"), object: nil)
         
+        self.newtodoHomeView.todoTableView.reloadData()
     }
+    
     
 }
 
 extension NewTodoViewController: selectedPrioritization {
     func getPrioritization(for AllViewContoller: UIViewController, prioitiNum: Int) {
         print(prioritization.allCases[prioitiNum].name)
+        
         self.prioritizationIndex = prioritization.allCases[prioitiNum].rawValue
+        
     }
 }
 
 
 
 extension NewTodoViewController: TitleMemoTextFieldProtocol {
+    
     func textFieldDidEndEditing(for cell: TitleMemoTableCell, title: String?, Info: String?) {
         self.titleText = title
         self.memoText = Info
+        
+        view.endEditing(true)
     }
 }
+
+
+/*
+ // let date = DateAssistance().getOnlyDate(date: dateInfo)
+ // print(date, "asdsadasdasad")
+ 
+ // 2.2 클래스에 넣어줄 데이터(레코드!)를 구성합니다
+ */

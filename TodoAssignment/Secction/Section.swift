@@ -9,12 +9,14 @@ import UIKit
 import RealmSwift
 // MARK: 잭님이 주신 과제의 원본 섹션
 
-enum NewToDoList: CaseIterable {
-    case memo
-    case endDay
-    case tag
-    case prioritization
-    case addImage
+
+enum NewToDoList:Int, CaseIterable {
+    case memo = 0
+    case endDay = 1
+    case tag = 2
+    case prioritization = 3
+    case addImage = 4
+    case flag = 5
     
     var getTile : String {
         switch self {
@@ -26,26 +28,45 @@ enum NewToDoList: CaseIterable {
             return "우선순위"
         case .addImage:
             return "이미지 추가"
+        case .flag:
+            return "깃발"
         default: return ""
         }
     }
     
+//    var getTableCell: UITableViewCell.AccessoryType {
+//        switch self {
+//        case .memo:
+//            return TitleMemoTableCell.AccessoryType
+//        case .endDay:
+//            return OnlyTitleTableViewCell.self
+//        case .tag:
+//            return TitleMemoTableCell.self
+//        case .prioritization:
+//            return TitleMemoTableCell.self
+//        case .addImage:
+//            return TitleMemoTableCell.self
+//        case .flag:
+//            return TitleMemoTableCell.self
+//        }
+//    }
+    
     /// 불명확 type, 존재  type
     /// coordinator, 라우터 --> 일단 다음에 시도하는 걸로
-    var nextView: UIViewController? {
-        switch self {
-        case .memo:
-            nil
-        case .endDay:
-            DatePickerViewController()
-        case .tag:
-            nil
-        case .prioritization:
-            nil
-        case .addImage:
-            nil
-        }
-    }
+//    var nextView: UIViewController? {
+//        switch self {
+//        case .memo:
+//            nil
+//        case .endDay:
+//            DatePickerViewController()
+//        case .tag:
+//            nil
+//        case .prioritization:
+//            nil
+//        case .addImage:
+//            nil
+//        }
+//    }
 }
 
 
@@ -114,17 +135,6 @@ enum AllListCellCase: CaseIterable {
         let model = NewToDoTable.self
         switch self {
         case .today:
-            // MARK: 이렇게 할 필요가 없음 어느정도는 있겠지만
-//            let date = DateAssistance().getOnlyDate(date: Date())
-//            print(Date() )
-//            guard let dates = date else {
-//                return 0
-//            }
-//            let loadObject = loadRealm.objects(model).where { result in
-//                result.onlyDate == dates
-//            }
-//            print(loadObject.count, dates)
-            
             // 현재 캘린더 생성
             let calender = Calendar.current
             // 캘린더 시작 날짜 현재 설정 ->
@@ -132,12 +142,10 @@ enum AllListCellCase: CaseIterable {
             //DateAssistance().
             let end = calender.date(byAdding: .day, value: 1, to: start)
             // print(start, end) // 이둘의 사이를 하면 됨
-            // 예시 let result = realm.objects(CompanyInfo.self).filter("id == 0")
-            // 단 매게변수는 $0 스타일
-            // 와 .... $0 으로 했는데 계속 터지다가
-            // %@ 로 매개변수 받으니 에러가 아나네
-            // MiGration 알아보기
+           
+            // MiGration 알아보기 SQL 언어 -> 둘다 하면 좋다.
             let data = loadRealm.objects(model).filter("endDay > %@ AND endDay < %@", start, end ?? "")
+            //let data = loadRealm.objects(model).filter("endDay > \(start)")
             return data.count
         case .upcoming:
             //MARK: 쿼리 언어를 통해 해결하는 방법
@@ -192,6 +200,23 @@ enum SortSction: CaseIterable {
         }
     }
 }
+
+/*
+ // MARK: 이렇게 할 필요가 없음 어느정도는 있겠지만
+//            let date = DateAssistance().getOnlyDate(date: Date())
+//            print(Date() )
+//            guard let dates = date else {
+//                return 0
+//            }
+//            let loadObject = loadRealm.objects(model).where { result in
+//                result.onlyDate == dates
+//            }
+//            print(loadObject.count, dates)
+ */
+// 예시 let result = realm.objects(CompanyInfo.self).filter("id == 0")
+// 단 매게변수는 $0 스타일
+// 와 .... $0 으로 했는데 계속 터지다가
+// %@ 로 매개변수 받으니 에러가 아나네
 
 
 //enum DetailViewActionCase:String, CaseIterable{

@@ -13,6 +13,8 @@ final class AllListViewController: BaseViewController {
     let allListHomeView = AllListHomeView()
     var allCellCount = 0
     
+    
+    
     override func loadView() {
         self.view = allListHomeView
     }
@@ -20,6 +22,9 @@ final class AllListViewController: BaseViewController {
     // MARK: Realm 데이터 담아둘 공간! !를 권장한다?? -> 물어보기
     var NewTodoListRecords: Results<NewToDoTable>!
     
+    let repository = NewToDoRepository()
+    
+   
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,14 +74,14 @@ extension AllListViewController : UICollectionViewDelegate, UICollectionViewData
             
             return UICollectionViewCell()
         }
-        let data = AllListCellCase.allCases[indexPath.item]
+        let caseSection = AllListCellCase.allCases[indexPath.item]
         
-        cell.imageView.image = UIImage(systemName: data.imageName)
-        cell.titleLabel.text = data.name
-        cell.imageView.tintColor = data.backColor
-        cell.countLabel.text = "\(data.howMany)"
+        cell.imageView.image = UIImage(systemName: caseSection.imageName)
+        cell.titleLabel.text = caseSection.name
+        cell.imageView.tintColor = caseSection.backColor
+        //cell.countLabel.text = "\(data.howMany)"
         
-        
+        cell.countLabel.text = "\(repository.collctionListViewDisPatchForCount(caseSection))"
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

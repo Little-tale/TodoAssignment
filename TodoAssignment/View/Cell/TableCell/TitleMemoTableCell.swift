@@ -60,4 +60,8 @@ extension TitleMemoTableCell: UITextFieldDelegate {
         delegate?.textFieldDidEndEditing(for: self, title: title, Info: infoText)
         
     }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.endEditing(true)
+    }
 }

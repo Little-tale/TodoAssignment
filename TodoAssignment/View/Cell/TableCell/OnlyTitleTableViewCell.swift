@@ -21,11 +21,15 @@ final class OnlyTitleTableViewCell: BaseTableViewCell {
     }()
     
     let infoLabel = UILabel()
+    let switchButton = UISwitch(frame: .zero)
+    
+    var switchToggleAction: ((UISwitch) -> Void)?
     
     override func configureHierarchy() {
         contentView.addSubview(titleLabel)
         contentView.addSubview(rightImage)
         contentView.addSubview(infoLabel)
+        contentView.addSubview(switchButton)
     }
     
     override func configureLayout() {
@@ -43,14 +47,42 @@ final class OnlyTitleTableViewCell: BaseTableViewCell {
             make.trailing.equalTo(rightImage.snp.leading).inset( -16 )
             make.height.centerY.equalTo(titleLabel)
         }
+        switchButton.snp.makeConstraints { make in
+            // make.width.equalTo(80)
+            make.height.centerY.equalTo(infoLabel)
+            make.trailing.equalTo(contentView.safeAreaLayoutGuide).inset(20)
+        }
     }
     override func designView() {
+        switchButton.isHidden = true
+        switchButton.preferredStyle = .sliding
+        switchButton.backgroundColor = .darkGray
+        switchButton.layer.cornerRadius = switchButton.frame.height / 2
+        switchButton.clipsToBounds = true
+        
         titleLabel.text = "asdsadas"
         titleLabel.font = .systemFont(ofSize: 15)
         titleLabel.textColor = .white
         titleLabel.numberOfLines = 1
         infoLabel.textColor = .blue
+        
+        switchButton.addTarget(self, action: #selector(switchButtonActions), for: .valueChanged)
     }
     
+    @objc
+    private func switchButtonActions(sender: UISwitch) {
+        switchToggleAction?(sender)
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        rightImage.isHidden = false
+        switchButton.isHidden = true
+    }
+    
+    func obserVerToggle(imageHiddenBool: Bool){
+        rightImage.isHidden = imageHiddenBool
+        rightImage.isHidden == true ? (switchButton.isHidden = false) : (switchButton.isHidden = true)
+    }
     
 }
