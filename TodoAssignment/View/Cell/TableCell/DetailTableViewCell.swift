@@ -74,7 +74,6 @@ class DetailTableViewCell: BaseTableViewCell {
     }
     
     override func designView() {
-        buttonActiveStyle()
         fontSetting()
     }
     
@@ -86,42 +85,30 @@ class DetailTableViewCell: BaseTableViewCell {
         dateLabel.textColor = .black
         tagLabel.textColor = .purple
         
-        
+        priLabel.font = .systemFont(ofSize: 14, weight: .light)
+        mainLabel.font = .systemFont(ofSize: 16, weight: .semibold)
+        subTitleLabel.font = .systemFont(ofSize: 14, weight: .light)
+        dateLabel.font = .systemFont(ofSize: 13, weight: .light)
+        tagLabel.font = .systemFont(ofSize: 13, weight: .medium)
     }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        layoutIfNeeded()
+
+    override func layoutIfNeeded() {
+        print("asdasda")
+        super.layoutIfNeeded()
         leftButton.layer.cornerRadius = leftButton.frame.width / 2
         leftButton.clipsToBounds = true
     }
     
-    
-    func buttonActiveStyle(){
-        var config = UIButton.Configuration.filled()
-        config.baseBackgroundColor = .black
-        config.baseForegroundColor = .white
-        
-        leftButton.configuration = config //
-        
-        var selectedConfig = UIButton.Configuration.filled()
-        selectedConfig.baseBackgroundColor = .white
-        selectedConfig.baseForegroundColor = .black
-        
-        // var configurationUpdateHandler: UIButton.ConfigurationUpdateHandler?
-        leftButton.configurationUpdateHandler = {
-            button in
-            button.configuration = button.isSelected ? selectedConfig : config
-        }
+
+    override func setNeedsLayout() {
+        super.setNeedsLayout()
+//        print(leftButton.layer.cornerRadius)
+//        print(leftButton.frame.height / 2)
+//        if leftButton.layer.cornerRadius != leftButton.frame.height / 2 {
+//            print("asdasdsadasdasd")
+//            leftButton.layer.cornerRadius = leftButton.frame.height / 2
+//            leftButton.clipsToBounds = true
+//        }
     }
-    
-    @objc
-    func updateButton() {
-        leftButton.isSelected.toggle()
-        leftButton.configurationUpdateHandler?(leftButton)
-    }
-    
-    
-    
     
 }
