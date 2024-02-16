@@ -34,10 +34,11 @@ class DetailTableViewCell: BaseTableViewCell {
         mainLabel.backgroundColor = .red
         subTitleLabel.backgroundColor = .blue
         dateLabel.backgroundColor = .green
+        tagLabel.backgroundColor = .cyan
 //        print(priLabel)
 //        print(mainLabel)
 //        print(subTitleLabel)
-//        print(dateLabel) //
+//        print(dateLabel) //r
 //        print(tagLabel) //
         
         
@@ -45,17 +46,18 @@ class DetailTableViewCell: BaseTableViewCell {
     override func configureLayout() {
         leftButton.snp.makeConstraints { make in
             make.leading.top.equalToSuperview().inset(12)
-            make.size.equalTo(20)
+            make.size.equalTo(CGSize(width: 20, height: 20))
         }
         priLabel.snp.makeConstraints { make in
             make.leading.equalTo(leftButton.snp.trailing).offset(12)
             make.height.equalTo(24)
+//            make.trailing.greaterThanOrEqualTo(mainLabel.snp.leading).offset(4)
             make.centerY.equalTo(leftButton)
         }
         mainLabel.snp.makeConstraints { make in
-            make.leading.equalTo(priLabel.snp.trailing).inset(4)
+            make.leading.equalTo(priLabel.snp.trailing).inset( -4 )
             make.height.centerY.equalTo(leftButton)
-            make.trailing.greaterThanOrEqualToSuperview().offset(12)
+            make.trailing.lessThanOrEqualToSuperview().offset(12)
         }
         subTitleLabel.snp.makeConstraints { make in
             make.leading.equalTo(priLabel.snp.leading)
@@ -70,8 +72,8 @@ class DetailTableViewCell: BaseTableViewCell {
         }
         tagLabel.snp.makeConstraints { make in
             make.leading.equalTo(dateLabel.snp.trailing).offset(4)
-            make.top.equalTo(dateLabel.snp.bottom).inset(4)
-            make.trailing.greaterThanOrEqualToSuperview().offset(12)
+            make.centerY.equalTo(dateLabel)
+            make.trailing.lessThanOrEqualToSuperview().inset(12)
         }
        
     }

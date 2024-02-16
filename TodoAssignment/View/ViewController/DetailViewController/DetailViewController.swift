@@ -128,8 +128,8 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource{
         
         cell.mainLabel.text = modelData[indexPath.row].titleTexts
         let date = DateAssistance().getDate(date: modelData[indexPath.row].endDay)
-    
-        cell.dateLabel.text = date
+        print("***","\(date)")
+        //cell.dateLabel.text = date
 
         // cell.allow
         return cell
