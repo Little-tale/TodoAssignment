@@ -21,14 +21,14 @@ class CustomButton: UIButton {
     func designView() {
         
         var config = UIButton.Configuration.filled()
-        config.baseBackgroundColor = .black
-        config.baseForegroundColor = .darkGray
+        config.baseBackgroundColor = .systemGray5
+        config.baseForegroundColor = .black
         
         self.configuration = config
         
         var selectedConfig = UIButton.Configuration.filled()
-        selectedConfig.baseBackgroundColor = .darkGray
-        selectedConfig.baseForegroundColor = .orange
+        selectedConfig.baseBackgroundColor = .orange
+        selectedConfig.baseForegroundColor = .white
         
         // var configurationUpdateHandler: UIButton.ConfigurationUpdateHandler?
         self.configurationUpdateHandler = {
@@ -37,6 +37,8 @@ class CustomButton: UIButton {
         }
         
         self.addTarget(self, action: #selector(updateButton), for: .touchUpInside)
+        
+        self.layer.borderWidth = 0.2
     }
     
     @objc
