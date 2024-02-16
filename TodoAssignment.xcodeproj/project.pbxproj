@@ -18,6 +18,10 @@
 		7B5A75782B7E2880002A015F /* DetailHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5A75772B7E2880002A015F /* DetailHomeView.swift */; };
 		7B5A757C2B7F24AF002A015F /* NewToDoRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5A757B2B7F24AF002A015F /* NewToDoRepository.swift */; };
 		7B5A757E2B7F27F8002A015F /* AlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5A757D2B7F27F8002A015F /* AlertManager.swift */; };
+		7B5A75812B7F7073002A015F /* ALLTilteCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5A75802B7F7073002A015F /* ALLTilteCollectionReusableView.swift */; };
+		7B5A75832B7F7D14002A015F /* DetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5A75822B7F7D14002A015F /* DetailTableViewCell.swift */; };
+		7B5A75852B7F8010002A015F /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5A75842B7F8010002A015F /* TestViewController.swift */; };
+		7B5A75892B7F83C9002A015F /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5A75882B7F83C9002A015F /* CustomButton.swift */; };
 		7B72D3512B7C7D9800DBB1DB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B72D3502B7C7D9800DBB1DB /* AppDelegate.swift */; };
 		7B72D3532B7C7D9800DBB1DB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B72D3522B7C7D9800DBB1DB /* SceneDelegate.swift */; };
 		7B72D3552B7C7D9800DBB1DB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B72D3542B7C7D9800DBB1DB /* ViewController.swift */; };
@@ -51,6 +55,10 @@
 		7B5A75772B7E2880002A015F /* DetailHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailHomeView.swift; sourceTree = "<group>"; };
 		7B5A757B2B7F24AF002A015F /* NewToDoRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewToDoRepository.swift; sourceTree = "<group>"; };
 		7B5A757D2B7F27F8002A015F /* AlertManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertManager.swift; sourceTree = "<group>"; };
+		7B5A75802B7F7073002A015F /* ALLTilteCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ALLTilteCollectionReusableView.swift; sourceTree = "<group>"; };
+		7B5A75822B7F7D14002A015F /* DetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTableViewCell.swift; sourceTree = "<group>"; };
+		7B5A75842B7F8010002A015F /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
+		7B5A75882B7F83C9002A015F /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		7B72D34D2B7C7D9800DBB1DB /* TodoAssignment.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TodoAssignment.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B72D3502B7C7D9800DBB1DB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7B72D3522B7C7D9800DBB1DB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -107,6 +115,22 @@
 			path = DetailViewController;
 			sourceTree = "<group>";
 		};
+		7B5A757F2B7F7042002A015F /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+				7B5A75802B7F7073002A015F /* ALLTilteCollectionReusableView.swift */,
+			);
+			path = "New Group";
+			sourceTree = "<group>";
+		};
+		7B5A75862B7F83AF002A015F /* Button */ = {
+			isa = PBXGroup;
+			children = (
+				7B5A75882B7F83C9002A015F /* CustomButton.swift */,
+			);
+			path = Button;
+			sourceTree = "<group>";
+		};
 		7B72D3442B7C7D9800DBB1DB = {
 			isa = PBXGroup;
 			children = (
@@ -145,10 +169,13 @@
 		7B72D3642B7C7E0800DBB1DB /* View */ = {
 			isa = PBXGroup;
 			children = (
+				7B5A75862B7F83AF002A015F /* Button */,
+				7B5A757F2B7F7042002A015F /* New Group */,
 				7B72D3762B7C831400DBB1DB /* Home */,
 				7B72D36B2B7C7FA600DBB1DB /* Cell */,
 				7B72D3662B7C7E1F00DBB1DB /* Base */,
 				7B72D3652B7C7E0F00DBB1DB /* ViewController */,
+				7B5A75842B7F8010002A015F /* TestViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -188,6 +215,7 @@
 			children = (
 				7B72D36D2B7C7FC600DBB1DB /* TitleMemoTableCell.swift */,
 				7B72D3742B7C815300DBB1DB /* OnlyTitleTableViewCell.swift */,
+				7B5A75822B7F7D14002A015F /* DetailTableViewCell.swift */,
 			);
 			path = TableCell;
 			sourceTree = "<group>";
@@ -325,6 +353,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7B5A75832B7F7D14002A015F /* DetailTableViewCell.swift in Sources */,
 				7B72D3552B7C7D9800DBB1DB /* ViewController.swift in Sources */,
 				7B5A757C2B7F24AF002A015F /* NewToDoRepository.swift in Sources */,
 				7B72D3912B7CD6CF00DBB1DB /* AllListHomeView.swift in Sources */,
@@ -334,6 +363,7 @@
 				7B5A755D2B7D0D00002A015F /* BaseCollectionViewCell.swift in Sources */,
 				7B72D3682B7C7E3000DBB1DB /* BaseViewController.swift in Sources */,
 				7B72D3782B7C832600DBB1DB /* NewTodoHomeView.swift in Sources */,
+				7B5A75852B7F8010002A015F /* TestViewController.swift in Sources */,
 				7B5A75782B7E2880002A015F /* DetailHomeView.swift in Sources */,
 				7B72D3512B7C7D9800DBB1DB /* AppDelegate.swift in Sources */,
 				7B5A75622B7D1D38002A015F /* ToDoListModel.swift in Sources */,
@@ -342,6 +372,7 @@
 				7B72D37C2B7C847900DBB1DB /* Extension.swift in Sources */,
 				7B72D36E2B7C7FC600DBB1DB /* TitleMemoTableCell.swift in Sources */,
 				7B72D38B2B7CC1E000DBB1DB /* PrioritizationViewController.swift in Sources */,
+				7B5A75892B7F83C9002A015F /* CustomButton.swift in Sources */,
 				7B72D3702B7C7FDE00DBB1DB /* BaseTableViewCell.swift in Sources */,
 				7B5A75762B7E2822002A015F /* DetailViewController.swift in Sources */,
 				7B72D3892B7CB78600DBB1DB /* TagSettingViewController.swift in Sources */,
@@ -349,6 +380,7 @@
 				7B72D37A2B7C832F00DBB1DB /* BaseView.swift in Sources */,
 				7B5A75602B7D1B08002A015F /* UserDefaultsManager.swift in Sources */,
 				7B72D37F2B7C8EB600DBB1DB /* Section.swift in Sources */,
+				7B5A75812B7F7073002A015F /* ALLTilteCollectionReusableView.swift in Sources */,
 				7B72D3752B7C815300DBB1DB /* OnlyTitleTableViewCell.swift in Sources */,
 				7B72D3532B7C7D9800DBB1DB /* SceneDelegate.swift in Sources */,
 				7B5A75732B7DEBA4002A015F /* RealmModel.swift in Sources */,

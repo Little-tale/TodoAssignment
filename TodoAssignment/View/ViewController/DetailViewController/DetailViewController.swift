@@ -16,6 +16,7 @@ import RealmSwift
 //}
 
 class DetailViewController: BaseViewController {
+    
     let homeView = DetailHomeView()
     
     // let sectionState = SectionState()
@@ -24,6 +25,7 @@ class DetailViewController: BaseViewController {
         self.view = homeView
     }
     var modelData: Results<NewToDoTable>!
+    
     let repository = NewToDoRepository()
     
     
@@ -48,21 +50,21 @@ class DetailViewController: BaseViewController {
         let menuItems = ations.map { title, action in
             UIAction(title: title) { realAction in
                 action()
-                // realAction.state = realAction.state == .on ? .off : .on
-                /*
-                 *** Terminating app due to uncaught exception 'NSInternalInconsistencyException', reason: 'Action is immutable because it is a child of a menu'
-                 *** First throw call stack:
-                 */
-                
+         
             }
         }
         
         let button = homeView.pullDownbutton
         button.setTitle("정렬방식", for: .normal)
+        
         button.showsMenuAsPrimaryAction = true
+        
         button.menu = UIMenu(children: menuItems)
+        
         button.changesSelectionAsPrimaryAction = true
+        
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: button)
+        
         // button.changesSelectionAsPrimaryAction = true
        
     }
@@ -71,8 +73,8 @@ class DetailViewController: BaseViewController {
     //MARK: 정렬방식
     private func dataSort(secction: SortSction) {
         // 구조체 생성
-        let loadRealm = try! Realm()
-        let model = NewToDoTable.self
+//        let loadRealm = try! Realm()
+//        let model = NewToDoTable.self
         // MARK: 해당 코드에서 그냥 이 섹션들은 해당하는 케이스에 대해 true 인가 false 인가로 해보면 될것가틈 bool을 어떻게 처리하지....?
         modelData = repository.dataSort(section: secction, toggle: true)
         // print(modelData)
@@ -96,7 +98,10 @@ class DetailViewController: BaseViewController {
     override func dataSourceAndDelegate() {
         homeView.tableView.delegate = self
         homeView.tableView.dataSource = self
-        
+        // homeView.tableView.allowsMultipleSelection = true
+        // homeView.tableView.allowsSelectionDuringEditing = true
+        homeView.tableView.rowHeight = UITableView.automaticDimension
+        homeView.tableView.estimatedRowHeight = 100
     }
     override func designView() {
         navigationItem.title = "전체"
@@ -104,7 +109,7 @@ class DetailViewController: BaseViewController {
     }
     
 }
-
+// MARK: 디테일 부 컨트롤러 딜리게이트 데이타 소스
 extension DetailViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         print(#function)
@@ -112,12 +117,21 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .value1, reuseIdentifier: UITableViewCell.reuseabelIdentifier)
-        print(#function)
-        cell.textLabel?.text = modelData[indexPath.row].titleTexts
-        let date = DateAssistance().getDate(date: modelData[indexPath.row].endDay)
-        cell.detailTextLabel?.text = date
+//        let cell = UITableViewCell(style: .subtitle , reuseIdentifier: UITableViewCell.reuseabelIdentifier)
+//        print(#function)
+//        
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailTableViewCell.reuseabelIdentifier, for: indexPath) as? DetailTableViewCell else {
+            print("셀 레지스터 문제")
+            return UITableViewCell()
+        }
         
+        
+        cell.mainLabel.text = modelData[indexPath.row].titleTexts
+        let date = DateAssistance().getDate(date: modelData[indexPath.row].endDay)
+    
+        cell.dateLabel.text = date
+
+        // cell.allow
         return cell
     }
  
@@ -191,4 +205,12 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource{
 //        }
   // settUpActtion(ations: <#T##[(String, () -> Void)]#>)
  // var test: (String, ()-> Void, Int)
+ */
+/*
+ // realAction.state = realAction.state == .on ? .off : .on
+ /*
+  *** Terminating app due to uncaught exception 'NSInternalInconsistencyException', reason: 'Action is immutable because it is a child of a menu'
+  *** First throw call stack:
+  */
+ 
  */

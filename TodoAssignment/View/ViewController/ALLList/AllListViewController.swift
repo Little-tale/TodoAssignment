@@ -84,6 +84,7 @@ extension AllListViewController : UICollectionViewDelegate, UICollectionViewData
         cell.countLabel.text = "\(repository.collctionListViewDisPatchForCount(caseSection))"
         return cell
     }
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         collectionView.deselectItem(at: indexPath , animated: true)
@@ -108,6 +109,20 @@ extension AllListViewController : UICollectionViewDelegate, UICollectionViewData
         
     }
     
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        guard let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: ALLTilteCollectionReusableView.reuseabelIdentifier, for: indexPath) as? ALLTilteCollectionReusableView  else {
+            return UICollectionReusableView()
+        }
+        view.titleLabel.text = "전체"
+        return view
+    }
+    
+}
+
+extension AllListViewController : UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: collectionView.bounds.width, height: 60)
+    }
 }
 
 

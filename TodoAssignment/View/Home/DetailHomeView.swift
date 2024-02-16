@@ -32,6 +32,8 @@ class DetailHomeView: BaseView{
     override func register() {
         //tableView.register(UITableViewCell.self, forCellReuseIdentifier: UITableViewCell.reuseabelIdentifier)
         
+        tableView.register(DetailTableViewCell.self, forCellReuseIdentifier: DetailTableViewCell.reuseabelIdentifier)
+        
     }
     override func designView() {
         self.backgroundColor = .white

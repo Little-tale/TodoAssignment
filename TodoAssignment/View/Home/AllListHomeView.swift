@@ -72,6 +72,8 @@ final class AllListHomeView: BaseView {
     
     override func register() {
         collectionView.register(ToDoListCollectionViewCell.self, forCellWithReuseIdentifier: ToDoListCollectionViewCell.reuseabelIdentifier)
+        
+        collectionView.register(ALLTilteCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: ALLTilteCollectionReusableView.reuseabelIdentifier)
     }
     
     
