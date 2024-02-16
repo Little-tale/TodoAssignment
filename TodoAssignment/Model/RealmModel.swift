@@ -15,12 +15,12 @@ class NewToDoTable: Object {
     @Persisted(primaryKey: true) var id: ObjectId
     
     // MARK: 프라이머리 기준으로 구분되어질 컬럼들을 선언!
-    @Persisted var titleTexts : String
-    @Persisted var memoTexts : String?
-    @Persisted var endDay: Date?
-    @Persisted var tagText: String?
-    @Persisted var priorityNumber : Int
-    @Persisted var onlyDate: Date?
+    @Persisted var titleTexts : String // 새로생성될 타이틀
+    @Persisted var memoTexts : String? // 메모 내용
+    @Persisted var endDay: Date? // 마감일 지정
+    @Persisted var tagText: String? // 태그안에 텍스트
+    @Persisted var priorityNumber : Int // 우선순위 넘버
+    @Persisted var onlyDate: Date? // 마감일 날짜만
     
     //MARK: convenience Init -> 모든 값을 넣어주지 않았을때 에러를 방지하기 위함이다.
     convenience
