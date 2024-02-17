@@ -18,4 +18,24 @@ class AlertManager {
         return alert
     }
     
+    func showAlert(error: Error) -> UIAlertController {
+        var alert = UIAlertController()
+        if let error = error as? RealmErrorCase {
+            alert.title = error.errorTitle
+            alert.message = error.errorMessage
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                alert.dismiss(animated: true)
+            }
+            return alert
+        }
+        alert.title = "에러"
+        alert.message = "관리자에게 문의하세요"
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            
+            alert.dismiss(animated: true)
+        }
+        return alert
+}
+    
 }

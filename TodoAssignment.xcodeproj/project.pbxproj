@@ -22,6 +22,8 @@
 		7B5A75832B7F7D14002A015F /* DetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5A75822B7F7D14002A015F /* DetailTableViewCell.swift */; };
 		7B5A75852B7F8010002A015F /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5A75842B7F8010002A015F /* TestViewController.swift */; };
 		7B5A75892B7F83C9002A015F /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5A75882B7F83C9002A015F /* CustomButton.swift */; };
+		7B5A758B2B803827002A015F /* ErrorAssistance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5A758A2B803827002A015F /* ErrorAssistance.swift */; };
+		7B5A758F2B8043F5002A015F /* DetailBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5A758E2B8043F5002A015F /* DetailBaseViewController.swift */; };
 		7B72D3512B7C7D9800DBB1DB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B72D3502B7C7D9800DBB1DB /* AppDelegate.swift */; };
 		7B72D3532B7C7D9800DBB1DB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B72D3522B7C7D9800DBB1DB /* SceneDelegate.swift */; };
 		7B72D3552B7C7D9800DBB1DB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B72D3542B7C7D9800DBB1DB /* ViewController.swift */; };
@@ -59,6 +61,8 @@
 		7B5A75822B7F7D14002A015F /* DetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTableViewCell.swift; sourceTree = "<group>"; };
 		7B5A75842B7F8010002A015F /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		7B5A75882B7F83C9002A015F /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
+		7B5A758A2B803827002A015F /* ErrorAssistance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorAssistance.swift; sourceTree = "<group>"; };
+		7B5A758E2B8043F5002A015F /* DetailBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailBaseViewController.swift; sourceTree = "<group>"; };
 		7B72D34D2B7C7D9800DBB1DB /* TodoAssignment.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TodoAssignment.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B72D3502B7C7D9800DBB1DB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7B72D3522B7C7D9800DBB1DB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -131,6 +135,23 @@
 			path = Button;
 			sourceTree = "<group>";
 		};
+		7B5A758C2B8043BF002A015F /* DetailBaseViewController */ = {
+			isa = PBXGroup;
+			children = (
+				7B5A758E2B8043F5002A015F /* DetailBaseViewController.swift */,
+			);
+			path = DetailBaseViewController;
+			sourceTree = "<group>";
+		};
+		7B5A758D2B8043D0002A015F /* BaseViewController */ = {
+			isa = PBXGroup;
+			children = (
+				7B5A758C2B8043BF002A015F /* DetailBaseViewController */,
+				7B72D3672B7C7E3000DBB1DB /* BaseViewController.swift */,
+			);
+			path = BaseViewController;
+			sourceTree = "<group>";
+		};
 		7B72D3442B7C7D9800DBB1DB = {
 			isa = PBXGroup;
 			children = (
@@ -193,7 +214,7 @@
 		7B72D3662B7C7E1F00DBB1DB /* Base */ = {
 			isa = PBXGroup;
 			children = (
-				7B72D3672B7C7E3000DBB1DB /* BaseViewController.swift */,
+				7B5A758D2B8043D0002A015F /* BaseViewController */,
 				7B72D36F2B7C7FDE00DBB1DB /* BaseTableViewCell.swift */,
 				7B72D3792B7C832F00DBB1DB /* BaseView.swift */,
 				7B5A755C2B7D0D00002A015F /* BaseCollectionViewCell.swift */,
@@ -242,6 +263,7 @@
 			isa = PBXGroup;
 			children = (
 				7B72D3832B7CAFAB00DBB1DB /* DateAssistance.swift */,
+				7B5A758A2B803827002A015F /* ErrorAssistance.swift */,
 			);
 			path = Assistance;
 			sourceTree = "<group>";
@@ -361,6 +383,7 @@
 				7B5A755B2B7D0CE4002A015F /* ToDoListCollectionViewCell.swift in Sources */,
 				7B72D3812B7C9C6400DBB1DB /* DatePickerViewController.swift in Sources */,
 				7B5A755D2B7D0D00002A015F /* BaseCollectionViewCell.swift in Sources */,
+				7B5A758B2B803827002A015F /* ErrorAssistance.swift in Sources */,
 				7B72D3682B7C7E3000DBB1DB /* BaseViewController.swift in Sources */,
 				7B72D3782B7C832600DBB1DB /* NewTodoHomeView.swift in Sources */,
 				7B5A75852B7F8010002A015F /* TestViewController.swift in Sources */,
@@ -376,6 +399,7 @@
 				7B72D3702B7C7FDE00DBB1DB /* BaseTableViewCell.swift in Sources */,
 				7B5A75762B7E2822002A015F /* DetailViewController.swift in Sources */,
 				7B72D3892B7CB78600DBB1DB /* TagSettingViewController.swift in Sources */,
+				7B5A758F2B8043F5002A015F /* DetailBaseViewController.swift in Sources */,
 				7B72D36A2B7C7E7700DBB1DB /* NewTodoViewController.swift in Sources */,
 				7B72D37A2B7C832F00DBB1DB /* BaseView.swift in Sources */,
 				7B5A75602B7D1B08002A015F /* UserDefaultsManager.swift in Sources */,

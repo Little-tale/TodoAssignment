@@ -70,8 +70,6 @@ enum NewToDoList:Int, CaseIterable {
 }
 
 
-
-
 enum AllListCellCase: CaseIterable {
     case today
     case upcoming

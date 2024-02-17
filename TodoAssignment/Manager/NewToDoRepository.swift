@@ -80,19 +80,30 @@ final class NewToDoRepository {
             }
             return data.count
         case .completed:
-            return 0
+            let compliteData = realm.objects(model).where {
+                $0.complite == true
+            }
+            return compliteData.count
         }
         
     }
     
-    func compliteUpdater(id_Hash: Int) {
-//        do{
-//            let data = try realm.objects(model).where { 
-//                
-//            }
-//        } catch {
-//            
-//        }
+    func compliteUpdater(model_Id: ObjectId, ButtonBool: Bool) throws {
+        do{
+            let dataModel = realm.object(ofType: model, forPrimaryKey: model_Id)
+            
+            guard let dataModel = dataModel else {
+    
+                throw RealmErrorCase.noHaveTable
+            }
+            // -> toggle도 있지만 이게 더 확실할수도 있을것 같다.
+            try realm.write {
+                dataModel.complite = ButtonBool
+            }
+            
+        } catch {
+            throw RealmErrorCase.cantWriteObject
+        }
     }
     
 }

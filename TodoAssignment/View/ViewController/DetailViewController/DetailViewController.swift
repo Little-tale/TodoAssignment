@@ -8,90 +8,58 @@
 import UIKit
 import RealmSwift
 
-// 상태 관ㄴ리 구조체
-//struct SectionState {
-//    var totleSet: Bool = false
-//    var dataSet: Bool = false
-//    var prioritySet: Bool = false
-//}
 
-class DetailViewController: BaseViewController {
-    
-    let homeView = DetailHomeView()
-    
-    // let sectionState = SectionState()
-    
-    override func loadView() {
-        self.view = homeView
-    }
+class DetailViewController: DetailBaseViewController<DetailHomeView> {
+
+    // MARK: 모델 데이터 받을 공간
     var modelData: Results<NewToDoTable>!
     
     let repository = NewToDoRepository()
+
+    // MARK: 테스트 단계인 버튼이 키고 아이디가 벨류
+    var modelButtonDictionary: [UIButton: ObjectId] = [:]
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        settingActions()
+    }
+    
+    func settingActions(){
         var actions: [(String, () -> Void)] = []
         
         for section in SortSction.allCases {
-            
             let actting: () -> Void = {
                 self.dataSort(secction: section)
             }
             actions.append((section.setTitle, actting))
         }
-        settUpActtion(ations: actions)
+    
+        settingAction(for: baseHomeView.pullDownbutton , actions: actions)
         
     }
-    
-    //MARK: 타이틀 말고 섹션 , 액션 를 함수타입으로 받을려합니다.
-    private func settUpActtion(ations: [(String, () -> Void)]) {
-        let menuItems = ations.map { title, action in
-            UIAction(title: title) { realAction in
-                action()
-         
-            }
-        }
-        
-        let button = homeView.pullDownbutton
-        button.setTitle("정렬방식", for: .normal)
-        
-        button.showsMenuAsPrimaryAction = true
-        
-        button.menu = UIMenu(children: menuItems)
-        
-        button.changesSelectionAsPrimaryAction = true
-        
-        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: button)
-       
-    }
-    
     
     //MARK: 정렬방식
-    private func dataSort(secction: SortSction) {
-        // 구조체 생성
-//        let loadRealm = try! Realm()
-//        let model = NewToDoTable.self
+    private func dataSort(secction: SortSction){
         // MARK: 해당 코드에서 그냥 이 섹션들은 해당하는 케이스에 대해 true 인가 false 인가로 해보면 될것가틈 bool을 어떻게 처리하지....?
         modelData = repository.dataSort(section: secction, toggle: true)
 
-        homeView.tableView.reloadData()
+        baseHomeView.tableView.reloadData()
     }
   
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-       
+       // MARK: 전체 데이터 가져오기
         modelData = repository.fetchRecord()
-        homeView.tableView.reloadData()
+        baseHomeView.tableView.reloadData()
         print(#function)
     }
 
     override func dataSourceAndDelegate() {
-        homeView.tableView.delegate = self
-        homeView.tableView.dataSource = self
-        homeView.tableView.rowHeight = UITableView.automaticDimension
-        homeView.tableView.estimatedRowHeight = 100
+        baseHomeView.tableView.delegate = self
+        baseHomeView.tableView.dataSource = self
+        baseHomeView.tableView.rowHeight = UITableView.automaticDimension
+        baseHomeView.tableView.estimatedRowHeight = 100
     }
     override func designView() {
         navigationItem.title = "전체"
@@ -99,6 +67,7 @@ class DetailViewController: BaseViewController {
 }
 // MARK: 디테일 부 컨트롤러 딜리게이트 데이타 소스
 extension DetailViewController: UITableViewDelegate, UITableViewDataSource{
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         print(#function)
         return modelData.count
@@ -110,37 +79,58 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource{
             print("셀 레지스터 문제")
             return UITableViewCell()
         }
-        
         let modelDatas = modelData[indexPath.row]
-
-        let date = DateAssistance().getDate(date: modelDatas.endDay)
-        let prioritynum = modelDatas.priorityNumber
+        cellDataSetting(for: cell, modelData: modelDatas)
         
-        cell.mainLabel.text = modelDatas.titleTexts
-        cell.dateLabel.text = date
-        cell.tagLabel.text = modelDatas.tagText
-        cell.priLabel.text = getPrivorityText(number: prioritynum)
-        cell.subTitleLabel.text = modelDatas.memoTexts
-        
-        cell.leftButton.addTarget(self, action: #selector(testButton), for: .touchUpInside)
-        // cell.leftButton.tag = modelDatas.id
-//        print(modelDatas.id)
-//        print(modelDatas.id.hash)
-//        print(modelDatas.id.hashValue)
-//        print(modelDatas.id.stringValue) // -> 이방법이 좋은지 모르겠으나 이걸로 해결 도전
-//        print(modelDatas.id)
+        print(modelDatas)
         
         return cell
     }
+    
+    // MARK: 셀 데이터 세팅 메서드
+    private func cellDataSetting(for cell: DetailTableViewCell, modelData: NewToDoTable){
+        
+        let date = DateAssistance().getDate(date: modelData.endDay)
+        let prioritynum = modelData.priorityNumber
+        
+        cell.mainLabel.text = modelData.titleTexts
+        cell.dateLabel.text = date
+        cell.tagLabel.text = modelData.tagText
+        cell.priLabel.text = getPrivorityText(number: prioritynum)
+        cell.subTitleLabel.text = modelData.memoTexts
+        cell.leftButton.isSelected = modelData.complite
+        cell.leftButton.addTarget(self, action: #selector(testButton), for: .touchUpInside)
+        modelButtonDictionary[cell.leftButton] = modelData.id
+    }
+    
+    
+    
     // MARK: 모든 버튼에 타겟 단 태그로 구분
     @objc
     func testButton(_ sender: UIButton) {
-        print(sender.tag)
+
+        print(modelButtonDictionary[sender] ?? "")
+        // 버튼 선택상태를 -> 컴플리트 상태값으로
+        print(sender.isSelected)
+        
+        let objectId = modelButtonDictionary[sender]
+        
+        guard let objectId = objectId else {
+            let alert = AlertManager().showAlert(error: RealmErrorCase.cantWriteObject)
+            present(alert,animated: true)
+            return
+        }
+        
+        do {
+            try repository.compliteUpdater(model_Id: objectId, ButtonBool: sender.isSelected)
+        } catch {
+            let alert = AlertManager().showAlert(error: error)
+            present(alert, animated: true)
+        }
+    
     }
  
 }
-
-
 
 extension DetailViewController {
     // MARK: 우선순위 값을 변경해드립니다.
@@ -151,6 +141,18 @@ extension DetailViewController {
 
 
 /*
+ 
+ // cell.leftButton.tag = modelDatas.id
+//        print(modelDatas.id)
+//        print(modelDatas.id.hash)
+//        print(modelDatas.id.hashValue)
+//        print(modelDatas.id.stringValue) // -> 이방법이 좋은지 모르겠으나 이걸로 해결 도전 ---> 실패
+//        print(modelDatas.id)
+ // cell.leftButton.layer.name = modelDatas.id.stringValue
+ // modelDatas.id // -> ObjectId
+ 
+ 
+ 
  //        case .titleSet:
  //            print( secction.rawValue)
  //            // 정렬하는 방법 Sorted
