@@ -30,6 +30,7 @@ final class OnlyTitleTableViewCell: BaseTableViewCell {
         contentView.addSubview(rightImage)
         contentView.addSubview(infoLabel)
         contentView.addSubview(switchButton)
+
     }
     
     override func configureLayout() {

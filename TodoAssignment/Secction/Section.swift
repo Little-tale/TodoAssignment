@@ -110,15 +110,15 @@ enum AllListCellCase: CaseIterable {
     var backColor: UIColor {
         switch self {
         case .today:
-            UIColor.systemBlue
+            .systemBlue
         case .upcoming:
-            UIColor.systemRed
+            .systemRed
         case .all:
-            UIColor.systemGray
+            .systemGray
         case .flag:
-            UIColor.systemYellow
+            .systemYellow
         case .completed:
-            UIColor.systemGray5
+            .systemGray5
         }
     }
     

@@ -51,7 +51,21 @@ class NewTodoViewController: BaseViewController {
         super.viewWillAppear(animated)
         navigationController?.isToolbarHidden = true
         
+        // checSaveButton()
     }
+    
+    // MARK: 검사 로직 -> 연습해보기
+//    func checSaveButton(){
+//        guard let text = titleText else {
+//            navigationItem.rightBarButtonItem?.isEnabled = false
+//            return
+//        }
+//        guard text != "" else {
+//            navigationItem.rightBarButtonItem?.isEnabled = false
+//            return
+//        }
+//        navigationItem.rightBarButtonItem?.isEnabled = true
+//    }
     
     func deleagateDatasoure(){
         newtodoHomeView.todoTableView.delegate = self
@@ -246,12 +260,13 @@ extension NewTodoViewController: selectedPrioritization {
 
 extension NewTodoViewController: TitleMemoTextFieldProtocol {
     
-    func textFieldDidEndEditing(for cell: TitleMemoTableCell, title: String?, Info: String?) {
+    func textFieldDidChanged(for cell: TitleMemoTableCell, title: String?, Info: String?) {
         self.titleText = title
         self.memoText = Info
-        
-        view.endEditing(true)
+        // checSaveButton()
     }
+    
+    
 }
 
 

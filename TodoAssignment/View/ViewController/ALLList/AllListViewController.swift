@@ -24,7 +24,6 @@ final class AllListViewController: BaseViewController {
     
     let repository = NewToDoRepository()
     
-   
     
     override func viewDidLoad() {
         super.viewDidLoad()

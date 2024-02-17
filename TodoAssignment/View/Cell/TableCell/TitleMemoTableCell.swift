@@ -10,7 +10,8 @@ import SnapKit
 
 // MARK: 딜리게이트 패턴을 위한 프로토콜
 protocol TitleMemoTextFieldProtocol: AnyObject {
-    func textFieldDidEndEditing(for cell: TitleMemoTableCell, title: String?, Info: String?)
+    func textFieldDidChanged(for cell: TitleMemoTableCell, title: String?, Info: String?)
+    // func textFieldDidEndEditing(_ textField: UITextField)
 }
 
 final class TitleMemoTableCell: BaseTableViewCell {
@@ -23,6 +24,7 @@ final class TitleMemoTableCell: BaseTableViewCell {
     override func configureHierarchy() {
         contentView.addSubview(titleTextField)
         contentView.addSubview(memoTextField)
+        
     }
     override func configureLayout() {
         titleTextField.snp.makeConstraints { make in
@@ -53,15 +55,16 @@ final class TitleMemoTableCell: BaseTableViewCell {
 }
 // MARK: 딜리게이트 패턴을 이용한 값전달
 extension TitleMemoTableCell: UITextFieldDelegate {
-    func textFieldDidEndEditing(_ textField: UITextField) {
+   
+    func textFieldDidChangeSelection(_ textField: UITextField) {
         let title = titleTextField.text
         let infoText = memoTextField.text
         
-        delegate?.textFieldDidEndEditing(for: self, title: title, Info: infoText)
-        
+        delegate?.textFieldDidChanged(for: self, title: title, Info: infoText)
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.endEditing(true)
     }
 }
+

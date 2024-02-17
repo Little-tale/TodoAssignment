@@ -30,7 +30,7 @@ final class AllListHomeView: BaseView {
     let rightButton = UIBarButtonItem()
     
     lazy var spacerButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
-    
+
     
     lazy var buttonArray = [leftButton, spacerButton, rightButton ]
     

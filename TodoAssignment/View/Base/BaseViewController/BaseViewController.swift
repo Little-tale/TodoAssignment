@@ -12,7 +12,7 @@ class BaseViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         all()
-        self.view.backgroundColor = .black
+        self.view.backgroundColor = .white
     }
     func all(){
         configureHierarchy()

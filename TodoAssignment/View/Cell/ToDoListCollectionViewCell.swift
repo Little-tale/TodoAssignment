@@ -18,7 +18,7 @@ final class ToDoListCollectionViewCell: BaseCollectionViewCell {
         contentView.addSubview(imageView)
         contentView.addSubview(titleLabel)
         contentView.addSubview(countLabel)
-        
+        print(imageView.bounds.size)
     }
     override func configureLayout() {
         imageView.snp.makeConstraints { make in
@@ -35,7 +35,10 @@ final class ToDoListCollectionViewCell: BaseCollectionViewCell {
             make.trailing.top.equalTo(contentView.safeAreaLayoutGuide).inset(8)
         }
     }
+    
+    
     override func designView() {
+        
         titleLabel.textColor = .white
         titleLabel.font = .systemFont(ofSize: 14)
         
@@ -50,7 +53,9 @@ final class ToDoListCollectionViewCell: BaseCollectionViewCell {
         self.clipsToBounds = true
         
         DispatchQueue.main.async {
+            
             self.imageView.layer.cornerRadius = self.imageView.bounds.width / 2
+            print(self.imageView.bounds.size)
         }
     }
     

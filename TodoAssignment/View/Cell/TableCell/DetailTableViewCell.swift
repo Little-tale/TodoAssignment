@@ -16,7 +16,7 @@ class DetailTableViewCell: BaseTableViewCell {
     let dateLabel = UILabel()
     let tagLabel = UILabel()
     
-    
+    // 0:0
     override func configureHierarchy() {
         contentView.addSubview(leftButton)
         contentView.addSubview(priLabel)
@@ -25,6 +25,8 @@ class DetailTableViewCell: BaseTableViewCell {
         contentView.addSubview(dateLabel)
         contentView.addSubview(tagLabel)
     }
+
+    
     override func configureLayout() {
         leftButton.snp.makeConstraints { make in
             make.leading.top.equalToSuperview().offset(12)
@@ -57,9 +59,8 @@ class DetailTableViewCell: BaseTableViewCell {
             make.centerY.equalTo(dateLabel)
             make.trailing.lessThanOrEqualToSuperview().inset(12)
         }
-
-       
     }
+    
     
     override func designView() {
         fontSetting()
@@ -79,18 +80,21 @@ class DetailTableViewCell: BaseTableViewCell {
         dateLabel.font = .systemFont(ofSize: 13, weight: .light)
         tagLabel.font = .systemFont(ofSize: 13, weight: .medium)
     }
-
+    //
     override func layoutIfNeeded() {
         print("asdasda")
         super.layoutIfNeeded()
         leftButton.layer.cornerRadius = leftButton.frame.width / 2
         leftButton.clipsToBounds = true
+
     }
     
-
-    override func setNeedsLayout() {
-        super.setNeedsLayout()
-
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        print(#function)
+        
     }
+    
+  
     
 }

@@ -60,6 +60,7 @@ class DetailViewController: DetailBaseViewController<DetailHomeView> {
         baseHomeView.tableView.dataSource = self
         baseHomeView.tableView.rowHeight = UITableView.automaticDimension
         baseHomeView.tableView.estimatedRowHeight = 100
+        // baseHomeView.tableView.setEditing(true, animated: true)
     }
     override func designView() {
         navigationItem.title = "전체"
@@ -79,6 +80,7 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource{
             print("셀 레지스터 문제")
             return UITableViewCell()
         }
+        
         let modelDatas = modelData[indexPath.row]
         cellDataSetting(for: cell, modelData: modelDatas)
         
@@ -86,6 +88,33 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource{
         
         return cell
     }
+    // MARK: 스와이프 방향 정해주고 보이기하기
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let delete = UIContextualAction(style: .destructive, title: "삭제") { UIContextualAction, UIView, success in
+            UIView.backgroundColor = .blue
+            // 실제 데이터 를 먼저 삭제후 테이블뷰 딜리트 해야함
+            self.deleteContextualAction(indexPathRow: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .automatic) // ->
+            success(true)
+        }
+        
+        let modify = UIContextualAction(style: .normal, title: "깃발" ) { action, view, sucsess in
+            view.backgroundColor = .green
+            action.backgroundColor = .orange
+            sucsess(true)
+        }
+        modify.backgroundColor = .orange
+        
+        // 액션들을 담아줌
+        return UISwipeActionsConfiguration(actions: [delete,modify])
+    }
+
+    
+    private func deleteContextualAction(indexPathRow: Int) {
+        repository.removeAt(modelData[indexPathRow])
+    }
+    
+    
     
     // MARK: 셀 데이터 세팅 메서드
     private func cellDataSetting(for cell: DetailTableViewCell, modelData: NewToDoTable){

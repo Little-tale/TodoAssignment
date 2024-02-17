@@ -34,6 +34,7 @@ final class NewToDoRepository {
         }
     }
     
+    
     func dataSort(section: SortSction, toggle: Bool) -> Results<NewToDoTable>{
         switch section {
         case .onlyprioritySet:
@@ -41,7 +42,8 @@ final class NewToDoRepository {
             return realm.objects(model).where {
                 $0.priorityNumber != 0
             }
-
+        case .prioritySet :
+            return realm.objects(model).sorted(byKeyPath: section.getQuery, ascending: false)
         default :
             return realm.objects(model).sorted(byKeyPath: section.getQuery, ascending: toggle)
         }
@@ -56,6 +58,8 @@ final class NewToDoRepository {
             print(error)
         }
     }
+    
+    
     func collctionListViewDisPatchForCount(_ section: AllListCellCase) -> Int {
         switch section {
         case .today:
