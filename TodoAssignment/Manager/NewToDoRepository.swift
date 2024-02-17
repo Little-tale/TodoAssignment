@@ -35,17 +35,17 @@ final class NewToDoRepository {
     }
     
     
-    func dataSort(section: SortSction, toggle: Bool) -> Results<NewToDoTable>{
+    func dataSort(dataList: Results<NewToDoTable>, section: SortSction, toggle: Bool) -> Results<NewToDoTable>{
         switch section {
         case .onlyprioritySet:
             
-            return realm.objects(model).where {
-                $0.priorityNumber != 0
+            return dataList.where {
+                $0.priorityNumber > 0
             }
         case .prioritySet :
-            return realm.objects(model).sorted(byKeyPath: section.getQuery, ascending: false)
+            return dataList.sorted(byKeyPath: section.getQuery, ascending: false)
         default :
-            return realm.objects(model).sorted(byKeyPath: section.getQuery, ascending: toggle)
+            return dataList.sorted(byKeyPath: section.getQuery, ascending: toggle)
         }
     }
     
