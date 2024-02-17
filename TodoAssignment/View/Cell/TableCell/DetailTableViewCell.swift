@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class DetailTableViewCell: BaseTableViewCell {
+final class DetailTableViewCell: BaseTableViewCell {
     let leftButton = CustomButton(frame: .zero)
     let priLabel = UILabel()
     let mainLabel = UILabel()

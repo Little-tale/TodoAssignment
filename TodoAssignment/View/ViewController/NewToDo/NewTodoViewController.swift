@@ -8,6 +8,8 @@
 import UIKit
 import RealmSwift
 
+// MARK: 텍스트 필드가 현재 두개로 구현했는데 1개로 바꾸고 하나는 텍스트 뷰로 수정하자
+
 class NewTodoViewController: BaseViewController {
     let newtodoHomeView = NewTodoHomeView()
     
@@ -130,6 +132,7 @@ extension NewTodoViewController: UITableViewDelegate, UITableViewDataSource {
                 return UITableViewCell()
             }
             cell.delegate = self
+            cell.textViewDelegate = self
             return cell
         case .endDay:
             cell.infoLabel.text =  DateAssistance().getDate(date: self.dateInfo) 
@@ -166,7 +169,7 @@ extension NewTodoViewController: UITableViewDelegate, UITableViewDataSource {
         return UIView()
     }
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 14
+        return CGFloat.leastNonzeroMagnitude
     }
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         return UIView()
@@ -174,6 +177,9 @@ extension NewTodoViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 14
     }
+    
+    
+    
     // MARK: 셀을 선택했을때
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let secction = NewToDoList.allCases[indexPath.section]
@@ -225,11 +231,7 @@ extension NewTodoViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
     }
-    
-    // MARK: 메모리 누수 방지를 위한 대처
-//    override func viewDidDisappear(_ animated: Bool) {
-//
-//    }
+
     
     @objc
     func getTagData(sender: Notification){
@@ -258,12 +260,22 @@ extension NewTodoViewController: selectedPrioritization {
 
 
 
-extension NewTodoViewController: TitleMemoTextFieldProtocol {
+extension NewTodoViewController: TitleTextFieldProtocol {
     
-    func textFieldDidChanged(for cell: TitleMemoTableCell, title: String?, Info: String?) {
+    func textFieldDidChanged(for cell: TitleMemoTableCell, title: String?) {
         self.titleText = title
-        self.memoText = Info
         // checSaveButton()
+    }
+    
+}
+
+extension NewTodoViewController: MemoTextViewProtocol {
+    func textViewDidChange(_ textView: UITextView) {
+        self.memoText = textView.text
+        print(textView.text)
+        
+        newtodoHomeView.todoTableView.beginUpdates()
+        newtodoHomeView.todoTableView.endUpdates()
     }
     
     

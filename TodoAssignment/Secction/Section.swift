@@ -122,44 +122,45 @@ enum AllListCellCase: CaseIterable {
         }
     }
     
-    var howMany: Int {
-        // MARK: Realm 값 불러오는 시점
-        // 1. 값을 가져올 구조체를 생성합니다.
-        // 딱히 디테일뷰에는 떠오르는 것이 없어서 여기를 왔다.
-        // 표현식
-        // "progressMinutes > 1 AND assignee == $0", "Ali"
-
-        let loadRealm = try! Realm()
-        let model = NewToDoTable.self
-        switch self {
-        case .today:
-            // 현재 캘린더 생성
-            let calender = Calendar.current
-            // 캘린더 시작 날짜 현재 설정 ->
-            let start = calender.startOfDay(for: Date())
-            //DateAssistance().
-            let end = calender.date(byAdding: .day, value: 1, to: start)
-            // print(start, end) // 이둘의 사이를 하면 됨
-           
-            // MiGration 알아보기 SQL 언어 -> 둘다 하면 좋다.
-            let data = loadRealm.objects(model).filter("endDay > %@ AND endDay < %@", start, end ?? "")
-            //let data = loadRealm.objects(model).filter("endDay > \(start)")
-            return data.count
-        case .upcoming:
-            //MARK: 쿼리 언어를 통해 해결하는 방법
-            //  https://www.mongodb.com/docs/realm/realm-query-language/
-            let loadObject = loadRealm.objects(model).filter("endDay >= %@", Date())
-            // 수정된 사항
-            return loadObject.count
-        case .all:
-            let loadObject = loadRealm.objects(model)
-            return loadObject.count
-        case .flag:
-            return 0
-        case .completed:
-            return 0
-        }
-    }
+    // MARK: 디플리게이트 되었습니다 RealmManager를 가셔서 이용해 주세요!
+//    var howMany: Int {
+//        // MARK: Realm 값 불러오는 시점
+//        // 1. 값을 가져올 구조체를 생성합니다.
+//        // 딱히 디테일뷰에는 떠오르는 것이 없어서 여기를 왔다.
+//        // 표현식
+//        // "progressMinutes > 1 AND assignee == $0", "Ali"
+//
+//        let loadRealm = try! Realm()
+//        let model = NewToDoTable.self
+//        switch self {
+//        case .today:
+//            // 현재 캘린더 생성
+//            let calender = Calendar.current
+//            // 캘린더 시작 날짜 현재 설정 ->
+//            let start = calender.startOfDay(for: Date())
+//            //DateAssistance().
+//            let end = calender.date(byAdding: .day, value: 1, to: start)
+//            // print(start, end) // 이둘의 사이를 하면 됨
+//           
+//            // MiGration 알아보기 SQL 언어 -> 둘다 하면 좋다.
+//            let data = loadRealm.objects(model).filter("endDay > %@ AND endDay < %@", start, end ?? "")
+//            //let data = loadRealm.objects(model).filter("endDay > \(start)")
+//            return data.count
+//        case .upcoming:
+//            //MARK: 쿼리 언어를 통해 해결하는 방법
+//            //  https://www.mongodb.com/docs/realm/realm-query-language/
+//            let loadObject = loadRealm.objects(model).filter("endDay >= %@", Date())
+//            // 수정된 사항
+//            return loadObject.count
+//        case .all:
+//            let loadObject = loadRealm.objects(model)
+//            return loadObject.count
+//        case .flag:
+//            return 0
+//        case .completed:
+//            return 0
+//        }
+//    }
     
     // func
 
