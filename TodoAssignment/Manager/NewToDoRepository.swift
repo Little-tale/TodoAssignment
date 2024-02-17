@@ -71,8 +71,9 @@ final class NewToDoRepository {
             }
             return todayIteral.count
         case .upcoming:
+            //// MMMMMMMMMM
             let future = realm.objects(model).where {
-                $0.endDay >= Date()
+                $0.endDay > Date()
             }
             return future.count
         case .all:
@@ -91,7 +92,7 @@ final class NewToDoRepository {
         }
         
     }
-    
+    // MARK: 완료된 데이터를 걸려줍니다.
     func compliteUpdater(model_Id: ObjectId, ButtonBool: Bool) throws {
         do{
             let dataModel = realm.object(ofType: model, forPrimaryKey: model_Id)
@@ -109,6 +110,44 @@ final class NewToDoRepository {
             throw RealmErrorCase.cantWriteObject
         }
     }
+    
+//    func listViewRouter(caseOf: AllListCellCase) -> Results<NewToDoTable> {
+//        var repository = NewToDoRepository()
+//        switch caseOf {
+//        case .today:
+//            <#code#>
+//        case .upcoming:
+//            <#code#>
+//        case .all:
+//            return repository.fetchRecord()
+//        case .flag:
+//            <#code#>
+//        case .completed:
+//            <#code#>
+//        }
+//    }
+    
+    func DetailFilterView(of: AllListCellCase) -> Results<NewToDoTable>{
+        switch of {
+        case .today:
+            let calender = Calendar.current
+            let start = calender.startOfDay(for: Date())
+            let end = calender.date(byAdding: .day, value: 1, to: start)
+            return realm.objects(model).where {
+                $0.endDay > start && $0.endDay < end
+            }
+        case .upcoming:
+            return realm.objects(model).where { $0.endDay > Date() }
+        case .all:
+            return realm.objects(model)
+        case .flag:
+            return realm.objects(model).where { $0.flagBool == true }
+        case .completed:
+            return realm.objects(model).where { $0.complite == true }
+        }
+        
+    }
+    
     
 }
 

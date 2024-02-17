@@ -50,9 +50,13 @@ class DetailViewController: DetailBaseViewController<DetailHomeView> {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
        // MARK: 전체 데이터 가져오기
-        modelData = repository.fetchRecord()
+        
         baseHomeView.tableView.reloadData()
         print(#function)
+    }
+    func settingViewDataInfomation(whatInfo: AllListCellCase){
+        
+        modelData = repository.DetailFilterView(of: whatInfo)
     }
 
     override func dataSourceAndDelegate() {
@@ -63,8 +67,9 @@ class DetailViewController: DetailBaseViewController<DetailHomeView> {
         // baseHomeView.tableView.setEditing(true, animated: true)
     }
     override func designView() {
-        navigationItem.title = "전체"
+       
     }
+    
 }
 // MARK: 디테일 부 컨트롤러 딜리게이트 데이타 소스
 extension DetailViewController: UITableViewDelegate, UITableViewDataSource{

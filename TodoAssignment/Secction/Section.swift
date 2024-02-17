@@ -161,7 +161,6 @@ enum AllListCellCase: CaseIterable {
         }
     }
     
-    
     // func
 
 }

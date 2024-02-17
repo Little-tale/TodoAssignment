@@ -58,9 +58,6 @@ final class AllListViewController: BaseViewController {
         navigationController?.pushViewController(vc, animated: true)
         
     }
-   
-
-
 }
 
 extension AllListViewController : UICollectionViewDelegate, UICollectionViewDataSource {
@@ -83,28 +80,17 @@ extension AllListViewController : UICollectionViewDelegate, UICollectionViewData
         cell.countLabel.text = "\(repository.collctionListViewDisPatchForCount(caseSection))"
         return cell
     }
-    
+    // MARK: 섹션별 알아서 (같은뷰컨임) 재사용성 높여서 처리 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         collectionView.deselectItem(at: indexPath , animated: true)
         
         let secction = AllListCellCase.allCases[indexPath.item]
-        
-        switch secction {
-        case .today:
-            
-            return
-        case .upcoming:
-            return
-        case .all:
-            let vc = DetailViewController()
-            navigationController?.pushViewController(vc, animated: true)
-            return
-        case .flag:
-            return
-        case .completed:
-            return
-        }
+        let vc = DetailViewController()
+    
+        vc.settingViewDataInfomation(whatInfo: secction)
+        vc.navigationItem.title = secction.name
+        navigationController?.pushViewController(vc, animated: true)
         
     }
     
