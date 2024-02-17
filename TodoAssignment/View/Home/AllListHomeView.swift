@@ -9,7 +9,8 @@ import UIKit
 import SnapKit
 
 final class AllListHomeView: BaseView {
-//    let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 100, height: 35))
+    
+    
     
     var whereGoToView: (() -> Void)?
     
@@ -75,6 +76,8 @@ final class AllListHomeView: BaseView {
         
         collectionView.register(ALLTilteCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: ALLTilteCollectionReusableView.reuseabelIdentifier)
     }
+    
+    
     
     
 }

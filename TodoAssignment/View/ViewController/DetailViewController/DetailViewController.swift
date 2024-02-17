@@ -22,9 +22,6 @@ class DetailViewController: DetailBaseViewController<DetailHomeView> {
     var modelButtonDictionary: [UIButton: ObjectId] = [:]
     
     
-    
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         settingActions()
@@ -43,10 +40,10 @@ class DetailViewController: DetailBaseViewController<DetailHomeView> {
         settingAction(for: baseHomeView.pullDownbutton , actions: actions)
         
     }
-    
+    // MARK: 해당 코드에서 그냥 이 섹션들은 해당하는 케이스에 대해 true 인가 false 인가로 해보면 될것가틈 bool을 어떻게 처리하지....?
     //MARK: 정렬방식
     private func dataSort(secction: SortSction){
-        // MARK: 해당 코드에서 그냥 이 섹션들은 해당하는 케이스에 대해 true 인가 false 인가로 해보면 될것가틈 bool을 어떻게 처리하지....?
+       
         modelData = repository.dataSort(dataList: centerData ,section: secction, toggle: true)
 
         baseHomeView.tableView.reloadData()

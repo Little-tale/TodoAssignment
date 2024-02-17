@@ -8,11 +8,10 @@
 import UIKit
 import RealmSwift
 
-final class AllListViewController: BaseViewController {
+final class AllListViewController: SearchBaseViewController {
 
     let allListHomeView = AllListHomeView()
     var allCellCount = 0
-    
     
     
     override func loadView() {
