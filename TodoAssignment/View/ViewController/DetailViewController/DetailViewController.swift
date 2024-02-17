@@ -25,6 +25,8 @@ class DetailViewController: DetailBaseViewController<DetailHomeView> {
     override func viewDidLoad() {
         super.viewDidLoad()
         settingActions()
+        
+      
     }
     
     func settingActions(){
@@ -55,7 +57,7 @@ class DetailViewController: DetailBaseViewController<DetailHomeView> {
         super.viewWillAppear(animated)
        
         baseHomeView.tableView.reloadData()
-        print(#function)
+        print(#function,"*****")
     }
     
     
@@ -66,6 +68,13 @@ class DetailViewController: DetailBaseViewController<DetailHomeView> {
         
         modelData = repository.DetailFilterView(of: whatInfo)
         centerData = repository.DetailFilterView(of: whatInfo)
+    }
+    // MARK: 검색기준일 경우에만 사용하세요
+    func settingViewDataSearchCase(data: Results<NewToDoTable>){
+        modelData = data
+        centerData = data
+        print(#function,"***")
+        baseHomeView.tableView.reloadData()
     }
 
     override func dataSourceAndDelegate() {
@@ -170,7 +179,10 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource{
             let alert = AlertManager().showAlert(error: error)
             present(alert, animated: true)
         }
+    }
     
+    func filterOfText(text: String){
+        
     }
  
 }

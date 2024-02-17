@@ -30,6 +30,7 @@ final class AllListViewController: SearchBaseViewController {
         
         delegateDataSource()
         
+        // MARK: 홈뷰에 있는 툴바 좌측 버튼 메서드 여기서 구현
         allListHomeView.whereGoToView = {
             self.next()
         }
