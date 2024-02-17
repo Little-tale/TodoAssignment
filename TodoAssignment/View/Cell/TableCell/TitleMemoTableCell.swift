@@ -46,6 +46,7 @@ final class TitleMemoTableCell: BaseTableViewCell {
         memoTextView.snp.makeConstraints { make in
             make.horizontalEdges.equalToSuperview().inset(12)
             make.height.greaterThanOrEqualTo(100).priority(.high)
+            make.height.lessThanOrEqualTo(300)
             make.top.equalTo(titleTextField.snp.bottom).inset(8)
             make.bottom.equalToSuperview().inset(12)
         }
@@ -104,8 +105,10 @@ extension TitleMemoTableCell : UITextViewDelegate {
         textView.text == "" ? (memoPlaceHolder.isHidden = false) : (memoPlaceHolder.isHidden = true)
     }
     
+    // MARK: 딜리게이트 전달 시점 + 텍스트 숫자 제한(예정)
     func textViewDidChange(_ textView: UITextView) {
         textView.text == "" ? (memoPlaceHolder.isHidden = false) : (memoPlaceHolder.isHidden = true)
+    
         print("*",#function )
         textViewDelegate?.textViewDidChange(textView)
     }
