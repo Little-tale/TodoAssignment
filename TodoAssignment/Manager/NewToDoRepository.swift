@@ -34,11 +34,10 @@ final class NewToDoRepository {
         }
     }
     
-    
+    // MARK: 데이터 정렬 
     func dataSort(dataList: Results<NewToDoTable>, section: SortSction, toggle: Bool) -> Results<NewToDoTable>{
         switch section {
         case .onlyprioritySet:
-            
             return dataList.where {
                 $0.priorityNumber > 0
             }
@@ -111,22 +110,6 @@ final class NewToDoRepository {
         }
     }
     
-//    func listViewRouter(caseOf: AllListCellCase) -> Results<NewToDoTable> {
-//        var repository = NewToDoRepository()
-//        switch caseOf {
-//        case .today:
-//            <#code#>
-//        case .upcoming:
-//            <#code#>
-//        case .all:
-//            return repository.fetchRecord()
-//        case .flag:
-//            <#code#>
-//        case .completed:
-//            <#code#>
-//        }
-//    }
-    
     func DetailFilterView(of: AllListCellCase) -> Results<NewToDoTable>{
         switch of {
         case .today:
@@ -152,13 +135,23 @@ final class NewToDoRepository {
 }
 
 
-
-
-
-
-
-
 /*
+ 
+ //    func listViewRouter(caseOf: AllListCellCase) -> Results<NewToDoTable> {
+ //        var repository = NewToDoRepository()
+ //        switch caseOf {
+ //        case .today:
+ //            <#code#>
+ //        case .upcoming:
+ //            <#code#>
+ //        case .all:
+ //            return repository.fetchRecord()
+ //        case .flag:
+ //            <#code#>
+ //        case .completed:
+ //            <#code#>
+ //        }
+ //    }
  
  // MARK: UserDefaults 로 했었을때 저장 시점
  //        let data = TodoList(title: titleText, memo: self.memoText ?? "", lastDate: self.dateInfo, tag: self.tafInfo, privority: self.prioritizationIndex)

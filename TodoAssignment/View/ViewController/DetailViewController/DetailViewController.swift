@@ -13,6 +13,8 @@ class DetailViewController: DetailBaseViewController<DetailHomeView> {
 
     // MARK: 모델 데이터 받을 공간
     var modelData: Results<NewToDoTable>!
+    // MARK: 기준이 될 데이터 공간
+    var centerData : Results<NewToDoTable>!
     
     let repository = NewToDoRepository()
 
@@ -20,7 +22,8 @@ class DetailViewController: DetailBaseViewController<DetailHomeView> {
     var modelButtonDictionary: [UIButton: ObjectId] = [:]
     
     
-    // MARK: 데이터 정렬 기준을 추가할 공간
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,21 +47,28 @@ class DetailViewController: DetailBaseViewController<DetailHomeView> {
     //MARK: 정렬방식
     private func dataSort(secction: SortSction){
         // MARK: 해당 코드에서 그냥 이 섹션들은 해당하는 케이스에 대해 true 인가 false 인가로 해보면 될것가틈 bool을 어떻게 처리하지....?
-        modelData = repository.dataSort(dataList: modelData ,section: secction, toggle: true)
+        modelData = repository.dataSort(dataList: centerData ,section: secction, toggle: true)
 
         baseHomeView.tableView.reloadData()
+        
+        
     }
   
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-       // MARK: 전체 데이터 가져오기
-        
+       
         baseHomeView.tableView.reloadData()
         print(#function)
     }
+    
+    
+    
+    
+    // MARK: 시작시 세팅을 해주는 메서드
     func settingViewDataInfomation(whatInfo: AllListCellCase){
         
         modelData = repository.DetailFilterView(of: whatInfo)
+        centerData = repository.DetailFilterView(of: whatInfo)
     }
 
     override func dataSourceAndDelegate() {
