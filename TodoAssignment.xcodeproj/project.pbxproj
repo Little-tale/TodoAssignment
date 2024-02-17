@@ -24,7 +24,6 @@
 		7B5A75892B7F83C9002A015F /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5A75882B7F83C9002A015F /* CustomButton.swift */; };
 		7B5A758B2B803827002A015F /* ErrorAssistance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5A758A2B803827002A015F /* ErrorAssistance.swift */; };
 		7B5A758F2B8043F5002A015F /* DetailBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5A758E2B8043F5002A015F /* DetailBaseViewController.swift */; };
-		7B5A75922B80EAFC002A015F /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5A75912B80EAFC002A015F /* SearchViewController.swift */; };
 		7B5A75942B80EC93002A015F /* SearchBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5A75932B80EC93002A015F /* SearchBaseViewController.swift */; };
 		7B72D3512B7C7D9800DBB1DB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B72D3502B7C7D9800DBB1DB /* AppDelegate.swift */; };
 		7B72D3532B7C7D9800DBB1DB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B72D3522B7C7D9800DBB1DB /* SceneDelegate.swift */; };
@@ -65,7 +64,6 @@
 		7B5A75882B7F83C9002A015F /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		7B5A758A2B803827002A015F /* ErrorAssistance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorAssistance.swift; sourceTree = "<group>"; };
 		7B5A758E2B8043F5002A015F /* DetailBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailBaseViewController.swift; sourceTree = "<group>"; };
-		7B5A75912B80EAFC002A015F /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		7B5A75932B80EC93002A015F /* SearchBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBaseViewController.swift; sourceTree = "<group>"; };
 		7B72D34D2B7C7D9800DBB1DB /* TodoAssignment.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TodoAssignment.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B72D3502B7C7D9800DBB1DB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -157,14 +155,6 @@
 			path = BaseViewController;
 			sourceTree = "<group>";
 		};
-		7B5A75902B80EAD3002A015F /* SearchViewController */ = {
-			isa = PBXGroup;
-			children = (
-				7B5A75912B80EAFC002A015F /* SearchViewController.swift */,
-			);
-			path = SearchViewController;
-			sourceTree = "<group>";
-		};
 		7B72D3442B7C7D9800DBB1DB = {
 			isa = PBXGroup;
 			children = (
@@ -217,7 +207,6 @@
 		7B72D3652B7C7E0F00DBB1DB /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				7B5A75902B80EAD3002A015F /* SearchViewController */,
 				7B5A75742B7E2808002A015F /* DetailViewController */,
 				7B72D38D2B7CD64F00DBB1DB /* ALLList */,
 				7B72D38C2B7CD61A00DBB1DB /* NewToDo */,
@@ -410,7 +399,6 @@
 				7B72D37C2B7C847900DBB1DB /* Extension.swift in Sources */,
 				7B72D36E2B7C7FC600DBB1DB /* TitleMemoTableCell.swift in Sources */,
 				7B72D38B2B7CC1E000DBB1DB /* PrioritizationViewController.swift in Sources */,
-				7B5A75922B80EAFC002A015F /* SearchViewController.swift in Sources */,
 				7B5A75892B7F83C9002A015F /* CustomButton.swift in Sources */,
 				7B72D3702B7C7FDE00DBB1DB /* BaseTableViewCell.swift in Sources */,
 				7B5A75762B7E2822002A015F /* DetailViewController.swift in Sources */,

@@ -35,18 +35,25 @@ class SearchBaseViewController: BaseViewController {
         
         searchContoller.searchBar.placeholder = "검색해보시오"
         
-        //
-        
-        
         // 뷰컨틀롤러의 네비 아이템에 검색 컨트롤러를 이걸 쓰라고 지정
         navigationItem.searchController = searchContoller
         
-        navigationItem.largeTitleDisplayMode = .automatic
+        navigationSetting()
+    }
+    
+    private func navigationSetting(){
+        // navigationItem.largeTitleDisplayMode = .automatic
         navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.title = "테스트"
+        navigationItem.title = "검색창"
+
+        navigationItem.largeTitleDisplayMode = .always
+        
+        navigationController?.navigationBar.tintColor = .gray
+        
+        navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.systemGray]
+        
         // 현재 뷰 컨트롤러를 검색 컨트롤러가 활성화일때 정의하는 뷰컨으로 설정하는 메서드
         // definesPresentationContext = false
-        
     }
     
 }
@@ -67,7 +74,7 @@ extension SearchBaseViewController: UISearchResultsUpdating {
         
         // resultsViewController.repository.
         let data = resultsViewController.repository.DetailFilterOfText(of: searchText)
-        print(data,"*****")
+        //print(data,"*****")
         resultsViewController.settingViewDataSearchCase(data: data)
         
         print(#function)

@@ -133,7 +133,7 @@ final class NewToDoRepository {
     
     /// 대소문자 구분안할겁니다....!
     func DetailFilterOfText(of: String) -> Results<NewToDoTable>{
-        return realm.objects(model).where { $0.titleTexts.contains(of, options: .diacriticInsensitive) }
+        return realm.objects(model).where { $0.titleTexts.contains(of, options: .caseInsensitive) }
         
     }
     
