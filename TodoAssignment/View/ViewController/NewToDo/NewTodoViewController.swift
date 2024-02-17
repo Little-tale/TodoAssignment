@@ -268,19 +268,37 @@ extension NewTodoViewController: TitleTextFieldProtocol {
     }
     
 }
-
+// https://fomaios.tistory.com/entry/iOS-%ED%85%8C%EC%9D%B4%EB%B8%94%EB%B7%B0-%EC%95%88%EC%97%90-%EC%9E%88%EB%8A%94-%ED%85%8D%EC%8A%A4%ED%8A%B8%EB%B7%B0-%EB%86%92%EC%9D%B4-%EA%B8%80%EC%97%90-%EB%94%B0%EB%9D%BC-%EC%A1%B0%EC%A0%95%ED%95%98%EA%B8%B0Dynamic-tableviewcell-height-by-textview-text
 extension NewTodoViewController: MemoTextViewProtocol {
     func textViewDidChange(_ textView: UITextView) {
         self.memoText = textView.text
-        print(textView.text)
+  
         
-        newtodoHomeView.todoTableView.beginUpdates()
-        newtodoHomeView.todoTableView.endUpdates()
+        let size = textView.bounds.size
+        let newSize = newtodoHomeView.todoTableView.sizeThatFits(CGSize(width: size.width,
+                                                                        height: CGFloat.greatestFiniteMagnitude))
+        
+        if size.height != newSize.height {
+            // IOS 11 이상 권장사항
+            if #available(iOS 11, *) {
+                newtodoHomeView.todoTableView.performBatchUpdates(nil)
+            } else {
+                UIView.setAnimationsEnabled(false)
+                newtodoHomeView.todoTableView.beginUpdates()
+                newtodoHomeView.todoTableView.endUpdates()
+                UIView.setAnimationsEnabled(true)
+            }
+        }
+        
     }
     
-    
 }
-
+/*
+ // print(textView.text)
+ 
+//        let tableViewcell = newtodoHomeView.todoTableView.cellForRow(at: IndexPath(row: 0, section: 0))?.bounds.height
+//        print(tableViewcell)
+ */
 
 /*
  // let date = DateAssistance().getOnlyDate(date: dateInfo)
