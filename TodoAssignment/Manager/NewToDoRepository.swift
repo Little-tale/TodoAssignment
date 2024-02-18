@@ -130,7 +130,25 @@ final class NewToDoRepository: TodoRepository{
             throw RealmErrorCase.cantWriteObject
         }
     }
+    // MARK: 깃발을 토글합니다.
+    func toggleOf(modle_ID: ObjectId){
+        do {
+            let model =  realm.object(ofType: model, forPrimaryKey: modle_ID)
+            guard let model = model else {
     
+                throw RealmErrorCase.noHaveTable
+            }
+            try realm.write {
+                model.flagBool.toggle()
+            }
+            
+        } catch {
+            print(error)
+        }
+    }
+    
+    
+    /// DepleCate 예정이요니 이동 부탁드립니다.
     func DetailFilterView(of: AllListCellCase) -> Results<NewToDoTable>{
         switch of {
         case .today:

@@ -132,6 +132,8 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource{
         let modify = UIContextualAction(style: .normal, title: "깃발" ) { action, view, sucsess in
             view.backgroundColor = .green
             action.backgroundColor = .orange
+            self.toggleFlag(indexPathRow: indexPath.row)
+            
             sucsess(true)
         }
         modify.backgroundColor = .orange
@@ -145,7 +147,10 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource{
         repository.removeAt(testList[indexPathRow])
     }
     
-    
+    // MARK: 깃발을 토글
+    private func toggleFlag(indexPathRow: Int){
+        repository.toggleOf(modle_ID: testList[indexPathRow].id)
+    }
     
     // MARK: 셀 데이터 세팅 메서드
     private func cellDataSetting(for cell: DetailTableViewCell, modelData: NewToDoTable){

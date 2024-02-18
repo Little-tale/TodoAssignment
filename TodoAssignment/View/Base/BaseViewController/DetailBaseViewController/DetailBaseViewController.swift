@@ -19,7 +19,9 @@ class DetailBaseViewController<T: BaseView> : BaseViewController {
     let repository = NewToDoRepository()
     
     lazy var testList = repository.DetailFilterViewForKeyPath(of: viewType ?? .all)
-
+    
+    // Type -> (keyPath: String, ascending: Bool)
+    // MARK: 각 정렬 기준을 잡습니다.
     var sortParam = testSortSction.dateSet(ascending: true).parameter {
         didSet{
             guard let baseHomeView = baseHomeView as? DetailHomeView  else {
@@ -29,22 +31,23 @@ class DetailBaseViewController<T: BaseView> : BaseViewController {
             baseHomeView.tableView.reloadData()
         }
     }
-    
+    // MARK: 세팅 풀다운 버튼
     func settingBarButton(){
+        // MARK: 1섹션 3개의 아이템을 정의
         let sortItems = UIMenu(title: "정렬타입", options: .singleSelection, children: [
             UIAction(title: "마감일", handler: { _ in
                 self.sortParam = testSortSction.dateSet(ascending: self.sortParam.ascending).parameter
             }),
-            UIAction(title: "제목순", handler: { _ in
+            UIAction(title: "제목순",state: .on ,handler: { _ in
                 self.sortParam = testSortSction.title(ascending: self.sortParam.ascending).parameter
             }),
             UIAction(title: "우선순위순", handler: { _ in
                 self.sortParam = testSortSction.onlyprioritySet(ascending: self.sortParam.ascending).parameter
             })
         ])
-        
+        // MARK: 2섹션 2개의 아이템 정의
         let sortAt = UIMenu(title: "방식", options: .singleSelection,children: [
-            UIAction(title: "오름차순", handler: { _ in
+            UIAction(title: "오름차순",state: .on ,handler: { _ in
                 self.sortParam.ascending = true
             }),
             UIAction(title: "내림차순", handler: { _ in
@@ -54,13 +57,18 @@ class DetailBaseViewController<T: BaseView> : BaseViewController {
         guard let baseHomeView = baseHomeView as? DetailHomeView  else {
             return
         }
+        // MARK: 사용할 버튼을 가져옵니다.
         let button = baseHomeView.pullDownbutton
+        // MARK: 버튼메뉴에 2개의 섹션을 넣습니다.
         button.menu = UIMenu(children: [sortItems, sortAt])
+        // MARK: 누르자마자 나오게 합니다.
         button.showsMenuAsPrimaryAction = true
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: button)
        
-        
     }
+    
+    
+    
 //    private func setSortItem(_ section: settingSection){
 //        let item = UIAction(title: section.title, handler: section.type(bool: <#T##Bool#>))
 //    }
