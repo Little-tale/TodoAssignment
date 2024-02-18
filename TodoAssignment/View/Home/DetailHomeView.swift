@@ -20,6 +20,8 @@ class DetailHomeView: BaseView{
     }()
     
     
+    
+    
     override func configureHierarchy() {
         self.addSubview(tableView)
     }

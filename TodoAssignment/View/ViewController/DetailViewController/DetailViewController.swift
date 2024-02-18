@@ -12,7 +12,12 @@ import RealmSwift
 class DetailViewController: DetailBaseViewController<DetailHomeView> {
 
     // MARK: 모델 데이터 받을 공간
-    var modelData: Results<NewToDoTable>!
+    var modelData: Results<NewToDoTable>! {
+        didSet {
+            print("이건 왜 감지하지?")
+            baseHomeView.tableView.reloadData()
+        }
+    }
     // MARK: 기준이 될 데이터 공간
     var centerData : Results<NewToDoTable>!
     
@@ -26,22 +31,20 @@ class DetailViewController: DetailBaseViewController<DetailHomeView> {
         super.viewDidLoad()
         settingActions()
         
-      
     }
-    
+    // MARK: 액션을 여기서 만들고 정의합니다.
     func settingActions(){
-        var actions: [(String, () -> Void)] = []
-        
-        for section in SortSction.allCases {
-            let actting: () -> Void = {
-                self.dataSort(secction: section)
+        let menuIntems: [UIAction] = {
+            SortSction.allCases.map { section in
+                return UIAction(title: section.setTitle) { action in
+                    self.modelData = self.repository.dataSort(dataList: self.centerData, section: section, toggle: true)
+                }
             }
-            actions.append((section.setTitle, actting))
-        }
-    
-        settingAction(for: baseHomeView.pullDownbutton , actions: actions)
-        
+        }()
+
+        setupSortActionPlus(for: baseHomeView.pullDownbutton, actions: menuIntems)
     }
+    
     // MARK: 해당 코드에서 그냥 이 섹션들은 해당하는 케이스에 대해 true 인가 false 인가로 해보면 될것가틈 bool을 어떻게 처리하지....?
     //MARK: 정렬방식
     private func dataSort(secction: SortSction){
@@ -60,15 +63,12 @@ class DetailViewController: DetailBaseViewController<DetailHomeView> {
         print(#function,"*****")
     }
     
-    
-    
-    
     // MARK: 시작시 세팅을 해주는 메서드
     func settingViewDataInfomation(whatInfo: AllListCellCase){
-        
         modelData = repository.DetailFilterView(of: whatInfo)
         centerData = repository.DetailFilterView(of: whatInfo)
     }
+    
     // MARK: 검색기준일 경우에만 사용하세요
     func settingViewDataSearchCase(data: Results<NewToDoTable>){
         modelData = data
@@ -83,9 +83,6 @@ class DetailViewController: DetailBaseViewController<DetailHomeView> {
         baseHomeView.tableView.rowHeight = UITableView.automaticDimension
         baseHomeView.tableView.estimatedRowHeight = 100
         // baseHomeView.tableView.setEditing(true, animated: true)
-    }
-    override func designView() {
-       
     }
     
 }
@@ -132,7 +129,7 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource{
         return UISwipeActionsConfiguration(actions: [delete,modify])
     }
 
-    
+    // MARK: 해당하는 데이터를 지워 드립니다.
     private func deleteContextualAction(indexPathRow: Int) {
         repository.removeAt(modelData[indexPathRow])
     }
@@ -151,22 +148,22 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource{
         cell.priLabel.text = getPrivorityText(number: prioritynum)
         cell.subTitleLabel.text = modelData.memoTexts
         cell.leftButton.isSelected = modelData.complite
-        cell.leftButton.addTarget(self, action: #selector(testButton), for: .touchUpInside)
+        cell.leftButton.addTarget(self, action: #selector(toggleOfComplite), for: .touchUpInside)
         modelButtonDictionary[cell.leftButton] = modelData.id
     }
     
     
     
-    // MARK: 모든 버튼에 타겟 단 태그로 구분
+    // MARK: 버튼을 누르면 각 버튼을 구분지어 무엇을 눌렀는지
     @objc
-    func testButton(_ sender: UIButton) {
+    func toggleOfComplite(_ sender: UIButton) {
 
         print(modelButtonDictionary[sender] ?? "")
         // 버튼 선택상태를 -> 컴플리트 상태값으로
         print(sender.isSelected)
         
         let objectId = modelButtonDictionary[sender]
-        
+        // 아이디가 옵셔널 바인딩이 안되면 에러 띄움
         guard let objectId = objectId else {
             let alert = AlertManager().showAlert(error: RealmErrorCase.cantWriteObject)
             present(alert,animated: true)
@@ -180,10 +177,6 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource{
             present(alert, animated: true)
         }
     }
-    
-    func filterOfText(text: String){
-        
-    }
  
 }
 
@@ -196,6 +189,14 @@ extension DetailViewController {
 
 
 /*
+ //        var actions: [(String, () -> Void)] = []
+ //
+ //        for section in SortSction.allCases {
+ //            let actting: () -> Void = {
+ //                self.dataSort(secction: section)
+ //            }
+ //            actions.append((section.setTitle, actting))
+ //        }
  
  // cell.leftButton.tag = modelDatas.id
 //        print(modelDatas.id)

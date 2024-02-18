@@ -8,17 +8,38 @@
 import UIKit
 import RealmSwift
 
-protocol TodoRepository {
-    
-}
 typealias repositoryResults = Result<Void,Error>
-final class NewToDoRepository {
+
+protocol TodoRepository {
+    /// 전체 테이블을 줍니다.
+    func NewToDoRepository() -> Results<NewToDoTable>
+    
+    /// 새로운 테이블을 저장합니다.
+    func createOfRecord(object: Object)
+    
+    /// 데이터 정렬을 해줍니다. 섹션별로 해드립니다.
+    func dataSort(dataList: Results<NewToDoTable>, section: SortSction, toggle: Bool) -> Results<NewToDoTable>
+    
+    /// 테이블을 주시면 지워드립니다.
+    func removeAt(_ item: NewToDoTable) -> Void
+    
+    ///  섹션을 주시면 해당하는 케이스별 카운트를 드립니다.
+    func collctionListViewDisPatchForCount(_ section: AllListCellCase) -> Int
+    
+    /// 단어를 필터링(대소문자 구분 X )해 해당하는 뷰를 보여드립니다.
+    func DetailFilterOfText(of: String) -> Results<NewToDoTable>
+    
+    /// 완료(Todo기준 )을 업데이트 해드립니다.
+    func compliteUpdater(model_Id: ObjectId, ButtonBool: Bool) throws
+}
+
+
+final class NewToDoRepository: TodoRepository{
     
     let realm = try! Realm()
     let model = NewToDoTable.self
     
-    
-    func fetchRecord() -> Results<NewToDoTable> {
+    func NewToDoRepository() -> Results<NewToDoTable> {
       return realm.objects(model)
     }
     
@@ -91,7 +112,7 @@ final class NewToDoRepository {
         }
         
     }
-    // MARK: 완료된 데이터를 걸려줍니다.
+    // MARK: 완료된 데이터 Toggle
     func compliteUpdater(model_Id: ObjectId, ButtonBool: Bool) throws {
         do{
             let dataModel = realm.object(ofType: model, forPrimaryKey: model_Id)
@@ -134,7 +155,6 @@ final class NewToDoRepository {
     /// 대소문자 구분안할겁니다....!
     func DetailFilterOfText(of: String) -> Results<NewToDoTable>{
         return realm.objects(model).where { $0.titleTexts.contains(of, options: .caseInsensitive) }
-        
     }
     
     

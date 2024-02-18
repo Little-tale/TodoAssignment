@@ -39,17 +39,33 @@ class DetailBaseViewController<T: BaseView> : BaseViewController {
         
         button.menu = UIMenu(children: menuItems)
         
+        
       // MARK: 공식문서
        //컨트롤이 상황에 맞는 메뉴 상호 작용을 활성화하는지 여부를 결정하는 부울 값입니다.
         button.isContextMenuInteractionEnabled = true
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: button)
     }
+    
+    func setupSortActionPlus(for button: UIButton, actions: [UIAction]) {
+        
+
+        // MARK: 공식문서
+         //컨트롤이 상황에 맞는 메뉴 상호 작용을 활성화하는지 여부를 결정하는 부울 값입니다.
+        
+        button.menu = UIMenu(children: actions)
+        button.setTitle("정렬방식", for: .normal)
+        button.showsMenuAsPrimaryAction = true
+        button.isContextMenuInteractionEnabled = true
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: button)
+    }
+    
     // MARK: 밖에서 할 액션 세팅 메서드
     /// 액션을 새팅합니다,
-    func settingAction(for button: UIButton, actions: [(String, ()->Void)]) {
-        setupSortAction(for: button, actions: actions)
-    }
+//    func settingAction(for button: UIButton, actions: [(String, ()->Void)]) {
+//        setupSortAction(for: button, actions: actions)
+//    }
  
 }
 
