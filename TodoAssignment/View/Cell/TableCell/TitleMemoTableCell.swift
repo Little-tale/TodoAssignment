@@ -85,7 +85,6 @@ extension TitleMemoTableCell: UITextFieldDelegate {
     func textFieldDidChangeSelection(_ textField: UITextField) {
         let title = titleTextField.text
        
-        
         delegate?.textFieldDidChanged(for: self, title: title)
     }
     

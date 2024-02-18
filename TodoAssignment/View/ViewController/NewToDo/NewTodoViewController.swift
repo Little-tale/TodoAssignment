@@ -8,19 +8,40 @@
 import UIKit
 import RealmSwift
 
-// MARK: 텍스트 필드가 현재 두개로 구현했는데 1개로 바꾸고 하나는 텍스트 뷰로 수정하자
+// MARK: 텍스트 필드가 현재 두개로 구현했는데 1개로 바꾸고 하나는 텍스트 뷰로 수정하자 -> OK
+
+// MARK: 데이터가 5개 따로 변수를 받고 있는데 하나로 해결해 볼수 있는 방법을 고민해 보자
+
+struct NewToDoItem {
+    var titleText: String? // 타이틀
+    var memoText: String? // 메모
+    var dateInfo: Date? // 날짜
+    var tagInfo: String? // 태그
+    var flagBool: Bool // 깃발 기본은 False 로 할 예정
+    var prioritizationIndex: Int // 우선순위인덱스 기본은 0일 예정
+}
 
 class NewTodoViewController: BaseViewController {
     let newtodoHomeView = NewTodoHomeView()
     
-    var titleText: String?
-    var memoText: String?
+    // MARK: 하나의 구조체 관리 // 하나로 묶어서 관리하려 했으나 타이틀, 메모 텍스트는 변화할때는 리로드가 필요가 없는데 지금 리로드 되고 있다.
+    var newToDoItem = NewToDoItem(flagBool: false, prioritizationIndex: 0) 
+//    {
+//        didSet{
+//            newtodoHomeView.todoTableView.reloadData()
+//        }
+//    }
     
-    var dateInfo: Date?
-    var tagInfo: String?
-    var flagBool: Bool?
+//    var titleText: String?
+//    var memoText: String?
+//    
+//    var dateInfo: Date?
+//    var tagInfo: String?
+//    var flagBool: Bool?
+//    
+    // 이런 다른 데이터들을 하나로 관리할수 있는방법 연구해보기
     
-    var prioritizationIndex = 0 { didSet{ newtodoHomeView.todoTableView.reloadData() } }
+//    var prioritizationIndex = 0 { didSet{ newtodoHomeView.todoTableView.reloadData() } }
     
     let toDoReomsitory = NewToDoRepository()
     
@@ -80,8 +101,8 @@ class NewTodoViewController: BaseViewController {
     
     @objc
     func saveButtonCliecked(){
-        
-        guard let titleText = titleText else {
+        let data = newToDoItem
+        guard let titleText = data.titleText else {
             showAlert(title: "No Title", message: "타이틀은 필수입니다!")
             return
         }
@@ -92,7 +113,7 @@ class NewTodoViewController: BaseViewController {
             return
         }
        
-        let newToDoRecord = NewToDoTable(title: titleText, memoTexts: memoText, endDay: dateInfo, tagText: tagInfo, priorityNumber: prioritizationIndex, flagBool: flagBool ?? false)
+        let newToDoRecord = NewToDoTable(title: text, memoTexts: data.memoText, endDay: data.dateInfo, tagText: data.tagInfo, priorityNumber: data.prioritizationIndex, flagBool: data.flagBool)
         
         toDoReomsitory.createOfRecord(object: newToDoRecord)
         
@@ -135,22 +156,21 @@ extension NewTodoViewController: UITableViewDelegate, UITableViewDataSource {
             cell.textViewDelegate = self
             return cell
         case .endDay:
-            cell.infoLabel.text =  DateAssistance().getDate(date: self.dateInfo) 
+            cell.infoLabel.text =  DateAssistance().getDate(date: newToDoItem.dateInfo)
             return cell
             
         case .tag:
-
-            cell.infoLabel.text = self.tagInfo
+            cell.infoLabel.text = newToDoItem.tagInfo
             return cell
         case .prioritization:
-            cell.infoLabel.text = prioritization.allCases[prioritizationIndex].name
+            cell.infoLabel.text = prioritization.allCases[newToDoItem.prioritizationIndex].name
         case .addImage:
             break
-        case .flag:
+        case .flag: // MARK: 클로저가 강하게 self를 참조하면 ARC가 인스턴스를 메모리에서 해제 잘 못함
             cell.obserVerToggle(imageHiddenBool: true)
             cell.switchToggleAction = {
-                controll in
-                self.switchButton(control: controll)
+                [weak self] control in
+                self?.switchButton(control: control)
             }
             break
         }
@@ -159,8 +179,7 @@ extension NewTodoViewController: UITableViewDelegate, UITableViewDataSource {
     }
     // MARK: 스위치 버튼 액션
     func switchButton(control: UISwitch){
-        // print(control.isOn)
-        flagBool = control.isOn
+        newToDoItem.flagBool = control.isOn
     }
 
     
@@ -192,13 +211,13 @@ extension NewTodoViewController: UITableViewDelegate, UITableViewDataSource {
             // MARK: 클로저 캡처를 이용한 역값전달
             let vc = DatePickerViewController()
             
-            vc.date = self.dateInfo
+            vc.date = newToDoItem.dateInfo
             
             vc.DateInfo = {
-                result in
+                [weak self] result in
                 // print(result)
-                self.dateInfo = result
-                self.newtodoHomeView.todoTableView.reloadData()
+                self?.newToDoItem.dateInfo = result
+                self?.reloadTableViewSection(for: secction)
             }
             
             navigationController?.pushViewController(vc, animated: true)
@@ -206,7 +225,8 @@ extension NewTodoViewController: UITableViewDelegate, UITableViewDataSource {
             let vc = TagSettingViewController()
             NotificationCenter.default.addObserver(self, selector: #selector(getTagData), name: NSNotification.Name("tagData") , object: nil)
             
-            let data = self.tagInfo
+            let data = newToDoItem.tagInfo
+            
             navigationController?.pushViewController(vc, animated: true)
             
             guard let data = data else {
@@ -219,7 +239,7 @@ extension NewTodoViewController: UITableViewDelegate, UITableViewDataSource {
         case .prioritization:
             let vc = PrioritizationViewController()
             vc.prioritizationDelegate = self
-            vc.segmentIndex = self.prioritizationIndex
+            vc.segmentIndex = newToDoItem.prioritizationIndex
             navigationController?.pushViewController(vc, animated: true)
             return
             
@@ -232,48 +252,43 @@ extension NewTodoViewController: UITableViewDelegate, UITableViewDataSource {
         
     }
 
-    
+    // MARK: 노티피케이션 방법을 통한 역 값전달.
     @objc
     func getTagData(sender: Notification){
-        // print(sender.userInfo?["tag"])
-        // print(sender.userInfo?["tag"] as String)
+    
         if let value = sender.userInfo?["tag"] as? String {
             print("🐷🐷🐷🐷🐷🐷",value)
-            tagInfo = value
+            newToDoItem.tagInfo = value
         }
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "tagData"), object: nil)
-        
-        self.newtodoHomeView.todoTableView.reloadData()
+        reloadTableViewSection(for: .tag)
     }
     
-    
 }
-
+// MARK: 딜리게이트 패턴일수도 있는 프로토콜 방법인데 둘의 차이는 잘 와 닿지는 않는것 같다.
 extension NewTodoViewController: selectedPrioritization {
     func getPrioritization(for AllViewContoller: UIViewController, prioitiNum: Int) {
         print(prioritization.allCases[prioitiNum].name)
         
-        self.prioritizationIndex = prioritization.allCases[prioitiNum].rawValue
-        
+        newToDoItem.prioritizationIndex = prioritization.allCases[prioitiNum].rawValue
+       
+        reloadTableViewSection(for: .prioritization)
     }
 }
-
-
 
 extension NewTodoViewController: TitleTextFieldProtocol {
     
     func textFieldDidChanged(for cell: TitleMemoTableCell, title: String?) {
-        self.titleText = title
+        newToDoItem.titleText = title
         // checSaveButton()
     }
     
 }
-// https://fomaios.tistory.com/entry/iOS-%ED%85%8C%EC%9D%B4%EB%B8%94%EB%B7%B0-%EC%95%88%EC%97%90-%EC%9E%88%EB%8A%94-%ED%85%8D%EC%8A%A4%ED%8A%B8%EB%B7%B0-%EB%86%92%EC%9D%B4-%EA%B8%80%EC%97%90-%EB%94%B0%EB%9D%BC-%EC%A1%B0%EC%A0%95%ED%95%98%EA%B8%B0Dynamic-tableviewcell-height-by-textview-text
+// MARK: 현재 값을 제한하여 길이 제한하는거 고민해야함 https://fomaios.tistory.com/entry/iOS-%ED%85%8C%EC%9D%B4%EB%B8%94%EB%B7%B0-%EC%95%88%EC%97%90-%EC%9E%88%EB%8A%94-%ED%85%8D%EC%8A%A4%ED%8A%B8%EB%B7%B0-%EB%86%92%EC%9D%B4-%EA%B8%80%EC%97%90-%EB%94%B0%EB%9D%BC-%EC%A1%B0%EC%A0%95%ED%95%98%EA%B8%B0Dynamic-tableviewcell-height-by-textview-text
 extension NewTodoViewController: MemoTextViewProtocol {
     func textViewDidChange(_ textView: UITextView) {
-        self.memoText = textView.text
+        newToDoItem.memoText = textView.text
   
-        
         let size = textView.bounds.size
         let newSize = newtodoHomeView.todoTableView.sizeThatFits(CGSize(width: size.width,
                                                                         height: CGFloat.greatestFiniteMagnitude))
@@ -293,6 +308,25 @@ extension NewTodoViewController: MemoTextViewProtocol {
     }
     
 }
+
+// MARK: 특정 섹션만 리로드 하는 방법을 알아보기.
+extension NewTodoViewController{
+    
+    private func reloadTableViewSection(for section: NewToDoList) {
+        // 섹션 해당하는 인덱스 가져오기
+        guard let section = NewToDoList.allCases.firstIndex(of: section) else {
+            return
+        }
+        // MARK: IndexSet은 하나의 범위로 인덱스를 관리하여 메모리 사용량을 죄적화 하여 준다.!
+        // MARK: 심지어 불연속적 0,4,12 같은 인덱스 집합도 표현이 가능하다!
+        let tableIndex =  IndexSet(integer: section)
+        
+        newtodoHomeView.todoTableView.reloadSections(tableIndex, with: .automatic)
+        // MARK: 특정 로우를 리로드 하는 방법도 존재한다.
+//        newtodoHomeView.todoTableView.reloadRows(at: <#T##[IndexPath]#>, with: <#T##UITableView.RowAnimation#>)
+    }
+}
+
 /*
  // print(textView.text)
  
