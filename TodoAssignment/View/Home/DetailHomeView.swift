@@ -12,10 +12,10 @@ class DetailHomeView: BaseView{
     let tableView = UITableView(frame: .zero)
     lazy var pullDownbutton: UIButton = {
         let button = UIButton(type: .system)
-        button.frame = .init(x: 0, y: 0, width: 100, height: 40)
+        //button.frame = .init(x: 0, y: 0, width: 100, height: 40)
         button.setImage(UIImage(systemName: "ellipsis.circle"), for: .normal)
         button.tintColor = .blue
-        // button.sizeToFit()
+        button.sizeToFit()
         return button
     }()
     

@@ -88,7 +88,8 @@ extension AllListViewController : UICollectionViewDelegate, UICollectionViewData
         let secction = AllListCellCase.allCases[indexPath.item]
         let vc = DetailViewController()
     
-        vc.settingViewDataInfomation(whatInfo: secction)
+       // vc.settingViewDataInfomation(whatInfo: secction)
+        vc.viewType = secction
         vc.navigationItem.title = secction.name
         navigationController?.pushViewController(vc, animated: true)
         

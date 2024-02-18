@@ -29,7 +29,7 @@ class SearchBaseViewController: BaseViewController {
     // MARK: 서치뷰컨 세팅
     private func searchViewControllerSetting(){
         // MARK: 다음뷰에 모델을 제공하기 위한 메서드
-        resultsViewController.settingViewDataInfomation(whatInfo: .all)
+//        resultsViewController.settingViewDataInfomation(whatInfo: .all)
         // MARK: 서치 컨트롤러는 뷰디드로드 메서드 내에 위치하는것이 좋다.
         let searchController = UISearchController(searchResultsController: resultsViewController)
         
@@ -79,8 +79,8 @@ extension SearchBaseViewController: UISearchResultsUpdating {
         // 검색로직 을 통해 데이터 받아오기
         let data = resultsViewController.repository.DetailFilterOfText(of: searchText)
         // 다음뷰에 데이터 전달
-        resultsViewController.settingViewDataSearchCase(data: data)
-     
+//        resultsViewController.settingViewDataSearchCase(data: data)
+        resultsViewController.viewType = .all
         print(#function)
     }
     

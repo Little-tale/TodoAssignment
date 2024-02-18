@@ -183,6 +183,34 @@ final class NewToDoRepository: TodoRepository{
     
 }
 
+//enum settingSection: CaseIterable {
+//    case endDay
+//    case titleAt
+//    case privo
+//    
+//    
+//    var title: String{
+//        switch self {
+//        case .endDay:
+//            "마감일순"
+//        case .titleAt:
+//            "제목순"
+//        case .privo:
+//            "우선순위순"
+//        }
+//    }
+//    func type(bool: Bool) -> testSortSction {
+//        switch self {
+//        case .endDay:
+//            testSortSction.dateSet(ascending: bool)
+//        case .titleAt:
+//            testSortSction.dateSet(ascending: bool)
+//        case .privo:
+//            testSortSction.dateSet(ascending: bool)
+//        }
+//    }
+//}
+
 
 /*
  
