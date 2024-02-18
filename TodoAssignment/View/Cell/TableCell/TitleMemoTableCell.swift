@@ -104,10 +104,12 @@ extension TitleMemoTableCell : UITextViewDelegate {
         textView.text == "" ? (memoPlaceHolder.isHidden = false) : (memoPlaceHolder.isHidden = true)
     }
     
-    // MARK: 딜리게이트 전달 시점 + 텍스트 숫자 제한(예정)
+    // MARK: 딜리게이트 전달 시점 + 텍스트 숫자 제한(적용완료)
     func textViewDidChange(_ textView: UITextView) {
         textView.text == "" ? (memoPlaceHolder.isHidden = false) : (memoPlaceHolder.isHidden = true)
-    
+        if textView.text.count > 250{
+            textView.deleteBackward()
+        }
         print("*",#function )
         textViewDelegate?.textViewDidChange(textView)
     }
