@@ -241,6 +241,7 @@ extension NewTodoViewController: UITableViewDelegate, UITableViewDataSource {
             let vc = PrioritizationViewController()
             vc.prioritizationDelegate = self
             vc.segmentIndex = newToDoItem.prioritizationIndex
+           
             navigationController?.pushViewController(vc, animated: true)
             return
             

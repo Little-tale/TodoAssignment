@@ -149,7 +149,7 @@ final class NewToDoRepository: TodoRepository{
         case .completed:
             return realm.objects(model).where { $0.complite == true }
         }
-        
+      
     }
     
     /// 대소문자 구분안할겁니다....!
@@ -157,6 +157,29 @@ final class NewToDoRepository: TodoRepository{
         return realm.objects(model).where { $0.titleTexts.contains(of, options: .caseInsensitive) }
     }
     
+    
+    // MARK: 두번째 대공사 키패스를 이용한 필터 뷰
+    func DetailFilterViewForKeyPath(of: AllListCellCase, sortParam:(keyPath: String, ascending: Bool) = testSortSction.dateSet(ascending: true).parameter) -> Results<NewToDoTable> {
+        let calender = Calendar.current
+        let start = calender.startOfDay(for: Date())
+        let end = calender.date(byAdding: .day, value: 1, to: start)
+        switch of {
+        case .today:
+            return realm.objects(model).where {
+                $0.endDay > start && $0.endDay < end
+            }.sorted(byKeyPath: sortParam.keyPath, ascending: sortParam.ascending)
+        case .upcoming:
+            return realm.objects(model).where { $0.endDay > Date() }.sorted(byKeyPath: sortParam.keyPath, ascending: sortParam.ascending)
+        case .all:
+            return realm.objects(model).sorted(byKeyPath: sortParam.keyPath, ascending: sortParam.ascending)
+        case .flag:
+            return realm.objects(model)
+                .where { $0.flagBool }.sorted(byKeyPath: sortParam.keyPath, ascending: sortParam.ascending)
+        case .completed:
+            return realm.objects(model).where { $0.complite }.sorted(byKeyPath: sortParam.keyPath, ascending: sortParam.ascending)
+        }
+
+    }
     
 }
 

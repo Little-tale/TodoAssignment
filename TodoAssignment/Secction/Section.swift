@@ -198,6 +198,41 @@ enum SortSction: CaseIterable {
         }
     }
 }
+enum testSortSction {
+    case title(ascending: Bool)
+    case dateSet(ascending: Bool)
+    case prioritySet(ascending: Bool)
+    case onlyprioritySet(ascending: Bool)
+    
+    var parameter:(keyPath: String, ascending: Bool){
+        switch self {
+        case .title(let ascending):
+            (getQeery(section: self), ascending)
+        case .dateSet(let ascending):
+            (getQeery(section: self), ascending)
+        case .prioritySet(let ascending):
+            (getQeery(section: self), ascending)
+        case .onlyprioritySet(let ascending):
+            (getQeery(section: self), ascending)
+        }
+    }
+
+    private func getQeery(section: testSortSction) -> String{
+        switch self {
+        case .title:
+            "titleTexts"
+        case .dateSet:
+            "endDay"
+        case .prioritySet:
+            "priorityNumber"
+        case .onlyprioritySet:
+            "priorityNumber"
+        }
+    }
+    
+}
+
+
 
 /*
  // MARK: 이렇게 할 필요가 없음 어느정도는 있겠지만
