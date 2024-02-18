@@ -197,6 +197,40 @@ enum SortSction: CaseIterable {
             "우선순위만"
         }
     }
+//    enum sectionOf {
+//        case title(ascending: Bool)
+//        case dateSet(ascending: Bool)
+//        case prioritySet(ascending: Bool)
+//        case onlyprioritySet(ascending: Bool)
+//        
+//        var parameter:(keyPath: String, ascending: Bool){
+//            switch self {
+//            case .title(let ascending):
+//                (getQeery(section: self), ascending)
+//            case .dateSet(let ascending):
+//                (getQeery(section: self), ascending)
+//            case .prioritySet(let ascending):
+//                (getQeery(section: self), ascending)
+//            case .onlyprioritySet(let ascending):
+//                (getQeery(section: self), ascending)
+//            }
+//        }
+//
+//        private func getQeery(section: sectionOf) -> String{
+//            switch self {
+//            case .title:
+//                "titleTexts"
+//            case .dateSet:
+//                "endDay"
+//            case .prioritySet:
+//                "priorityNumber"
+//            case .onlyprioritySet:
+//                "priorityNumber"
+//            }
+//        }
+//        
+//    }
+    
 }
 enum testSortSction {
     case title(ascending: Bool)

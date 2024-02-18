@@ -7,7 +7,9 @@
 
 import UIKit
 import RealmSwift
-
+/*
+ func fetch(_ type: HomeCollection, sortParam: (keyPath: String, ascending: Bool) = SortType.deadline(ascending: true).sortParam) -> Results<TaskTable> {
+ */
 
 class DetailViewController: DetailBaseViewController<DetailHomeView> {
 
@@ -22,6 +24,18 @@ class DetailViewController: DetailBaseViewController<DetailHomeView> {
     var centerData : Results<NewToDoTable>!
     
     let repository = NewToDoRepository()
+    
+    // MARK: 테스트공간
+    var viewType: AllListCellCase?
+    
+    lazy var testList = repository.DetailFilterViewForKeyPath(of: viewType ?? .all)
+    
+    var sortParam = testSortSction.dateSet(ascending: true).parameter {
+        didSet{
+            testList = repository.DetailFilterViewForKeyPath(of: viewType ?? .all, sortParam: sortParam)
+            baseHomeView.tableView.reloadData()
+        }
+    }
 
     // MARK: 테스트 단계인 버튼이 키고 아이디가 벨류
     var modelButtonDictionary: [UIButton: ObjectId] = [:]
@@ -69,6 +83,10 @@ class DetailViewController: DetailBaseViewController<DetailHomeView> {
         centerData = repository.DetailFilterView(of: whatInfo)
     }
     
+    func settingNewDateInfgomation(whatInfo: AllListCellCase) {
+       // modelData = repository.
+    }
+    
     // MARK: 검색기준일 경우에만 사용하세요
     func settingViewDataSearchCase(data: Results<NewToDoTable>){
         modelData = data
@@ -86,7 +104,7 @@ class DetailViewController: DetailBaseViewController<DetailHomeView> {
     }
     
 }
-// MARK: 디테일 부 컨트롤러 딜리게이트 데이타 소스
+// MARK: 디테일 뷰 컨트롤러 딜리게이트 데이타 소스
 extension DetailViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
