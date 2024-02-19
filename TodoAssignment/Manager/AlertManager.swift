@@ -19,7 +19,7 @@ class AlertManager {
     }
     
     func showAlert(error: Error) -> UIAlertController {
-        var alert = UIAlertController()
+        let alert = UIAlertController()
         if let error = error as? RealmErrorCase {
             alert.title = error.errorTitle
             alert.message = error.errorMessage
@@ -36,6 +36,29 @@ class AlertManager {
             alert.dismiss(animated: true)
         }
         return alert
-}
+    }
+    
+    func settingActionSheet(title: String,message: String? = nil, actions:[UIAlertAction]) -> UIAlertController{
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
+        actions.forEach { action in
+            alert.addAction(action)
+        }
+        alert.addAction(UIAlertAction(title: "취소", style: .cancel))
+        return alert
+    }
+    
+    func actionSetting(title: String, compliteHandler: @escaping () -> Void) -> UIAlertAction{
+        let action = UIAlertAction(title: title, style: .default) { action in
+            compliteHandler()
+        }
+        return action
+    }
+    
+    func settingActionSheet(title: String,message: String? = nil,
+                            actions: @escaping()->Void) {
+        
+    }
+    
     
 }
+

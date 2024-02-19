@@ -19,10 +19,13 @@ struct NewToDoItem {
     var tagInfo: String? // 태그
     var flagBool: Bool // 깃발 기본은 False 로 할 예정
     var prioritizationIndex: Int // 우선순위인덱스 기본은 0일 예정
+    var profileImage: UIImage?
 }
 
 class NewTodoViewController: BaseViewController {
     let newtodoHomeView = NewTodoHomeView()
+    
+    let alertManager = AlertManager()
     
     // MARK: 하나의 구조체 관리 // 하나로 묶어서 관리하려 했으나 타이틀, 메모 텍스트는 변화할때는 리로드가 필요가 없는데 지금 리로드 되고 있다.
     var newToDoItem = NewToDoItem(flagBool: false, prioritizationIndex: 0) 
@@ -118,6 +121,8 @@ class NewTodoViewController: BaseViewController {
         
         toDoReomsitory.createOfRecord(object: newToDoRecord)
         
+        
+        
         navigationController?.popViewController(animated: true)
     }
 
@@ -150,6 +155,7 @@ extension NewTodoViewController: UITableViewDelegate, UITableViewDataSource {
         
         switch section{
         case .memo:
+            
             guard let cell = tableView.dequeueReusableCell(withIdentifier: TitleMemoTableCell.reuseabelIdentifier, for: indexPath) as? TitleMemoTableCell else {
                 return UITableViewCell()
             }
@@ -157,18 +163,24 @@ extension NewTodoViewController: UITableViewDelegate, UITableViewDataSource {
             cell.textViewDelegate = self
             return cell
         case .endDay:
+            
             cell.infoLabel.text =  DateAssistance().getDate(date: newToDoItem.dateInfo)
             return cell
             
         case .tag:
+            
             cell.infoLabel.text = newToDoItem.tagInfo
             return cell
         case .prioritization:
+            
             cell.infoLabel.text = prioritization.allCases[newToDoItem.prioritizationIndex].name
         case .addImage:
+            
+            cell.prepareForCell(profileImage: true)
+            cell.profileImageView.image = newToDoItem.profileImage
             break
         case .flag: // MARK: 클로저가 강하게 self를 참조하면 ARC가 인스턴스를 메모리에서 해제 잘 못함
-            cell.obserVerToggle(imageHiddenBool: true)
+            cell.prepareForCell(switchButton: true)
             cell.switchToggleAction = {
                 [weak self] control in
                 self?.switchButton(control: control)
@@ -246,6 +258,8 @@ extension NewTodoViewController: UITableViewDelegate, UITableViewDataSource {
             return
             
         case .addImage:
+            let alert = alertManager.settingActionSheet(title: "이미지가져오기", actions: settingActions())
+            present(alert,animated: true)
             return
             
         case .flag:
@@ -264,6 +278,19 @@ extension NewTodoViewController: UITableViewDelegate, UITableViewDataSource {
         }
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "tagData"), object: nil)
         reloadTableViewSection(for: .tag)
+    }
+    
+    // MARK: 액션 넣어주기 Test 버전 -> 1차 실패 강함참조로 인해 보임 -> 2차 성공
+    // 1차 실패시 클로저에서 즉시 실행해 버려서 액션 시트가 나오지 않음
+    // 2차시에는 바로 액션으로 변환하는 대신 약한 참조로 바로 액션이 나오게 하는것을 방지
+    func settingActions() -> [UIAlertAction] {
+        let actions = addImageSection.allCases.map { section -> UIAlertAction in
+            alertManager.actionSetting(title: section.title) {
+                [weak self] in
+                section.imageAction(from: self!)
+            }
+        }
+        return actions
     }
     
 }
@@ -310,6 +337,43 @@ extension NewTodoViewController: MemoTextViewProtocol {
     }
     
 }
+// MARK: 이미지 피커컨 딜리게이트 네비컨 딜리게이트
+extension NewTodoViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    //MARK: 취소 버튼을 눌렀을때
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        print(#function)
+        
+        
+        dismiss(animated: true)
+    }
+    // 이미지를 눌렀을때
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        print(#function)
+        
+        // imagePickerController(_:didFinishPickingMediaWithInfo:) 출력됨
+        //print(picker)
+        
+        // *** [__C.UIImagePickerControllerInfoKey(_rawValue: ......
+        //print("***",info) // 이미지의 정보가 출력됨
+        
+        // MARK: 원본 이미지를 가져오기
+//        if let selectedImage = info[UIImagePickerController.InfoKey.originalImage] {
+//            
+//            print(selectedImage)
+//        }
+        // MARK: 거의 정사각형으로(가끔아님) 편집된 사진 가져오기
+        if let selectedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage{
+            // as? UIImage로 형변환 시도후 성공시
+            print(selectedImage)
+            
+            newToDoItem.profileImage = selectedImage
+            reloadTableViewSection(for: .addImage)
+        }
+        
+        
+        dismiss(animated: true)
+    }
+}
 
 // MARK: 특정 섹션만 리로드 하는 방법을 알아보기.
 extension NewTodoViewController{
@@ -324,6 +388,8 @@ extension NewTodoViewController{
         let tableIndex =  IndexSet(integer: section)
         
         newtodoHomeView.todoTableView.reloadSections(tableIndex, with: .automatic)
+        
+        
         // MARK: 특정 로우를 리로드 하는 방법도 존재한다.
 //        newtodoHomeView.todoTableView.reloadRows(at: <#T##[IndexPath]#>, with: <#T##UITableView.RowAnimation#>)
     }

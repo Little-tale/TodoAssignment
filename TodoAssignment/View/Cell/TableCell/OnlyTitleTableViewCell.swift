@@ -20,6 +20,13 @@ final class OnlyTitleTableViewCell: BaseTableViewCell {
         return view
     }()
     
+    let profileImageView: UIImageView = {
+        let view = UIImageView(frame: .zero)
+        view.contentMode = .scaleAspectFill
+        view.clipsToBounds = true
+        return view
+    }()
+    
     let infoLabel = UILabel()
     let switchButton = UISwitch(frame: .zero)
     
@@ -30,7 +37,7 @@ final class OnlyTitleTableViewCell: BaseTableViewCell {
         contentView.addSubview(rightImage)
         contentView.addSubview(infoLabel)
         contentView.addSubview(switchButton)
-
+        contentView.addSubview(profileImageView)
     }
     
     override func configureLayout() {
@@ -53,6 +60,11 @@ final class OnlyTitleTableViewCell: BaseTableViewCell {
             make.height.centerY.equalTo(infoLabel)
             make.trailing.equalTo(contentView.safeAreaLayoutGuide).inset(20)
         }
+        profileImageView.snp.makeConstraints { make in
+            make.centerY.equalTo(rightImage)
+            make.trailing.equalTo(rightImage.snp.leading).inset( -8 )
+            make.size.equalTo(30)
+        }
     }
     override func designView() {
         switchButton.isHidden = true
@@ -68,6 +80,9 @@ final class OnlyTitleTableViewCell: BaseTableViewCell {
         infoLabel.textColor = .blue
         
         switchButton.addTarget(self, action: #selector(switchButtonActions), for: .valueChanged)
+        
+        profileImageView.isHidden = true
+        // profileImageView.backgroundColor = .white
     }
     
     @objc
@@ -79,11 +94,36 @@ final class OnlyTitleTableViewCell: BaseTableViewCell {
         super.prepareForReuse()
         rightImage.isHidden = false
         switchButton.isHidden = true
+        profileImageView.isHidden = true
+        prepareForCell()
     }
     
-    func obserVerToggle(imageHiddenBool: Bool){
-        rightImage.isHidden = imageHiddenBool
-        rightImage.isHidden == true ? (switchButton.isHidden = false) : (switchButton.isHidden = true)
+//    func obserVerToggle(imageHiddenBool: Bool){
+//        rightImage.isHidden = imageHiddenBool
+//        rightImage.isHidden == true ? (switchButton.isHidden = false) : (switchButton.isHidden = true)
+//    }
+    func prepareForCell(rightImage: Bool? = false, switchButton: Bool? = false, profileImage: Bool? = false){
+        if rightImage == true {
+            
+            self.switchButton.isHidden = true
+            profileImageView.isHidden = true
+            self.rightImage.isHidden = false
+            
+        }else if switchButton == true {
+            
+            self.switchButton.isHidden = false
+            profileImageView.isHidden = true
+            self.rightImage.isHidden = true
+            
+        }else if profileImage == true{
+            
+            self.switchButton.isHidden = true
+            profileImageView.isHidden = false
+            self.rightImage.isHidden = false
+        }else {
+            self.switchButton.isHidden = true
+            profileImageView.isHidden = true
+            self.rightImage.isHidden = false
+        }
     }
-    
 }

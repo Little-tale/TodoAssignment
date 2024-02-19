@@ -84,14 +84,18 @@ final class NewToDoRepository: TodoRepository{
         switch section {
         case .today:
             var calender = Calendar.current
-            
-            calender.locale = Locale.current
+        
+            print("***",calender)
+//            calender.locale = Locale.current
+            print("*****",calender)
             
             let start = calender.startOfDay(for: Date())
+//            let start = Date()
             let end = calender.date(byAdding: .day, value: 1, to: start)
             let todayIteral = realm.objects(model).where{
                 $0.endDay > start && $0.endDay < end
             }
+            print("*****",todayIteral, start, end)
             return todayIteral.count
         case .upcoming:
             //// MMMMMMMMMM

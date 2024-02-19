@@ -192,7 +192,7 @@ enum SortSction: CaseIterable {
         case .dateSet:
             "날짜순"
         case .prioritySet:
-            "우산순위순"
+            "우선순위순"
         case .onlyprioritySet:
             "우선순위만"
         }
@@ -264,6 +264,55 @@ enum testSortSction {
         }
     }
     
+}
+
+enum addImageSection: CaseIterable {
+    case camera
+    case gallery
+    case webImage
+    
+    var title: String {
+        switch self {
+        case .camera:
+            "카메라 사진"
+        case .gallery:
+            "갤러리에서 고르기"
+        case .webImage:
+            "웹 이미지 고르기"
+        }
+    }
+//    var action: (()-> Void) {
+//        switch self {
+//        case .camera:
+//            <#code#>
+//        case .gallery:
+//            <#code#>
+//        case .webImage:
+//            <#code#>
+//        }
+//    }
+    func imageAction(from: UIViewController){
+        switch self {
+        case .camera:
+            
+            break
+        case .gallery:
+            // MARK: 이미지 피커 컨트롤러 인스턴스 생성
+            let imagePicker = UIImagePickerController()
+            
+            // MARK: 해당 뷰컨이 프로토콜을 구현 안했을것을 방지
+            imagePicker.delegate = from as? any UIImagePickerControllerDelegate & UINavigationControllerDelegate
+            
+            // MARK: 편집 모드를 허용함
+            imagePicker.allowsEditing = true
+            
+            // MARK: 받아온 뷰컨에서 프레센트 시킴
+            from.present(imagePicker, animated: true)
+        case .webImage:
+            
+            break
+        }
+    }
 }
 
 

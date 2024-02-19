@@ -78,6 +78,7 @@ extension AllListViewController : UICollectionViewDelegate, UICollectionViewData
         //cell.countLabel.text = "\(data.howMany)"
         
         cell.countLabel.text = "\(repository.collctionListViewDisPatchForCount(caseSection))"
+        
         return cell
     }
     // MARK: 섹션별 알아서 (같은뷰컨임) 재사용성 높여서 처리 
