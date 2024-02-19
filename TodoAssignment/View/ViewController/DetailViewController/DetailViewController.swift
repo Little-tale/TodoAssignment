@@ -179,7 +179,7 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource{
         
         if let image = fileManager.loadImageToDocuments(fileCase: .image, fileNameOfID: "\(modelData.id)") {
             print(image)
-            cell.subImageView.image = image
+            cell.imagePrepare(image: image)
         }
         
         modelButtonDictionary[cell.leftButton] = modelData.id

@@ -112,6 +112,15 @@ final class DetailTableViewCell: BaseTableViewCell {
     }
     
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        imagePrepare()
+    }
   
+    func imagePrepare(image: UIImage? = nil){
+        if let image = image {
+            subImageView.image = image
+        }
+    }
     
 }
