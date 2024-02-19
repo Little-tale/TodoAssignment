@@ -151,8 +151,9 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource{
     private func toggleFlag(indexPath: IndexPath){
         repository.toggleOf(modle_ID: testList[indexPath.row].id)
         //baseHomeView.tableView.reloadRows(at: [indexPath], with: .automatic)
-        baseHomeView.tableView.reloadData()
-        
+        if viewType == .flag {
+            baseHomeView.tableView.deleteRows(at: [indexPath], with: .fade)
+        }
     }
     
     // MARK: 셀 데이터 세팅 메서드

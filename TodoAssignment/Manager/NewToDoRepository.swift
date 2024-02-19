@@ -83,7 +83,10 @@ final class NewToDoRepository: TodoRepository{
     func collctionListViewDisPatchForCount(_ section: AllListCellCase) -> Int {
         switch section {
         case .today:
-            let calender = Calendar.current
+            var calender = Calendar.current
+            
+            calender.locale = Locale.current
+            
             let start = calender.startOfDay(for: Date())
             let end = calender.date(byAdding: .day, value: 1, to: start)
             let todayIteral = realm.objects(model).where{
