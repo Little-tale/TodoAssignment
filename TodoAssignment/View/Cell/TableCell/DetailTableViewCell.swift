@@ -15,6 +15,7 @@ final class DetailTableViewCell: BaseTableViewCell {
     let subTitleLabel = UILabel()
     let dateLabel = UILabel()
     let tagLabel = UILabel()
+    let subImageView = UIImageView(frame: .zero)
     
     // 0:0
     override func configureHierarchy() {
@@ -24,6 +25,7 @@ final class DetailTableViewCell: BaseTableViewCell {
         contentView.addSubview(subTitleLabel)
         contentView.addSubview(dateLabel)
         contentView.addSubview(tagLabel)
+        contentView.addSubview(subImageView)
     }
 
     
@@ -37,10 +39,17 @@ final class DetailTableViewCell: BaseTableViewCell {
             // make.height.equalTo(24)//.priority(.high)
             make.centerY.equalTo(leftButton)
         }
+        
+        subImageView.snp.makeConstraints { make in
+            make.trailing.equalToSuperview().inset(20)
+            make.centerY.equalToSuperview()
+            make.size.equalTo(40)
+        }
+        
         mainLabel.snp.makeConstraints { make in
             make.leading.equalTo(priLabel.snp.trailing).offset( 4 )
             make.height.centerY.equalTo(priLabel)
-            make.trailing.lessThanOrEqualToSuperview().offset(12)
+            make.trailing.lessThanOrEqualTo(subImageView).inset(8)
         }
         subTitleLabel.snp.makeConstraints { make in
             make.leading.equalTo(priLabel.snp.leading)
@@ -57,13 +66,20 @@ final class DetailTableViewCell: BaseTableViewCell {
         tagLabel.snp.makeConstraints { make in
             make.leading.equalTo(dateLabel.snp.trailing).offset(4)
             make.centerY.equalTo(dateLabel)
-            make.trailing.lessThanOrEqualToSuperview().inset(12)
+            make.trailing.lessThanOrEqualTo(subImageView).inset(8)
         }
+        
     }
     
     
     override func designView() {
         fontSetting()
+//        mainLabel.backgroundColor = .red
+//        subTitleLabel.backgroundColor = .blue
+//        dateLabel.backgroundColor = .green
+//        subTitleLabel.backgroundColor = .cyan
+//        tagLabel.backgroundColor = .brown
+//        subImageView.backgroundColor = .gray
     }
     
     // MARK: 텍스트 컬러와 폰트 설정
@@ -94,6 +110,7 @@ final class DetailTableViewCell: BaseTableViewCell {
         print(#function)
         
     }
+    
     
   
     

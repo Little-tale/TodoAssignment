@@ -292,20 +292,22 @@ enum addImageSection: CaseIterable {
 //        }
 //    }
     func imageAction(from: UIViewController){
+        // MARK: 이미지 피커 컨트롤러 인스턴스 생성
+        let imagePicker = UIImagePickerController()
+        
+        // MARK: 해당 뷰컨이 프로토콜을 구현 안했을것을 방지
+        imagePicker.delegate = from as? any UIImagePickerControllerDelegate & UINavigationControllerDelegate
+        // MARK: 편집 모드를 허용함
+        imagePicker.allowsEditing = true
+        
         switch self {
         case .camera:
+            imagePicker.sourceType = .camera
             
+            from.present(imagePicker, animated: true)
             break
         case .gallery:
-            // MARK: 이미지 피커 컨트롤러 인스턴스 생성
-            let imagePicker = UIImagePickerController()
-            
-            // MARK: 해당 뷰컨이 프로토콜을 구현 안했을것을 방지
-            imagePicker.delegate = from as? any UIImagePickerControllerDelegate & UINavigationControllerDelegate
-            
-            // MARK: 편집 모드를 허용함
-            imagePicker.allowsEditing = true
-            
+            imagePicker.sourceType = .savedPhotosAlbum
             // MARK: 받아온 뷰컨에서 프레센트 시킴
             from.present(imagePicker, animated: true)
         case .webImage:

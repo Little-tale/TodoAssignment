@@ -25,7 +25,7 @@ class DetailViewController: DetailBaseViewController<DetailHomeView> {
 
     // MARK: 테스트 단계인 버튼이 키고 아이디가 벨류
     var modelButtonDictionary: [UIButton: ObjectId] = [:]
-    
+    let fileManager = SaveImageManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -121,11 +121,16 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource{
     }
     // MARK: 스와이프 방향 정해주고 보이기하기
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
         let delete = UIContextualAction(style: .destructive, title: "삭제") { UIContextualAction, UIView, success in
+            
             UIView.backgroundColor = .blue
             // 실제 데이터 를 먼저 삭제후 테이블뷰 딜리트 해야함
             self.deleteContextualAction(indexPathRow: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .automatic) // ->
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+            // ->
+            
+            
             success(true)
         }
         
@@ -144,7 +149,9 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource{
 
     // MARK: 해당하는 데이터를 지워 드립니다.
     private func deleteContextualAction(indexPathRow: Int) {
-        repository.removeAt(testList[indexPathRow])
+        let data = testList[indexPathRow]
+        fileManager.deleteFileDocuments(fileCase: .image, fileNameID: "\(data.id)")
+        repository.removeAt(data)
     }
     
     // MARK: 깃발을 토글
@@ -169,6 +176,11 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource{
         cell.subTitleLabel.text = modelData.memoTexts
         cell.leftButton.isSelected = modelData.complite
         cell.leftButton.addTarget(self, action: #selector(toggleOfComplite), for: .touchUpInside)
+        
+        if let image = fileManager.loadImageToDocuments(fileCase: .image, fileNameOfID: "\(modelData.id)") {
+            cell.subImageView.image = image
+        }
+        
         modelButtonDictionary[cell.leftButton] = modelData.id
     }
     

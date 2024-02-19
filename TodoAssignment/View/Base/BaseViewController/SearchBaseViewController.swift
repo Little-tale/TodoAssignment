@@ -76,11 +76,12 @@ extension SearchBaseViewController: UISearchResultsUpdating {
         guard let searchText = searchController.searchBar.text else {
             return
         }
+        resultsViewController.viewType = .all
         // 검색로직 을 통해 데이터 받아오기
         let data = resultsViewController.repository.DetailFilterOfText(of: searchText)
         // 다음뷰에 데이터 전달
 //        resultsViewController.settingViewDataSearchCase(data: data)
-        resultsViewController.viewType = .all
+        
         print(#function)
     }
     

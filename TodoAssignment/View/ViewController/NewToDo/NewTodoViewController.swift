@@ -47,7 +47,7 @@ class NewTodoViewController: BaseViewController {
 //    var prioritizationIndex = 0 { didSet{ newtodoHomeView.todoTableView.reloadData() } }
     
     let toDoReomsitory = NewToDoRepository()
-    
+    let saveImageFileManager = SaveImageManager()
     
     
     // var dataBox: [Int:]
@@ -121,6 +121,10 @@ class NewTodoViewController: BaseViewController {
         
         toDoReomsitory.createOfRecord(object: newToDoRecord)
         
+        // MARK: 사진 저장하는 시점
+        if let image = newToDoItem.profileImage {
+            saveImageFileManager.saveImageToDocument(image: image, filename: "\(newToDoRecord.id)")
+        }
         
         
         navigationController?.popViewController(animated: true)

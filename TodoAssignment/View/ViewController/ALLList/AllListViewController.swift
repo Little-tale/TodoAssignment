@@ -34,7 +34,7 @@ final class AllListViewController: SearchBaseViewController {
         allListHomeView.whereGoToView = {
             self.next()
         }
-        
+        navigationSetting()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -58,6 +58,21 @@ final class AllListViewController: SearchBaseViewController {
         navigationController?.pushViewController(vc, animated: true)
         
     }
+    
+    private func navigationSetting(){
+        navigationItem.leftBarButtonItem = leftBarButton()
+    }
+    private func leftBarButton() -> UIBarButtonItem{
+        let button = UIBarButtonItem(image: UIImage(systemName: "calendar.badge.checkmark"), style: .plain, target: self, action: #selector(calendarButtonClicked))
+        return button
+    }
+    
+    @objc
+    func calendarButtonClicked(){
+        let vc = CalendarViewController()
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
 }
 
 extension AllListViewController : UICollectionViewDelegate, UICollectionViewDataSource {

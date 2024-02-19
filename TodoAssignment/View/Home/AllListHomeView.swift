@@ -10,8 +10,6 @@ import SnapKit
 
 final class AllListHomeView: BaseView {
     
-    
-    
     var whereGoToView: (() -> Void)?
     
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: configureCellLayout())

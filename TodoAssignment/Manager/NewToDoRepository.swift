@@ -181,6 +181,31 @@ final class NewToDoRepository: TodoRepository{
     func DetailFilterOfText(of: String) -> Results<NewToDoTable>{
         return realm.objects(model).where { $0.titleTexts.contains(of, options: .caseInsensitive) }
     }
+    // MARK: FS캘린더 에서 사용할 Predicate 방법 필터
+    func CalendarFilter(date : Date) -> Results<NewToDoTable>? {
+        let calendar = Calendar.current
+        let start = calendar.startOfDay(for: date)
+        let end = calendar.date(byAdding: .day, value: 1, to: start)
+        //MARK: 오늘 배운 Predicate 방법으로 진행
+        guard let end = end else {
+            return nil
+        }
+        // MARK: 프레디케이트를 생성합니다.
+        // 애플문서 검색 또는 필터링을 위해 일련의 입력 값을 테스트하는 데 사용되는 논리 조건입니다.
+        let predicate = NSPredicate(format: "endDay >= %@ && endDay < %@", start as NSDate, end as NSDate)
+        
+        let results = NewToDoRepository().filter(predicate)
+        return results
+    }
+    // 이렇게 되면 가드문이나 if let 무한인디!
+//    func getDateInterval(firstdate: Date) -> ((String, String) -> Void) {
+//        let calendar = Calendar.current
+//        let start = calendar.startOfDay(for: firstdate)
+//        let end = calendar.date(byAdding: .day, value: 1, to: start)
+//        if let end = end {
+//            
+//        }
+//    }
     
     
     // MARK: 두번째 대공사 키패스를 이용한 필터 뷰
@@ -205,6 +230,8 @@ final class NewToDoRepository: TodoRepository{
         }
 
     }
+    
+    
     
 }
 
