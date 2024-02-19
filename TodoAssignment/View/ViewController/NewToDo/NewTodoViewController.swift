@@ -273,7 +273,7 @@ extension NewTodoViewController: UITableViewDelegate, UITableViewDataSource {
     // 1차 실패시 클로저에서 즉시 실행해 버려서 액션 시트가 나오지 않음
     // 2차시에는 바로 액션으로 변환하는 대신 약한 참조로 바로 액션이 나오게 하는것을 방지
     func settingActions() -> [UIAlertAction] {
-        let actions = addImageSection.allCases.map { section -> UIAlertAction in
+        let actions = addImageSection.allCases.map { section in
             alertManager.actionSetting(title: section.title) {
                 [weak self] in
                 section.imageAction(from: self!)
