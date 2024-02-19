@@ -52,6 +52,7 @@
 		7B8A81D02B83560B00F2CB73 /* CalendarHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8A81CF2B83560B00F2CB73 /* CalendarHomeView.swift */; };
 		7B8A81D32B8357F400F2CB73 /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 7B8A81D22B8357F400F2CB73 /* FSCalendar */; };
 		7B8A81D52B83A1EA00F2CB73 /* URLSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8A81D42B83A1EA00F2CB73 /* URLSessionManager.swift */; };
+		7B8A81D72B83AA9A00F2CB73 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 7B8A81D62B83AA9A00F2CB73 /* .gitignore */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -98,6 +99,7 @@
 		7B8A81CD2B83559B00F2CB73 /* BaseHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseHomeViewController.swift; sourceTree = "<group>"; };
 		7B8A81CF2B83560B00F2CB73 /* CalendarHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarHomeView.swift; sourceTree = "<group>"; };
 		7B8A81D42B83A1EA00F2CB73 /* URLSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionManager.swift; sourceTree = "<group>"; };
+		7B8A81D62B83AA9A00F2CB73 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -200,6 +202,7 @@
 				7B72D35B2B7C7D9B00DBB1DB /* LaunchScreen.storyboard */,
 				7B72D35E2B7C7D9B00DBB1DB /* Info.plist */,
 				7B72D37B2B7C847900DBB1DB /* Extension.swift */,
+				7B8A81D62B83AA9A00F2CB73 /* .gitignore */,
 			);
 			path = TodoAssignment;
 			sourceTree = "<group>";
@@ -402,6 +405,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7B72D35D2B7C7D9B00DBB1DB /* LaunchScreen.storyboard in Resources */,
+				7B8A81D72B83AA9A00F2CB73 /* .gitignore in Resources */,
 				7B72D35A2B7C7D9B00DBB1DB /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
