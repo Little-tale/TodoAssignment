@@ -85,6 +85,7 @@ extension SearchBaseViewController: UISearchResultsUpdating {
         resultsViewController.testList = data
         print("*******",data)
         resultsViewController.baseHomeView.tableView.reloadData()
+        
         print(#function)
     }
     

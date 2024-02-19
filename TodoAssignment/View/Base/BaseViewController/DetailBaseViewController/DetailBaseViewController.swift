@@ -11,14 +11,18 @@ class DetailBaseViewController<T: BaseView> : BaseViewController {
     
     // weak var uiViewController: UIViewController?
     let baseHomeView = T()
-    
-    
-    
+
     // MARK: 테스트공간
     var viewType: AllListCellCase?
     var repository = NewToDoRepository()
     
-    lazy var testList = repository.DetailFilterViewForKeyPath(of: viewType ?? .all)
+    lazy var testList = repository.DetailFilterViewForKeyPath(of: viewType ?? .all) {
+        didSet{
+//            print("asdsad")
+//            NotificationCenter.default.post(name: NSNotification.Name("datas"), object: self, userInfo: ["data":true])
+            // MARK: 노티피케이션 값전달로도 되질 않는다. 재사용 문제가 맞는거 같긴한데
+        }
+    }
     
     // Type -> (keyPath: String, ascending: Bool)
     // MARK: 각 정렬 기준을 잡습니다.

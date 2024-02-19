@@ -87,7 +87,19 @@ class DetailViewController: DetailBaseViewController<DetailHomeView> {
 //        print(#function,"***")
 //        baseHomeView.tableView.reloadData()
 //    }
-
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+//        NotificationCenter.default.addObserver(self, selector: #selector(observerData), name: NSNotification.Name("datas") , object: nil)
+        
+    }
+//    @objc
+//    func observerData(sender: Notification){
+//        if let value = sender.userInfo?["data"] as? Bool {
+//            reloadData(bool: value)
+//        }
+//    }
+    
+    
     override func dataSourceAndDelegate() {
         baseHomeView.tableView.delegate = self
         baseHomeView.tableView.dataSource = self
@@ -104,6 +116,7 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource{
         print(#function)
         return testList.count
     }
+    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
       
@@ -178,7 +191,7 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource{
         cell.leftButton.addTarget(self, action: #selector(toggleOfComplite), for: .touchUpInside)
         
         if let image = fileManager.loadImageToDocuments(fileCase: .image, fileNameOfID: "\(modelData.id)") {
-            print(image)
+            print("*****",image, modelData.id)
             cell.imagePrepare(image: image)
         }
         
@@ -220,7 +233,13 @@ extension DetailViewController {
     }
 }
 
-
+extension DetailViewController {
+    func reloadData(bool: Bool){
+        if bool == true {
+            baseHomeView.tableView.reloadData()
+        }
+    }
+}
 /*
  //        var actions: [(String, () -> Void)] = []
  //

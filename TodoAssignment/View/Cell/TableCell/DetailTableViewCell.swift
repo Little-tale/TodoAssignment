@@ -120,6 +120,8 @@ final class DetailTableViewCell: BaseTableViewCell {
     func imagePrepare(image: UIImage? = nil){
         if let image = image {
             subImageView.image = image
+        } else {
+            subImageView.image = nil
         }
     }
     

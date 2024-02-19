@@ -14,72 +14,10 @@
             filePath = "TodoAssignment/View/ViewController/DetailViewController/DetailViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "117"
-            endingLineNumber = "117"
+            startingLineNumber = "130"
+            endingLineNumber = "130"
             landmarkName = "tableView(_:cellForRowAt:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "58BA6268-A79B-43AE-9168-3C02A9D4ECE2 - b32bc9dfdd56140e"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "TodoAssignment.DetailViewController.tableView(_: __C.UITableView, cellForRowAt: Foundation.IndexPath) -&gt; __C.UITableViewCell"
-                  moduleName = "TodoAssignment"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/jaehyungkim/Desktop/Swift/Sesac/TodoAssignment/TodoAssignment/View/ViewController/DetailViewController/DetailViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "118"
-                  endingLineNumber = "118"
-                  offsetFromSymbolStart = "704">
-               </Location>
-               <Location
-                  uuid = "58BA6268-A79B-43AE-9168-3C02A9D4ECE2 - b32bc9dfdd56140e"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "TodoAssignment.DetailViewController.tableView(_: __C.UITableView, cellForRowAt: Foundation.IndexPath) -&gt; __C.UITableViewCell"
-                  moduleName = "TodoAssignment"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/jaehyungkim/Desktop/Swift/Sesac/TodoAssignment/TodoAssignment/View/ViewController/DetailViewController/DetailViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "118"
-                  endingLineNumber = "118"
-                  offsetFromSymbolStart = "684">
-               </Location>
-               <Location
-                  uuid = "58BA6268-A79B-43AE-9168-3C02A9D4ECE2 - b32bc9dfdd56146f"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "TodoAssignment.DetailViewController.tableView(_: __C.UITableView, cellForRowAt: Foundation.IndexPath) -&gt; __C.UITableViewCell"
-                  moduleName = "TodoAssignment"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/jaehyungkim/Desktop/Swift/Sesac/TodoAssignment/TodoAssignment/View/ViewController/DetailViewController/DetailViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "119"
-                  endingLineNumber = "119"
-                  offsetFromSymbolStart = "704">
-               </Location>
-               <Location
-                  uuid = "58BA6268-A79B-43AE-9168-3C02A9D4ECE2 - b32bc9dfdd56146f"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "TodoAssignment.DetailViewController.tableView(_: __C.UITableView, cellForRowAt: Foundation.IndexPath) -&gt; __C.UITableViewCell"
-                  moduleName = "TodoAssignment"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/jaehyungkim/Desktop/Swift/Sesac/TodoAssignment/TodoAssignment/View/ViewController/DetailViewController/DetailViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "119"
-                  endingLineNumber = "119"
-                  offsetFromSymbolStart = "684">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -128,6 +66,22 @@
                   offsetFromSymbolStart = "924">
                </Location>
             </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "56AB876F-E61F-443C-9350-C6C06BE88A1D"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TodoAssignment/View/ViewController/DetailViewController/DetailViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "194"
+            endingLineNumber = "194"
+            landmarkName = "cellDataSetting(for:modelData:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

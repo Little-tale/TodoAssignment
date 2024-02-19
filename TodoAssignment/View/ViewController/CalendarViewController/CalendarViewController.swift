@@ -97,7 +97,9 @@ extension CalendarViewController {
         cell.leftButton.addTarget(self, action: #selector(toggleOfComplite), for: .touchUpInside)
         
         if let image = fileManager.loadImageToDocuments(fileCase: .image, fileNameOfID: "\(modelData.id)") {
+            print("*****",image,modelData.id)
             cell.subImageView.image = image
+            print("*****")
         }
         
         modelButtonDictionary[cell.leftButton] = modelData.id
