@@ -177,7 +177,7 @@ final class NewToDoRepository: TodoRepository{
     
     
     // MARK: 두번째 대공사 키패스를 이용한 필터 뷰
-    func DetailFilterViewForKeyPath(of: AllListCellCase, sortParam:(keyPath: String, ascending: Bool) = testSortSction.dateSet(ascending: true).parameter) -> Results<NewToDoTable> {
+    func DetailFilterViewForKeyPath(of: AllListCellCase, sortParam:(keyPath: String, ascending: Bool) = testSortSction.title(ascending: true).parameter) -> Results<NewToDoTable> {
         let calender = Calendar.current
         let start = calender.startOfDay(for: Date())
         let end = calender.date(byAdding: .day, value: 1, to: start)

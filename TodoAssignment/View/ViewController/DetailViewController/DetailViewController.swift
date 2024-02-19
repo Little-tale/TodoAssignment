@@ -132,7 +132,7 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource{
         let modify = UIContextualAction(style: .normal, title: "깃발" ) { action, view, sucsess in
             view.backgroundColor = .green
             action.backgroundColor = .orange
-            self.toggleFlag(indexPathRow: indexPath.row)
+            self.toggleFlag(indexPath: indexPath)
             
             sucsess(true)
         }
@@ -148,8 +148,11 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource{
     }
     
     // MARK: 깃발을 토글
-    private func toggleFlag(indexPathRow: Int){
-        repository.toggleOf(modle_ID: testList[indexPathRow].id)
+    private func toggleFlag(indexPath: IndexPath){
+        repository.toggleOf(modle_ID: testList[indexPath.row].id)
+        //baseHomeView.tableView.reloadRows(at: [indexPath], with: .automatic)
+        baseHomeView.tableView.reloadData()
+        
     }
     
     // MARK: 셀 데이터 세팅 메서드

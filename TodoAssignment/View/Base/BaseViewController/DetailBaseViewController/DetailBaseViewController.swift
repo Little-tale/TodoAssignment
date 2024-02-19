@@ -22,7 +22,7 @@ class DetailBaseViewController<T: BaseView> : BaseViewController {
     
     // Type -> (keyPath: String, ascending: Bool)
     // MARK: 각 정렬 기준을 잡습니다.
-    var sortParam = testSortSction.dateSet(ascending: true).parameter {
+    var sortParam = testSortSction.title(ascending: true).parameter {
         didSet{
             guard let baseHomeView = baseHomeView as? DetailHomeView  else {
                 return
