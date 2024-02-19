@@ -3,4 +3,132 @@
    uuid = "5A0CAA55-4533-4420-886E-3EC5EEE2BDFB"
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "58BA6268-A79B-43AE-9168-3C02A9D4ECE2"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TodoAssignment/View/ViewController/DetailViewController/DetailViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "117"
+            endingLineNumber = "117"
+            landmarkName = "tableView(_:cellForRowAt:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "58BA6268-A79B-43AE-9168-3C02A9D4ECE2 - b32bc9dfdd56140e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "TodoAssignment.DetailViewController.tableView(_: __C.UITableView, cellForRowAt: Foundation.IndexPath) -&gt; __C.UITableViewCell"
+                  moduleName = "TodoAssignment"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jaehyungkim/Desktop/Swift/Sesac/TodoAssignment/TodoAssignment/View/ViewController/DetailViewController/DetailViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "118"
+                  endingLineNumber = "118"
+                  offsetFromSymbolStart = "704">
+               </Location>
+               <Location
+                  uuid = "58BA6268-A79B-43AE-9168-3C02A9D4ECE2 - b32bc9dfdd56140e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "TodoAssignment.DetailViewController.tableView(_: __C.UITableView, cellForRowAt: Foundation.IndexPath) -&gt; __C.UITableViewCell"
+                  moduleName = "TodoAssignment"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jaehyungkim/Desktop/Swift/Sesac/TodoAssignment/TodoAssignment/View/ViewController/DetailViewController/DetailViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "118"
+                  endingLineNumber = "118"
+                  offsetFromSymbolStart = "684">
+               </Location>
+               <Location
+                  uuid = "58BA6268-A79B-43AE-9168-3C02A9D4ECE2 - b32bc9dfdd56146f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "TodoAssignment.DetailViewController.tableView(_: __C.UITableView, cellForRowAt: Foundation.IndexPath) -&gt; __C.UITableViewCell"
+                  moduleName = "TodoAssignment"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jaehyungkim/Desktop/Swift/Sesac/TodoAssignment/TodoAssignment/View/ViewController/DetailViewController/DetailViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "119"
+                  endingLineNumber = "119"
+                  offsetFromSymbolStart = "704">
+               </Location>
+               <Location
+                  uuid = "58BA6268-A79B-43AE-9168-3C02A9D4ECE2 - b32bc9dfdd56146f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "TodoAssignment.DetailViewController.tableView(_: __C.UITableView, cellForRowAt: Foundation.IndexPath) -&gt; __C.UITableViewCell"
+                  moduleName = "TodoAssignment"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jaehyungkim/Desktop/Swift/Sesac/TodoAssignment/TodoAssignment/View/ViewController/DetailViewController/DetailViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "119"
+                  endingLineNumber = "119"
+                  offsetFromSymbolStart = "684">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2B1C41B3-3ECD-4572-91D7-71CC9DF9095E"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TodoAssignment/View/Base/BaseViewController/SearchBaseViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "87"
+            endingLineNumber = "87"
+            landmarkName = "updateSearchResults(for:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "2B1C41B3-3ECD-4572-91D7-71CC9DF9095E - 604104f698ba23bd"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "TodoAssignment.SearchBaseViewController.updateSearchResults(for: __C.UISearchController) -&gt; ()"
+                  moduleName = "TodoAssignment"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jaehyungkim/Desktop/Swift/Sesac/TodoAssignment/TodoAssignment/View/Base/BaseViewController/SearchBaseViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "87"
+                  endingLineNumber = "87"
+                  offsetFromSymbolStart = "872">
+               </Location>
+               <Location
+                  uuid = "2B1C41B3-3ECD-4572-91D7-71CC9DF9095E - 604104f698ba23bd"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "TodoAssignment.SearchBaseViewController.updateSearchResults(for: __C.UISearchController) -&gt; ()"
+                  moduleName = "TodoAssignment"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jaehyungkim/Desktop/Swift/Sesac/TodoAssignment/TodoAssignment/View/Base/BaseViewController/SearchBaseViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "87"
+                  endingLineNumber = "87"
+                  offsetFromSymbolStart = "924">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

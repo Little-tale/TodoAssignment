@@ -83,6 +83,7 @@ extension SearchBaseViewController: UISearchResultsUpdating {
         // 다음뷰에 데이터 전달
 //        resultsViewController.settingViewDataSearchCase(data: data)
         resultsViewController.testList = data
+        print("*******",data)
         resultsViewController.baseHomeView.tableView.reloadData()
         print(#function)
     }

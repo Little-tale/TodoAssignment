@@ -29,22 +29,7 @@ class NewTodoViewController: BaseViewController {
     
     // MARK: 하나의 구조체 관리 // 하나로 묶어서 관리하려 했으나 타이틀, 메모 텍스트는 변화할때는 리로드가 필요가 없는데 지금 리로드 되고 있다.
     var newToDoItem = NewToDoItem(flagBool: false, prioritizationIndex: 0) 
-//    {
-//        didSet{
-//            newtodoHomeView.todoTableView.reloadData()
-//        }
-//    }
-    
-//    var titleText: String?
-//    var memoText: String?
-//    
-//    var dateInfo: Date?
-//    var tagInfo: String?
-//    var flagBool: Bool?
-//    
-    // 이런 다른 데이터들을 하나로 관리할수 있는방법 연구해보기
-    
-//    var prioritizationIndex = 0 { didSet{ newtodoHomeView.todoTableView.reloadData() } }
+
     
     let toDoReomsitory = NewToDoRepository()
     let saveImageFileManager = SaveImageManager()
@@ -412,3 +397,19 @@ extension NewTodoViewController{
  
  // 2.2 클래스에 넣어줄 데이터(레코드!)를 구성합니다
  */
+//    {
+//        didSet{
+//            newtodoHomeView.todoTableView.reloadData()
+//        }
+//    }
+    
+//    var titleText: String?
+//    var memoText: String?
+//
+//    var dateInfo: Date?
+//    var tagInfo: String?
+//    var flagBool: Bool?
+//
+    // 이런 다른 데이터들을 하나로 관리할수 있는방법 연구해보기
+    
+//    var prioritizationIndex = 0 { didSet{ newtodoHomeView.todoTableView.reloadData() } }

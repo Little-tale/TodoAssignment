@@ -294,7 +294,7 @@ enum addImageSection: CaseIterable {
         switch self {
         case .camera:
             imagePicker.sourceType = .camera
-            
+            // 흠 info.plist 에서 권한 이유만 썻는데 잘된다...
             from.present(imagePicker, animated: true)
             break
         case .gallery:

@@ -115,8 +115,8 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource{
         let modelDatas = testList[indexPath.row]
         cellDataSetting(for: cell, modelData: modelDatas)
         
-        print(modelDatas)
         
+        print(modelDatas)
         return cell
     }
     // MARK: 스와이프 방향 정해주고 보이기하기
@@ -178,6 +178,7 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource{
         cell.leftButton.addTarget(self, action: #selector(toggleOfComplite), for: .touchUpInside)
         
         if let image = fileManager.loadImageToDocuments(fileCase: .image, fileNameOfID: "\(modelData.id)") {
+            print(image)
             cell.subImageView.image = image
         }
         
