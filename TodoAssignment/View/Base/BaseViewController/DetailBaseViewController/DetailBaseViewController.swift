@@ -16,7 +16,7 @@ class DetailBaseViewController<T: BaseView> : BaseViewController {
     
     // MARK: 테스트공간
     var viewType: AllListCellCase?
-    let repository = NewToDoRepository()
+    var repository = NewToDoRepository()
     
     lazy var testList = repository.DetailFilterViewForKeyPath(of: viewType ?? .all)
     

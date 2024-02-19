@@ -281,16 +281,7 @@ enum addImageSection: CaseIterable {
             "웹 이미지 고르기"
         }
     }
-//    var action: (()-> Void) {
-//        switch self {
-//        case .camera:
-//            <#code#>
-//        case .gallery:
-//            <#code#>
-//        case .webImage:
-//            <#code#>
-//        }
-//    }
+
     func imageAction(from: UIViewController){
         // MARK: 이미지 피커 컨트롤러 인스턴스 생성
         let imagePicker = UIImagePickerController()
