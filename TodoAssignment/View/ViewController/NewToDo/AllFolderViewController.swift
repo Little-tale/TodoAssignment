@@ -12,11 +12,12 @@ class AllFolderViewController: BaseHomeViewController<NewTodoHomeView> {
     let repository = NewToDoRepository()
     lazy var folderList = repository.NewToDoFolder()
     
-    
+    var beforeFolder : Folder?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         delegateAndDataSource()
+        navigationSetting()
     }
     
     func delegateAndDataSource(){
@@ -24,6 +25,12 @@ class AllFolderViewController: BaseHomeViewController<NewTodoHomeView> {
         homeView.todoTableView.dataSource = self
         homeView.todoTableView.rowHeight = UITableView.automaticDimension
         homeView.todoTableView.estimatedRowHeight = 40
+        
+    }
+    
+    func navigationSetting(){
+        navigationItem.title = "전체 폴더"
+        
     }
 }
 
@@ -45,7 +52,11 @@ extension AllFolderViewController: UITableViewDelegate, UITableViewDataSource {
             return UITableViewCell()
         }
         let data = folderList[indexPath.row]
-        
+        if let beforeFolder = beforeFolder {
+            if data == beforeFolder{
+                cell.checkPrepare(bool: true)
+            }
+        }
         cell.titleLabel.text = data.folderName
         
         return cell

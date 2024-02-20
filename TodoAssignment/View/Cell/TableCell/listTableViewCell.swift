@@ -30,11 +30,12 @@ class listTableViewCell : BaseTableViewCell {
     override func configureLayout() {
         listImageView.snp.makeConstraints { make in
             make.size.equalTo(24)
-            make.leading.top.equalTo(contentView.safeAreaLayoutGuide).inset(8)
-        }
+            make.leading.equalToSuperview().offset(8)
+            make.centerY.equalTo(contentView.safeAreaLayoutGuide)        }
         titleLabel.snp.makeConstraints { make in
             make.height.equalTo(24)
             make.leading.equalTo(listImageView.snp.trailing).offset(5)
+            make.centerY.equalToSuperview()
             make.bottom.lessThanOrEqualTo(contentView.safeAreaLayoutGuide).inset(8)
         }
         countLabel.snp.makeConstraints { make in
@@ -53,7 +54,7 @@ class listTableViewCell : BaseTableViewCell {
     override func designView() {
         
         titleLabel.textColor = .white
-        titleLabel.font = .systemFont(ofSize: 30, weight: .bold)
+        titleLabel.font = .systemFont(ofSize: 22, weight: .bold)
             
         countLabel.textColor = .white
         countLabel.font = .systemFont(ofSize: 14)
@@ -62,8 +63,6 @@ class listTableViewCell : BaseTableViewCell {
         listImageView.contentMode = .scaleAspectFill
         contentView.backgroundColor = .darkGray
         
-        titleLabel.backgroundColor = .green
-        countLabel.backgroundColor = .red
         checkImageView.isHidden = true
         DispatchQueue.main.async {
             self.listImageView.layer.cornerRadius = self.listImageView.bounds.width / 2
@@ -76,11 +75,9 @@ class listTableViewCell : BaseTableViewCell {
         checkPrepare()
     }
     func checkPrepare(bool: Bool? = false){
-        
-        if let bool = bool {
+        if bool == nil {
             checkImageView.isHidden = true
         }
-        
         if bool == true {
             checkImageView.isHidden = false
         } else {

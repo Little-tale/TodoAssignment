@@ -242,7 +242,6 @@ extension NewTodoViewController: UITableViewDelegate, UITableViewDataSource {
             let vc = PrioritizationViewController()
             vc.prioritizationDelegate = self
             vc.segmentIndex = newToDoItem.prioritizationIndex
-           
             navigationController?.pushViewController(vc, animated: true)
             return
             
@@ -257,6 +256,7 @@ extension NewTodoViewController: UITableViewDelegate, UITableViewDataSource {
             
             if folder != nil {
                 let vc = AllFolderViewController()
+                vc.beforeFolder = folder
                 NotificationCenter.default.addObserver(self, selector: #selector(getFolderData), name: NSNotification.Name("folderData"), object: nil)
                 navigationController?.pushViewController(vc, animated: true)
             } else {
@@ -329,7 +329,7 @@ extension NewTodoViewController: TitleTextFieldProtocol {
     }
     
 }
-// MARK: 현재 값을 제한하여 길이 제한하는거 고민해야함 https://fomaios.tistory.com/entry/iOS-%ED%85%8C%EC%9D%B4%EB%B8%94%EB%B7%B0-%EC%95%88%EC%97%90-%EC%9E%88%EB%8A%94-%ED%85%8D%EC%8A%A4%ED%8A%B8%EB%B7%B0-%EB%86%92%EC%9D%B4-%EA%B8%80%EC%97%90-%EB%94%B0%EB%9D%BC-%EC%A1%B0%EC%A0%95%ED%95%98%EA%B8%B0Dynamic-tableviewcell-height-by-textview-text
+// MARK: 현재 값을 제한하여 길이 제한하는거 고민해야함
 extension NewTodoViewController: MemoTextViewProtocol {
     func textViewDidChange(_ textView: UITextView) {
         newToDoItem.memoText = textView.text
@@ -403,6 +403,10 @@ extension NewTodoViewController{
 }
 
 
+
+/*
+ https://fomaios.tistory.com/entry/iOS-%ED%85%8C%EC%9D%B4%EB%B8%94%EB%B7%B0-%EC%95%88%EC%97%90-%EC%9E%88%EB%8A%94-%ED%85%8D%EC%8A%A4%ED%8A%B8%EB%B7%B0-%EB%86%92%EC%9D%B4-%EA%B8%80%EC%97%90-%EB%94%B0%EB%9D%BC-%EC%A1%B0%EC%A0%95%ED%95%98%EA%B8%B0Dynamic-tableviewcell-height-by-textview-text
+ */
 
 // imagePickerController(_:didFinishPickingMediaWithInfo:) 출력됨
 //print(picker)

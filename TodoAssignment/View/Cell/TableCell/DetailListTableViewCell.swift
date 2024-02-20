@@ -30,7 +30,6 @@ class DetailListTableViewCell: BaseTableViewCell {
             
         }
         detailListTextField.snp.makeConstraints { make in
-            make.height.equalTo(30)
             make.top.equalTo(detailListImageView.snp.bottom).offset(20)
             make.centerX.equalTo(detailListImageView)
             make.horizontalEdges.equalTo(contentView).inset(12)
