@@ -132,6 +132,7 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource{
         print(modelDatas)
         return cell
     }
+    
     // MARK: 스와이프 방향 정해주고 보이기하기
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         

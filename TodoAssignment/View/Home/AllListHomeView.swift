@@ -11,6 +11,9 @@ import SnapKit
 final class AllListHomeView: BaseView {
     
     var whereGoToView: (() -> Void)?
+    var goToListViewM: (() -> Void)?
+    
+    let tableView = UITableView(frame: .zero)
     
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: configureCellLayout())
     
@@ -26,7 +29,19 @@ final class AllListHomeView: BaseView {
         return UIBarButtonItem(customView: view)
     }()
     
-    let rightButton = UIBarButtonItem()
+    lazy var rightButton : UIBarButtonItem = {
+        let view = UIButton(type: .system )
+        view.setTitle("목록추가", for: .normal)
+        view.addTarget(self, action: #selector(goToListView), for: .touchUpInside)
+        view.titleLabel?.textColor = .blue
+        view.imageView?.image = nil
+        return UIBarButtonItem(customView: view)
+    }()
+    
+    @objc
+    func goToListView(){
+        goToListViewM?()
+    }
     
     lazy var spacerButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
 
@@ -35,21 +50,30 @@ final class AllListHomeView: BaseView {
     
     override func configureHierarchy() {
         self.addSubview(collectionView)
+        self.addSubview(tableView)
     }
     
     
     
     override func configureLayout() {
         collectionView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.horizontalEdges.top.equalToSuperview()
+            make.height.equalTo(400)
+        }
+        tableView.snp.makeConstraints { make in
+            make.horizontalEdges.bottom.equalToSuperview()
+            make.top.equalTo(collectionView.snp.bottom)
         }
     }
     override func designView() {
-        rightButton.title = "목록 추가"
+       
         leftButton.customView?.sizeToFit()
-        collectionView.isScrollEnabled = false
-        
+        collectionView.isScrollEnabled = true
+        collectionView.backgroundColor = .red
+    
     }
+    
+    
     @objc
     func goToNewToDoView(){
         whereGoToView?()
@@ -73,9 +97,7 @@ final class AllListHomeView: BaseView {
         collectionView.register(ToDoListCollectionViewCell.self, forCellWithReuseIdentifier: ToDoListCollectionViewCell.reuseabelIdentifier)
         
         collectionView.register(ALLTilteCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: ALLTilteCollectionReusableView.reuseabelIdentifier)
+        tableView.register(listTableViewCell.self, forCellReuseIdentifier: listTableViewCell.reuseabelIdentifier)
     }
-    
-    
-    
-    
+
 }

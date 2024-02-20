@@ -55,6 +55,14 @@
 		7B8A81D72B83AA9A00F2CB73 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 7B8A81D62B83AA9A00F2CB73 /* .gitignore */; };
 		7B8A81D92B83AB6E00F2CB73 /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8A81D82B83AB6E00F2CB73 /* APIKey.swift */; };
 		7B8A81DC2B83ADEB00F2CB73 /* NaverModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8A81DB2B83ADEB00F2CB73 /* NaverModel.swift */; };
+		7BA40E602B84858E0053D450 /* RealAllListHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA40E5F2B84858E0053D450 /* RealAllListHomeView.swift */; };
+		7BA40E622B8489A80053D450 /* listTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA40E612B8489A80053D450 /* listTableViewCell.swift */; };
+		7BA40E642B84906A0053D450 /* NewListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA40E632B84906A0053D450 /* NewListViewController.swift */; };
+		7BA40E672B8491200053D450 /* ListHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA40E662B8491200053D450 /* ListHomeView.swift */; };
+		7BA40E692B84918C0053D450 /* DetailListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA40E682B84918C0053D450 /* DetailListTableViewCell.swift */; };
+		7BA40E6C2B84BDB60053D450 /* FolderTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA40E6B2B84BDB60053D450 /* FolderTableView.swift */; };
+		7BA40E6F2B84BDEE0053D450 /* BaseTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA40E6E2B84BDEE0053D450 /* BaseTableView.swift */; };
+		7BA40E712B84BE5E0053D450 /* AllFolderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA40E702B84BE5E0053D450 /* AllFolderViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -104,6 +112,14 @@
 		7B8A81D62B83AA9A00F2CB73 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		7B8A81D82B83AB6E00F2CB73 /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
 		7B8A81DB2B83ADEB00F2CB73 /* NaverModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverModel.swift; sourceTree = "<group>"; };
+		7BA40E5F2B84858E0053D450 /* RealAllListHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealAllListHomeView.swift; sourceTree = "<group>"; };
+		7BA40E612B8489A80053D450 /* listTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = listTableViewCell.swift; sourceTree = "<group>"; };
+		7BA40E632B84906A0053D450 /* NewListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewListViewController.swift; sourceTree = "<group>"; };
+		7BA40E662B8491200053D450 /* ListHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListHomeView.swift; sourceTree = "<group>"; };
+		7BA40E682B84918C0053D450 /* DetailListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailListTableViewCell.swift; sourceTree = "<group>"; };
+		7BA40E6B2B84BDB60053D450 /* FolderTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderTableView.swift; sourceTree = "<group>"; };
+		7BA40E6E2B84BDEE0053D450 /* BaseTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableView.swift; sourceTree = "<group>"; };
+		7BA40E702B84BE5E0053D450 /* AllFolderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllFolderViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -215,6 +231,7 @@
 		7B72D3642B7C7E0800DBB1DB /* View */ = {
 			isa = PBXGroup;
 			children = (
+				7BA40E6A2B84BD930053D450 /* CustomTableView */,
 				7B5A75862B7F83AF002A015F /* Button */,
 				7B5A757F2B7F7042002A015F /* New Group */,
 				7B72D3762B7C831400DBB1DB /* Home */,
@@ -229,6 +246,7 @@
 		7B72D3652B7C7E0F00DBB1DB /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				7BA40E652B8490700053D450 /* NewListViewController */,
 				7B8A81C92B8354B600F2CB73 /* CalendarViewController */,
 				7B5A75742B7E2808002A015F /* DetailViewController */,
 				7B72D38D2B7CD64F00DBB1DB /* ALLList */,
@@ -240,6 +258,7 @@
 		7B72D3662B7C7E1F00DBB1DB /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				7BA40E6D2B84BDE20053D450 /* Table */,
 				7B8A81CC2B83558100F2CB73 /* BaseHomeViewController */,
 				7B5A758D2B8043D0002A015F /* BaseViewController */,
 				7B72D36F2B7C7FDE00DBB1DB /* BaseTableViewCell.swift */,
@@ -264,6 +283,8 @@
 				7B72D36D2B7C7FC600DBB1DB /* TitleMemoTableCell.swift */,
 				7B72D3742B7C815300DBB1DB /* OnlyTitleTableViewCell.swift */,
 				7B5A75822B7F7D14002A015F /* DetailTableViewCell.swift */,
+				7BA40E612B8489A80053D450 /* listTableViewCell.swift */,
+				7BA40E682B84918C0053D450 /* DetailListTableViewCell.swift */,
 			);
 			path = TableCell;
 			sourceTree = "<group>";
@@ -275,6 +296,8 @@
 				7B72D3902B7CD6CF00DBB1DB /* AllListHomeView.swift */,
 				7B5A75772B7E2880002A015F /* DetailHomeView.swift */,
 				7B8A81CF2B83560B00F2CB73 /* CalendarHomeView.swift */,
+				7BA40E5F2B84858E0053D450 /* RealAllListHomeView.swift */,
+				7BA40E662B8491200053D450 /* ListHomeView.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -313,6 +336,7 @@
 				7B72D3882B7CB78600DBB1DB /* TagSettingViewController.swift */,
 				7B72D3802B7C9C6400DBB1DB /* DatePickerViewController.swift */,
 				7B72D3692B7C7E7700DBB1DB /* NewTodoViewController.swift */,
+				7BA40E702B84BE5E0053D450 /* AllFolderViewController.swift */,
 			);
 			path = NewToDo;
 			sourceTree = "<group>";
@@ -347,6 +371,30 @@
 				7B8A81DB2B83ADEB00F2CB73 /* NaverModel.swift */,
 			);
 			path = APIModel;
+			sourceTree = "<group>";
+		};
+		7BA40E652B8490700053D450 /* NewListViewController */ = {
+			isa = PBXGroup;
+			children = (
+				7BA40E632B84906A0053D450 /* NewListViewController.swift */,
+			);
+			path = NewListViewController;
+			sourceTree = "<group>";
+		};
+		7BA40E6A2B84BD930053D450 /* CustomTableView */ = {
+			isa = PBXGroup;
+			children = (
+				7BA40E6B2B84BDB60053D450 /* FolderTableView.swift */,
+			);
+			path = CustomTableView;
+			sourceTree = "<group>";
+		};
+		7BA40E6D2B84BDE20053D450 /* Table */ = {
+			isa = PBXGroup;
+			children = (
+				7BA40E6E2B84BDEE0053D450 /* BaseTableView.swift */,
+			);
+			path = Table;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -435,13 +483,17 @@
 				7B72D3552B7C7D9800DBB1DB /* ViewController.swift in Sources */,
 				7B5A757C2B7F24AF002A015F /* NewToDoRepository.swift in Sources */,
 				7B72D3912B7CD6CF00DBB1DB /* AllListHomeView.swift in Sources */,
+				7BA40E692B84918C0053D450 /* DetailListTableViewCell.swift in Sources */,
 				7B72D3842B7CAFAB00DBB1DB /* DateAssistance.swift in Sources */,
 				7B8A81D02B83560B00F2CB73 /* CalendarHomeView.swift in Sources */,
 				7B5A755B2B7D0CE4002A015F /* ToDoListCollectionViewCell.swift in Sources */,
 				7B72D3812B7C9C6400DBB1DB /* DatePickerViewController.swift in Sources */,
 				7B8A81C82B83429000F2CB73 /* SaveImageManager.swift in Sources */,
+				7BA40E6C2B84BDB60053D450 /* FolderTableView.swift in Sources */,
 				7B5A755D2B7D0D00002A015F /* BaseCollectionViewCell.swift in Sources */,
 				7B5A758B2B803827002A015F /* ErrorAssistance.swift in Sources */,
+				7BA40E672B8491200053D450 /* ListHomeView.swift in Sources */,
+				7BA40E642B84906A0053D450 /* NewListViewController.swift in Sources */,
 				7B72D3682B7C7E3000DBB1DB /* BaseViewController.swift in Sources */,
 				7B72D3782B7C832600DBB1DB /* NewTodoHomeView.swift in Sources */,
 				7B5A75852B7F8010002A015F /* TestViewController.swift in Sources */,
@@ -455,8 +507,11 @@
 				7B72D37C2B7C847900DBB1DB /* Extension.swift in Sources */,
 				7B72D36E2B7C7FC600DBB1DB /* TitleMemoTableCell.swift in Sources */,
 				7B72D38B2B7CC1E000DBB1DB /* PrioritizationViewController.swift in Sources */,
+				7BA40E6F2B84BDEE0053D450 /* BaseTableView.swift in Sources */,
 				7B5A75892B7F83C9002A015F /* CustomButton.swift in Sources */,
 				7B72D3702B7C7FDE00DBB1DB /* BaseTableViewCell.swift in Sources */,
+				7BA40E712B84BE5E0053D450 /* AllFolderViewController.swift in Sources */,
+				7BA40E622B8489A80053D450 /* listTableViewCell.swift in Sources */,
 				7B8A81CB2B8354D000F2CB73 /* CalendarViewController.swift in Sources */,
 				7B8A81CE2B83559B00F2CB73 /* BaseHomeViewController.swift in Sources */,
 				7B5A75762B7E2822002A015F /* DetailViewController.swift in Sources */,
@@ -464,6 +519,7 @@
 				7B5A758F2B8043F5002A015F /* DetailBaseViewController.swift in Sources */,
 				7B72D36A2B7C7E7700DBB1DB /* NewTodoViewController.swift in Sources */,
 				7B72D37A2B7C832F00DBB1DB /* BaseView.swift in Sources */,
+				7BA40E602B84858E0053D450 /* RealAllListHomeView.swift in Sources */,
 				7B5A75602B7D1B08002A015F /* UserDefaultsManager.swift in Sources */,
 				7B8A81D52B83A1EA00F2CB73 /* URLSessionManager.swift in Sources */,
 				7B8A81D92B83AB6E00F2CB73 /* APIKey.swift in Sources */,

@@ -60,9 +60,6 @@ extension CalendarViewController: UITableViewDataSource, UITableViewDelegate {
         allList?.count ?? 0
     }
     
-   
-
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailTableViewCell.reuseabelIdentifier, for: indexPath) as? DetailTableViewCell else {
             print("셀 레지스터 문제")

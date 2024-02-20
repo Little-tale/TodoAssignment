@@ -31,9 +31,9 @@ class NewTodoViewController: BaseViewController {
     var newToDoItem = NewToDoItem(flagBool: false, prioritizationIndex: 0) 
 
     
-    let toDoReomsitory = NewToDoRepository()
+    let toDoRepository = NewToDoRepository()
     let saveImageFileManager = SaveImageManager()
-    
+    lazy var folder = toDoRepository.firstFolder()
     
     // var dataBox: [Int:]
     // MARK: 값 변화 감지 못함... 인스턴스가 교체되는 방식이 아니라 그럼
@@ -104,7 +104,7 @@ class NewTodoViewController: BaseViewController {
        
         let newToDoRecord = NewToDoTable(title: text, memoTexts: data.memoText, endDay: data.dateInfo, tagText: data.tagInfo, priorityNumber: data.prioritizationIndex, flagBool: data.flagBool)
         
-        toDoReomsitory.createOfRecord(object: newToDoRecord)
+        toDoRepository.createOfRecord(object: newToDoRecord)
         
         // MARK: 사진 저장하는 시점
         if let image = newToDoItem.profileImage {
@@ -175,6 +175,9 @@ extension NewTodoViewController: UITableViewDelegate, UITableViewDataSource {
                 self?.switchButton(control: control)
             }
             break
+        case .folder:
+            cell.infoLabel.text = folder?.folderName
+            return cell
         }
         
         return cell
@@ -252,6 +255,11 @@ extension NewTodoViewController: UITableViewDelegate, UITableViewDataSource {
             return
             
         case .flag:
+            return
+        case .folder:
+            let vc = AllFolderViewController()
+            
+            navigationController?.pushViewController(vc, animated: true)
             return
         }
         

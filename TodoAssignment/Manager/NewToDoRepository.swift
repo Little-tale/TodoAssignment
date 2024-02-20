@@ -38,9 +38,14 @@ final class NewToDoRepository: TodoRepository{
     
     let realm = try! Realm()
     let model = NewToDoTable.self
+    let folderModel = Folder.self
+   
     
     func NewToDoRepository() -> Results<NewToDoTable> {
       return realm.objects(model)
+    }
+    func NewToDoFolder() -> Results<Folder> {
+        return realm.objects(folderModel)
     }
     
     func createOfRecord(object: Object) {
@@ -237,7 +242,33 @@ final class NewToDoRepository: TodoRepository{
 
     }
     
+    // MARK: 새로운 폴더 생성하기
+    func saveNewFolder(folderName: String){
+        let data = Folder(folderName: folderName, regDate: Date())
+        
+        do {
+            try realm.write {
+                realm.add(data)
+            }
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    // MARK: 폴더와 내부모두 제거
+    func removeFolderAtAll(folderModel: Folder) {
+        do{
+            try realm.write {
+                realm.delete(folderModel.newTodoTable)
+                realm.delete(folderModel)
+            }
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
     
+    func firstFolder() -> Folder? {
+        return NewToDoFolder().first
+    }
     
 }
 

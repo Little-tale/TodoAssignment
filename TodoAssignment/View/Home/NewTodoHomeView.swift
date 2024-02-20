@@ -8,9 +8,9 @@
 import UIKit
 import SnapKit
 
-final class NewTodoHomeView: BaseView{
+class NewTodoHomeView: BaseView{
     
-    let todoTableView = UITableView(frame: .zero, style: .insetGrouped)
+    var todoTableView = UITableView(frame: .zero, style: .insetGrouped)
     
     override func configureHierarchy() {
         self.addSubview(todoTableView)

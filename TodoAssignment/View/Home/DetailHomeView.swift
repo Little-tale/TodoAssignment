@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 
 class DetailHomeView: BaseView{
-    let tableView = UITableView(frame: .zero)
+    let tableView = UITableView(frame: .zero, style: .insetGrouped)
     
     lazy var pullDownbutton: UIButton = {
         let button = UIButton(type: .system)
@@ -36,7 +36,8 @@ class DetailHomeView: BaseView{
         //tableView.register(UITableViewCell.self, forCellReuseIdentifier: UITableViewCell.reuseabelIdentifier)
         
         tableView.register(DetailTableViewCell.self, forCellReuseIdentifier: DetailTableViewCell.reuseabelIdentifier)
-        
+        tableView.register(DetailListTableViewCell.self, forCellReuseIdentifier: DetailListTableViewCell.reuseabelIdentifier)
+        tableView.register(OnlyTitleTableViewCell.self, forCellReuseIdentifier: OnlyTitleTableViewCell.reuseabelIdentifier)
     }
     override func designView() {
         self.backgroundColor = .white

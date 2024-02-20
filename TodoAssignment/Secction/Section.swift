@@ -17,6 +17,7 @@ enum NewToDoList:Int, CaseIterable {
     case prioritization = 3
     case addImage = 4
     case flag = 5
+    case folder = 6
     
     var getTile : String {
         switch self {
@@ -30,6 +31,8 @@ enum NewToDoList:Int, CaseIterable {
             return "이미지 추가"
         case .flag:
             return "깃발"
+        case .folder:
+            return "목록(필수)"
         default: return ""
         }
     }
@@ -67,6 +70,22 @@ enum NewToDoList:Int, CaseIterable {
 //            nil
 //        }
 //    }
+}
+enum DetailListCellCase: CaseIterable {
+    case listMain
+    case listCase
+    case ColorCase
+    
+    var title : String {
+        switch self {
+        case .listMain:
+            return ""
+        case .listCase:
+            return "목록유형"
+        case .ColorCase:
+            return ""
+        }
+    }
 }
 
 

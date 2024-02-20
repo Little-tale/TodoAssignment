@@ -23,6 +23,7 @@ final class AllListViewController: SearchBaseViewController {
     
     let repository = NewToDoRepository()
     
+    lazy var newtodoFolderList = repository.NewToDoFolder()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +35,12 @@ final class AllListViewController: SearchBaseViewController {
         allListHomeView.whereGoToView = {
             self.next()
         }
+        allListHomeView.goToListViewM = {
+            print("asdsada")
+            let vc = NewListViewController()
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+        
         navigationSetting()
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -51,17 +58,23 @@ final class AllListViewController: SearchBaseViewController {
     fileprivate func delegateDataSource(){
         allListHomeView.collectionView.dataSource = self
         allListHomeView.collectionView.delegate = self
+        
+        allListHomeView.tableView.delegate = self
+        allListHomeView.tableView.dataSource = self
+        
+        allListHomeView.tableView.rowHeight = UITableView.automaticDimension
+        allListHomeView.tableView.estimatedRowHeight = 100
     }
     // MARK: 홈뷰에서 사용할 메서드
     fileprivate func next(){
         let vc = NewTodoViewController()
         navigationController?.pushViewController(vc, animated: true)
-        
     }
     
     private func navigationSetting(){
         navigationItem.leftBarButtonItem = leftBarButton()
     }
+    
     private func leftBarButton() -> UIBarButtonItem{
         let button = UIBarButtonItem(image: UIImage(systemName: "calendar.badge.checkmark"), style: .plain, target: self, action: #selector(calendarButtonClicked))
         return button
@@ -126,6 +139,25 @@ extension AllListViewController : UICollectionViewDelegateFlowLayout {
         return CGSize(width: collectionView.bounds.width, height: 60)
     }
 }
+
+extension AllListViewController : UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return newtodoFolderList.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: listTableViewCell.reuseabelIdentifier, for: indexPath) as? listTableViewCell else {
+            return UITableViewCell()
+        }
+        
+        let folder = newtodoFolderList[indexPath.row]
+        
+        cell.countLabel.text = "\(folder.newTodoTable.count)"
+        cell.titleLabel.text = folder.folderName
+        return cell
+    }
+}
+
 
 
 // MARK: 유저 디폴트로 구현했었던 잔재들

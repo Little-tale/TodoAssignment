@@ -26,6 +26,7 @@ class SearchBaseViewController: BaseViewController {
         searchViewControllerSetting()
         navigationSetting()
     }
+    
     // MARK: 서치뷰컨 세팅
     private func searchViewControllerSetting(){
         // MARK: 다음뷰에 모델을 제공하기 위한 메서드
