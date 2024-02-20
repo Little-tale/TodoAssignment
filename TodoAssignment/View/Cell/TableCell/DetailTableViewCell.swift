@@ -15,6 +15,7 @@ final class DetailTableViewCell: BaseTableViewCell {
     let subTitleLabel = UILabel()
     let dateLabel = UILabel()
     let tagLabel = UILabel()
+    let folderLabel = UILabel()
     let subImageView = UIImageView(frame: .zero)
     
     // 0:0
@@ -26,6 +27,7 @@ final class DetailTableViewCell: BaseTableViewCell {
         contentView.addSubview(dateLabel)
         contentView.addSubview(tagLabel)
         contentView.addSubview(subImageView)
+        contentView.addSubview(folderLabel)
     }
 
     
@@ -63,8 +65,13 @@ final class DetailTableViewCell: BaseTableViewCell {
             make.height.equalTo(subTitleLabel)
             make.bottom.equalToSuperview().inset(12)
         }
-        tagLabel.snp.makeConstraints { make in
+        folderLabel.snp.makeConstraints { make in
             make.leading.equalTo(dateLabel.snp.trailing).offset(4)
+            make.centerY.equalTo(dateLabel)
+            make.trailing.greaterThanOrEqualTo(tagLabel.snp.leading).inset(-4)
+        }
+        tagLabel.snp.makeConstraints { make in
+            make.leading.equalTo(folderLabel.snp.trailing).offset(4)
             make.centerY.equalTo(dateLabel)
             make.trailing.lessThanOrEqualTo(subImageView).inset(8)
         }
@@ -80,6 +87,7 @@ final class DetailTableViewCell: BaseTableViewCell {
 //        subTitleLabel.backgroundColor = .cyan
 //        tagLabel.backgroundColor = .brown
 //        subImageView.backgroundColor = .gray
+//        folderLabel.backgroundColor = .lightGray
     }
     
     // MARK: 텍스트 컬러와 폰트 설정

@@ -35,12 +35,16 @@ class NewListViewController: BaseViewController {
         homeView.tableView.rowHeight = UITableView.automaticDimension
         homeView.tableView.estimatedRowHeight = 80
         navigationSetting()
-    }
-       
-    override func viewIsAppearing(_ animated: Bool) {
-        super.viewIsAppearing(animated)
-        print("******")
         keybordActing = true
+    }
+    
+    //MARK: 이게 안끊키긴하는데.... 흠
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        let indexPath = IndexPath(row: 0, section: 0)
+        let cell = homeView.tableView.cellForRow(at: indexPath) as? DetailListTableViewCell
+        cell?.detailListTextField.becomeFirstResponder()
+        keybordActing = false
     }
     
     func navigationSetting(){
@@ -104,11 +108,13 @@ extension NewListViewController: UITableViewDelegate, UITableViewDataSource {
                 print("**DetailListTableViewCell")
                 return UITableViewCell()
             }
-            if keybordActing == true {
-                print("******ssss")
-                cell.detailListTextField.becomeFirstResponder()
-            }
-            keybordActing = false
+            
+            // MARK: 이렇게 하면 키보드가 나오면서 두두두둗두두두두 함 매우 기분이 나쁨
+//            if keybordActing == true {
+//                print("******ssss")
+//                cell.detailListTextField.becomeFirstResponder()
+//            }
+//            keybordActing = false
             cell.textFieldDelegate = self
             
             return cell
@@ -128,7 +134,29 @@ extension NewListViewController: UITableViewDelegate, UITableViewDataSource {
         }
 
     }
-
+    
+//    // MARK: 처음 화면이 로드 될때만 키보드를 올리는 방법 -> 여전히 두둑 끊김
+//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+//        let section = DetailListCellCase.allCases[indexPath.section]
+//        if section == .listMain {
+//            guard let cell = cell as? DetailListTableViewCell else {
+//                print(cell)
+//                return
+//            }
+//
+//            if keybordActing == true {
+//                print("******",#function)
+//                cell.detailListTextField.becomeFirstResponder()
+//                keybordActing.toggle()
+//            }
+//            
+//        }
+//        
+//    }
+/* // wiiDisplay에서 셀 재사용 할게 아니라 이 밑에 코드는 작동이 안됨
+ //            guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailListTableViewCell.reuseabelIdentifier, for: indexPath) as? DetailListTableViewCell else {
+ //                print("섹션 에러 문제 willDisplay")
+ */
 }
 
 //MARK: 텍스트 필드 Protocol로 역값전달

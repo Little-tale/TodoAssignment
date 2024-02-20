@@ -11,18 +11,12 @@ class DetailBaseViewController<T: BaseView> : BaseViewController {
     
     // weak var uiViewController: UIViewController?
     let baseHomeView = T()
-
+    
     // MARK: 테스트공간
     var viewType: AllListCellCase?
     var repository = NewToDoRepository()
     
-    lazy var testList = repository.DetailFilterViewForKeyPath(of: viewType ?? .all) {
-        didSet{
-//            print("asdsad")
-//            NotificationCenter.default.post(name: NSNotification.Name("datas"), object: self, userInfo: ["data":true])
-            // MARK: 노티피케이션 값전달로도 되질 않는다. 재사용 문제가 맞는거 같긴한데
-        }
-    }
+    lazy var testList = repository.DetailFilterViewForKeyPath(of: viewType ?? .all)
     
     // Type -> (keyPath: String, ascending: Bool)
     // MARK: 각 정렬 기준을 잡습니다.
@@ -68,14 +62,8 @@ class DetailBaseViewController<T: BaseView> : BaseViewController {
         // MARK: 누르자마자 나오게 합니다.
         button.showsMenuAsPrimaryAction = true
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: button)
-       
+        
     }
-    
-    
-    
-//    private func setSortItem(_ section: settingSection){
-//        let item = UIAction(title: section.title, handler: section.type(bool: <#T##Bool#>))
-//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -85,7 +73,11 @@ class DetailBaseViewController<T: BaseView> : BaseViewController {
     override func loadView() {
         self.view = baseHomeView
     }
+}
     
+    //    private func setSortItem(_ section: settingSection){
+    //        let item = UIAction(title: section.title, handler: section.type(bool: <#T##Bool#>))
+    //    }
     // MARK: 액션 세팅 메서드
     /// 액션을 새팅합니다,
 //    private func setupSortAction(for button: UIButton, actions:[(String, ()->Void)] ){
@@ -131,7 +123,7 @@ class DetailBaseViewController<T: BaseView> : BaseViewController {
 //        setupSortAction(for: button, actions: actions)
 //    }
  
-}
+
 
 
 

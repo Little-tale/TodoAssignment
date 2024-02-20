@@ -124,6 +124,8 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource{
         cell.priLabel.text = getPrivorityText(number: prioritynum)
         cell.subTitleLabel.text = modelData.memoTexts
         cell.leftButton.isSelected = modelData.complite
+        // MARK: 왜 first 인건가 LinkingObjects<Folder>
+        cell.folderLabel.text = modelData.folder.first?.folderName
         cell.leftButton.addTarget(self, action: #selector(toggleOfComplite), for: .touchUpInside)
         
         if let image = fileManager.loadImageToDocuments(fileCase: .image, fileNameOfID: "\(modelData.id)") {

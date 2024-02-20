@@ -43,14 +43,22 @@ final class AllListViewController: SearchBaseViewController {
         }
         
         navigationSetting()
+        checkFolder()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setToolBar()
         allListHomeView.tableView.reloadData()
+        checkFolder()
     }
-
-
+    // MARK: RelationShip Folder Check
+    private func checkFolder(){
+        if let folder = repository.firstFolder() {
+            allListHomeView.leftButton.isEnabled = true
+        } else {
+            allListHomeView.leftButton.isEnabled = false
+        }
+    }
     
     fileprivate func setToolBar(){
         navigationController?.isToolbarHidden = false
