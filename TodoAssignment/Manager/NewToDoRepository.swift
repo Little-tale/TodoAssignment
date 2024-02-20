@@ -93,15 +93,21 @@ final class NewToDoRepository: TodoRepository{
 //            let start = Date()
             let end = calender.date(byAdding: .day, value: 1, to: start)
             let todayIteral = realm.objects(model).where{
-                $0.endDay > start && $0.endDay < end
+                $0.endDay >= start && $0.endDay < end
             }
+            
             print("*****",todayIteral, start, end)
             return todayIteral.count
         case .upcoming:
             //// MMMMMMMMMM
+            let calendar = Calendar.current
+            let today = calendar.startOfDay(for: Date())
+            let nextDay = calendar.date(byAdding: .day, value: 1, to: today)
+            
             let future = realm.objects(model).where {
-                $0.endDay > Date()
+                $0.endDay >= nextDay
             }
+            print(future)
             return future.count
         case .all:
     

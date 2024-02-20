@@ -53,6 +53,8 @@
 		7B8A81D32B8357F400F2CB73 /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 7B8A81D22B8357F400F2CB73 /* FSCalendar */; };
 		7B8A81D52B83A1EA00F2CB73 /* URLSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8A81D42B83A1EA00F2CB73 /* URLSessionManager.swift */; };
 		7B8A81D72B83AA9A00F2CB73 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 7B8A81D62B83AA9A00F2CB73 /* .gitignore */; };
+		7B8A81D92B83AB6E00F2CB73 /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8A81D82B83AB6E00F2CB73 /* APIKey.swift */; };
+		7B8A81DC2B83ADEB00F2CB73 /* NaverModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8A81DB2B83ADEB00F2CB73 /* NaverModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -100,6 +102,8 @@
 		7B8A81CF2B83560B00F2CB73 /* CalendarHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarHomeView.swift; sourceTree = "<group>"; };
 		7B8A81D42B83A1EA00F2CB73 /* URLSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionManager.swift; sourceTree = "<group>"; };
 		7B8A81D62B83AA9A00F2CB73 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		7B8A81D82B83AB6E00F2CB73 /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
+		7B8A81DB2B83ADEB00F2CB73 /* NaverModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -203,6 +207,7 @@
 				7B72D35B2B7C7D9B00DBB1DB /* LaunchScreen.storyboard */,
 				7B72D35E2B7C7D9B00DBB1DB /* Info.plist */,
 				7B72D37B2B7C847900DBB1DB /* Extension.swift */,
+				7B8A81D82B83AB6E00F2CB73 /* APIKey.swift */,
 			);
 			path = TodoAssignment;
 			sourceTree = "<group>";
@@ -294,6 +299,7 @@
 		7B72D3852B7CB48E00DBB1DB /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				7B8A81DA2B83ADE000F2CB73 /* APIModel */,
 				7B5A75612B7D1D38002A015F /* ToDoListModel.swift */,
 				7B5A75722B7DEBA4002A015F /* RealmModel.swift */,
 			);
@@ -333,6 +339,14 @@
 				7B8A81CD2B83559B00F2CB73 /* BaseHomeViewController.swift */,
 			);
 			path = BaseHomeViewController;
+			sourceTree = "<group>";
+		};
+		7B8A81DA2B83ADE000F2CB73 /* APIModel */ = {
+			isa = PBXGroup;
+			children = (
+				7B8A81DB2B83ADEB00F2CB73 /* NaverModel.swift */,
+			);
+			path = APIModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -433,6 +447,7 @@
 				7B5A75852B7F8010002A015F /* TestViewController.swift in Sources */,
 				7B5A75782B7E2880002A015F /* DetailHomeView.swift in Sources */,
 				7B72D3512B7C7D9800DBB1DB /* AppDelegate.swift in Sources */,
+				7B8A81DC2B83ADEB00F2CB73 /* NaverModel.swift in Sources */,
 				7B5A75622B7D1D38002A015F /* ToDoListModel.swift in Sources */,
 				7B5A757E2B7F27F8002A015F /* AlertManager.swift in Sources */,
 				7B72D38F2B7CD67100DBB1DB /* AllListViewController.swift in Sources */,
@@ -451,6 +466,7 @@
 				7B72D37A2B7C832F00DBB1DB /* BaseView.swift in Sources */,
 				7B5A75602B7D1B08002A015F /* UserDefaultsManager.swift in Sources */,
 				7B8A81D52B83A1EA00F2CB73 /* URLSessionManager.swift in Sources */,
+				7B8A81D92B83AB6E00F2CB73 /* APIKey.swift in Sources */,
 				7B72D37F2B7C8EB600DBB1DB /* Section.swift in Sources */,
 				7B5A75812B7F7073002A015F /* ALLTilteCollectionReusableView.swift in Sources */,
 				7B72D3752B7C815300DBB1DB /* OnlyTitleTableViewCell.swift in Sources */,

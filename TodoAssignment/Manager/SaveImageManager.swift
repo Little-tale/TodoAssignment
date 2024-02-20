@@ -16,7 +16,7 @@ class SaveImageManager {
     // 파일 매니저
     let fileManager = FileManager.default
     // MARK: 도큐먼트의 위치를 찾습니다.
-    lazy var documets = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first
+    lazy var documets = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
     let imagePath = "Image"
     
     
@@ -89,13 +89,16 @@ class SaveImageManager {
     }
     
     
-    
+    // 디렉토리 생성 여부 검사
     private func findFullUrl(fileCase: FileCase) throws -> URL{
         switch fileCase {
         case .image:
+            // 도큐먼츠가 존재하는가?
             guard var documets = documets else {
+                // 없으면 에러
                 throw fileManagerError.doNotFindYourPath
             }
+            // 도큐먼츠에 파일 케이스에 해당하는 패스를 전달
             documets.append(path: fileCase.path)
             return documets
         }
