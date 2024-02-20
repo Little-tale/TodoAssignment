@@ -20,6 +20,8 @@ struct NewToDoItem {
     var flagBool: Bool // 깃발 기본은 False 로 할 예정
     var prioritizationIndex: Int // 우선순위인덱스 기본은 0일 예정
     var profileImage: UIImage?
+    
+    var folder: Folder?
 }
 
 class NewTodoViewController: BaseViewController {
@@ -104,9 +106,15 @@ class NewTodoViewController: BaseViewController {
        
         let newToDoRecord = NewToDoTable(title: text, memoTexts: data.memoText, endDay: data.dateInfo, tagText: data.tagInfo, priorityNumber: data.prioritizationIndex, flagBool: data.flagBool)
         
-        toDoRepository.createOfRecord(object: newToDoRecord)
+        
+        if let folder = folder {
+            toDoRepository.saveInFolder(table: newToDoRecord, folder: folder)
+        }else {
+            toDoRepository.createOfRecord(object: newToDoRecord)
+        }
         
         // MARK: 사진 저장하는 시점
+        
         if let image = newToDoItem.profileImage {
             saveImageFileManager.saveImageToDocument(image: image, filename: "\(newToDoRecord.id)")
         }
@@ -259,10 +267,22 @@ extension NewTodoViewController: UITableViewDelegate, UITableViewDataSource {
         case .folder:
             let vc = AllFolderViewController()
             
+            NotificationCenter.default.addObserver(self, selector: #selector(getFolderData), name: NSNotification.Name("folderData"), object: nil)
+           
             navigationController?.pushViewController(vc, animated: true)
             return
         }
         
+    }
+    
+    @objc
+    func getFolderData(_ sender: Notification) {
+        if let value = sender.userInfo?["folderdata"] as? Folder {
+            folder = value
+            newToDoItem.folder = value
+            newtodoHomeView.todoTableView.reloadData()
+        }
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name("folderData"), object: nil)
     }
 
     // MARK: 노티피케이션 방법을 통한 역 값전달.

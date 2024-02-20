@@ -265,9 +265,19 @@ final class NewToDoRepository: TodoRepository{
             print(error.localizedDescription)
         }
     }
-    
+    // MARK: 첫번째 폴더만 배출
     func firstFolder() -> Folder? {
         return NewToDoFolder().first
+    }
+    // MARK: 테이블 주시면 폴더와 함께 저장해드려요!
+    func saveInFolder(table: NewToDoTable,folder: Folder) {
+        do {
+            try realm.write {
+                folder.newTodoTable.append(table)
+            }
+        } catch {
+            print(error.localizedDescription)
+        }
     }
     
 }

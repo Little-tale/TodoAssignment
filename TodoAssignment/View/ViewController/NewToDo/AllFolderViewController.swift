@@ -8,8 +8,11 @@
 import UIKit
 
 class AllFolderViewController: BaseHomeViewController<NewTodoHomeView> {
-    
 
+    let repository = NewToDoRepository()
+    lazy var folderList = repository.NewToDoFolder()
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,23 +22,47 @@ class AllFolderViewController: BaseHomeViewController<NewTodoHomeView> {
     func delegateAndDataSource(){
         homeView.todoTableView.delegate = self
         homeView.todoTableView.dataSource = self
-    
+        homeView.todoTableView.rowHeight = UITableView.automaticDimension
+        homeView.todoTableView.estimatedRowHeight = 40
     }
 }
 
 extension AllFolderViewController: UITableViewDelegate, UITableViewDataSource {
+    
+//    func numberOfSections(in tableView: UITableView) -> Int {
+//        return folderList.count
+//    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        
+        // let data = folderList.map { $0.newTodoTable }
+        return folderList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: OnlyTitleTableViewCell.reuseabelIdentifier, for: indexPath) as? OnlyTitleTableViewCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: listTableViewCell.reuseabelIdentifier, for: indexPath) as? listTableViewCell else {
             print("cell Register Error")
             return UITableViewCell()
         }
-        print("sadsadsada")
-        cell.titleLabel.text = "sadasd"
-        cell.backgroundColor = .red
+        let data = folderList[indexPath.row]
+        
+        cell.titleLabel.text = data.folderName
+        
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        print(folderList[indexPath.row])
+        let data = folderList[indexPath.row]
+        NotificationCenter.default.post(name: NSNotification.Name("folderData"), object: self, userInfo: ["folderdata": data ])
+        
+        navigationController?.popViewController(animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    
 }
+
+
+

@@ -63,6 +63,8 @@
 		7BA40E6C2B84BDB60053D450 /* FolderTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA40E6B2B84BDB60053D450 /* FolderTableView.swift */; };
 		7BA40E6F2B84BDEE0053D450 /* BaseTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA40E6E2B84BDEE0053D450 /* BaseTableView.swift */; };
 		7BA40E712B84BE5E0053D450 /* AllFolderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA40E702B84BE5E0053D450 /* AllFolderViewController.swift */; };
+		7BA40E732B84C4C80053D450 /* FolderTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA40E722B84C4C80053D450 /* FolderTableCell.swift */; };
+		7BA40E752B84D5A50053D450 /* AllListTableInCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA40E742B84D5A50053D450 /* AllListTableInCollectionCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -120,6 +122,8 @@
 		7BA40E6B2B84BDB60053D450 /* FolderTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderTableView.swift; sourceTree = "<group>"; };
 		7BA40E6E2B84BDEE0053D450 /* BaseTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableView.swift; sourceTree = "<group>"; };
 		7BA40E702B84BE5E0053D450 /* AllFolderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllFolderViewController.swift; sourceTree = "<group>"; };
+		7BA40E722B84C4C80053D450 /* FolderTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderTableCell.swift; sourceTree = "<group>"; };
+		7BA40E742B84D5A50053D450 /* AllListTableInCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllListTableInCollectionCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -285,6 +289,8 @@
 				7B5A75822B7F7D14002A015F /* DetailTableViewCell.swift */,
 				7BA40E612B8489A80053D450 /* listTableViewCell.swift */,
 				7BA40E682B84918C0053D450 /* DetailListTableViewCell.swift */,
+				7BA40E722B84C4C80053D450 /* FolderTableCell.swift */,
+				7BA40E742B84D5A50053D450 /* AllListTableInCollectionCell.swift */,
 			);
 			path = TableCell;
 			sourceTree = "<group>";
@@ -481,6 +487,7 @@
 			files = (
 				7B5A75832B7F7D14002A015F /* DetailTableViewCell.swift in Sources */,
 				7B72D3552B7C7D9800DBB1DB /* ViewController.swift in Sources */,
+				7BA40E752B84D5A50053D450 /* AllListTableInCollectionCell.swift in Sources */,
 				7B5A757C2B7F24AF002A015F /* NewToDoRepository.swift in Sources */,
 				7B72D3912B7CD6CF00DBB1DB /* AllListHomeView.swift in Sources */,
 				7BA40E692B84918C0053D450 /* DetailListTableViewCell.swift in Sources */,
@@ -505,6 +512,7 @@
 				7B72D38F2B7CD67100DBB1DB /* AllListViewController.swift in Sources */,
 				7B5A75942B80EC93002A015F /* SearchBaseViewController.swift in Sources */,
 				7B72D37C2B7C847900DBB1DB /* Extension.swift in Sources */,
+				7BA40E732B84C4C80053D450 /* FolderTableCell.swift in Sources */,
 				7B72D36E2B7C7FC600DBB1DB /* TitleMemoTableCell.swift in Sources */,
 				7B72D38B2B7CC1E000DBB1DB /* PrioritizationViewController.swift in Sources */,
 				7BA40E6F2B84BDEE0053D450 /* BaseTableView.swift in Sources */,

@@ -23,6 +23,8 @@ class NewTodoHomeView: BaseView{
     override func register() {
         todoTableView.register(TitleMemoTableCell.self, forCellReuseIdentifier: TitleMemoTableCell.reuseabelIdentifier)
         todoTableView.register(OnlyTitleTableViewCell.self, forCellReuseIdentifier: OnlyTitleTableViewCell.reuseabelIdentifier)
+        todoTableView.register(FolderTableCell.self, forCellReuseIdentifier: FolderTableCell.reuseabelIdentifier)
+        todoTableView.register(listTableViewCell.self, forCellReuseIdentifier: listTableViewCell.reuseabelIdentifier)
     }
     override func designView() {
         todoTableView.rowHeight = UITableView.automaticDimension

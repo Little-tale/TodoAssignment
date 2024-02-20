@@ -141,7 +141,12 @@ extension AllListViewController : UICollectionViewDelegateFlowLayout {
 }
 
 extension AllListViewController : UITableViewDelegate, UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
         return newtodoFolderList.count
     }
     
