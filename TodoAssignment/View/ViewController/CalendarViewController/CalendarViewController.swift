@@ -92,6 +92,7 @@ extension CalendarViewController {
         cell.subTitleLabel.text = modelData.memoTexts
         cell.leftButton.isSelected = modelData.complite
         cell.leftButton.addTarget(self, action: #selector(toggleOfComplite), for: .touchUpInside)
+        cell.folderLabel.text = modelData.folder.first?.folderName
         
         if let image = fileManager.loadImageToDocuments(fileCase: .image, fileNameOfID: "\(modelData.id)") {
             print("*****",image,modelData.id)
