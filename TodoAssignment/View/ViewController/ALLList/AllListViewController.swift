@@ -63,7 +63,7 @@ final class AllListViewController: SearchBaseViewController {
         
         allListHomeView.tableView.rowHeight = UITableView.automaticDimension
         allListHomeView.tableView.estimatedRowHeight = 100
-        
+    
     }
     // MARK: 홈뷰에서 사용할 메서드
     fileprivate func next(){
@@ -194,19 +194,24 @@ extension AllListViewController : UITableViewDelegate, UITableViewDataSource {
             let textLable = UILabel()
             textLable.text = titleSection.sectionName
             textLable.font = .systemFont(ofSize: 24, weight: .heavy)
-            textLable.textColor = .systemGray4
+            textLable.textColor = .systemGray
             view.addSubview(textLable)
             
+            // MARK: 텍스트 라벨을 뷰를 생성하고 집어넣어 헤더뷰에 선물
             textLable.snp.makeConstraints { make in
                 make.verticalEdges.height.trailing.equalToSuperview()
                 make.leading.equalToSuperview().offset(8)
             }
+            
             return view
         }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print(indexPath.row)
+
+        print(newtodoFolderList[indexPath.row].newTodoTable)
+        
     }
 
     

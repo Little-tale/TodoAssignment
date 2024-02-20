@@ -19,6 +19,9 @@ class NewListViewController: BaseViewController {
     let homeView = DetailHomeView()
     var viewData = NewListViewData(folderName: "")
     
+    //MARK: 키보드 자동올려주고 싶은데 애매해서 Flag 방법으로
+    var keybordActing = false
+    
     override func loadView() {
         view = homeView
     }
@@ -32,6 +35,12 @@ class NewListViewController: BaseViewController {
         homeView.tableView.rowHeight = UITableView.automaticDimension
         homeView.tableView.estimatedRowHeight = 80
         navigationSetting()
+    }
+       
+    override func viewIsAppearing(_ animated: Bool) {
+        super.viewIsAppearing(animated)
+        print("******")
+        keybordActing = true
     }
     
     func navigationSetting(){
@@ -80,7 +89,7 @@ class NewListViewController: BaseViewController {
 
 extension NewListViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return DetailListCellCase.allCases.count - 1
+        return DetailListCellCase.allCases.count - 1 // MARK: 이미지 구현 남김
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -95,8 +104,11 @@ extension NewListViewController: UITableViewDelegate, UITableViewDataSource {
                 print("**DetailListTableViewCell")
                 return UITableViewCell()
             }
-            cell.backgroundColor = .blue
-            
+            if keybordActing == true {
+                print("******ssss")
+                cell.detailListTextField.becomeFirstResponder()
+            }
+            keybordActing = false
             cell.textFieldDelegate = self
             
             return cell
@@ -105,7 +117,7 @@ extension NewListViewController: UITableViewDelegate, UITableViewDataSource {
                 print("**OnlyTitleTableViewCell")
                 return UITableViewCell()
             }
-            cell.backgroundColor = .red
+            
             return cell
         case .ColorCase:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailListTableViewCell.reuseabelIdentifier, for: indexPath) as? DetailListTableViewCell else {

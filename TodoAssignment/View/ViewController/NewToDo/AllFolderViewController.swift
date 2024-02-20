@@ -30,7 +30,6 @@ class AllFolderViewController: BaseHomeViewController<NewTodoHomeView> {
     
     func navigationSetting(){
         navigationItem.title = "전체 폴더"
-        
     }
 }
 
@@ -51,6 +50,7 @@ extension AllFolderViewController: UITableViewDelegate, UITableViewDataSource {
             print("cell Register Error")
             return UITableViewCell()
         }
+        cell.rightImage.isHidden = true
         let data = folderList[indexPath.row]
         if let beforeFolder = beforeFolder {
             if data == beforeFolder{

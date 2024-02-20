@@ -19,12 +19,22 @@ class listTableViewCell : BaseTableViewCell {
         view.backgroundColor = .clear
         return view
     }()
+    let rightImage: UIImageView = {
+       let view = UIImageView()
+        view.image = UIImage(systemName: "greaterthan")
+        view.clipsToBounds = true
+        view.contentMode = .scaleAspectFill
+        view.tintColor = .systemGray4
+        return view
+    }()
+    
     
     override func configureHierarchy() {
         contentView.addSubview(listImageView)
         contentView.addSubview(titleLabel)
         contentView.addSubview(countLabel)
         contentView.addSubview(checkImageView)
+        contentView.addSubview(rightImage)
         print(listImageView.bounds.size)
     }
     override func configureLayout() {
@@ -38,9 +48,15 @@ class listTableViewCell : BaseTableViewCell {
             make.centerY.equalToSuperview()
             make.bottom.lessThanOrEqualTo(contentView.safeAreaLayoutGuide).inset(8)
         }
+        rightImage.snp.makeConstraints { make in
+            make.trailing.equalTo(contentView.safeAreaLayoutGuide).inset(8)
+            make.size.equalTo(15)
+            make.centerY.equalToSuperview()
+        }
         countLabel.snp.makeConstraints { make in
             make.height.equalTo(30)
-            make.trailing.top.equalTo(contentView.safeAreaLayoutGuide).inset(8)
+            make.centerY.equalTo(contentView.safeAreaLayoutGuide)
+            make.trailing.equalTo(rightImage.snp.leading).inset(-8)
         }
         checkImageView.snp.makeConstraints { make in
             make.height.equalTo(titleLabel)
@@ -77,11 +93,14 @@ class listTableViewCell : BaseTableViewCell {
     func checkPrepare(bool: Bool? = false){
         if bool == nil {
             checkImageView.isHidden = true
+            rightImage.isHidden = false
         }
         if bool == true {
             checkImageView.isHidden = false
+            rightImage.isHidden = true
         } else {
             checkImageView.isHidden = true
+            rightImage.isHidden = false
         }
     }
     

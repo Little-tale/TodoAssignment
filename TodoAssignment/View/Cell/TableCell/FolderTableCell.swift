@@ -20,6 +20,7 @@ class FolderTableCell: BaseTableViewCell {
     }()
     
     
+    
     override func configureHierarchy() {
         contentView.addSubview(leftImageView)
         contentView.addSubview(detailLabel)

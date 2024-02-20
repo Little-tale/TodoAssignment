@@ -11,10 +11,18 @@ import SnapKit
 protocol DetailTextFieldProtocol: AnyObject{
     func textFieldDidChanged(for textField: UITextField)
 }
+// MARK: 이미지 둥글게 하는건 이게 제일 좋은것 같다.
+class circleFolderImageView: UIImageView {
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.layer.cornerRadius = self.frame.width / 2
+        self.clipsToBounds = true
+    }
+}
 
 class DetailListTableViewCell: BaseTableViewCell {
-    let detailListImageView = UIImageView()
-    let detailListTextField = UITextField()
+    let detailListImageView = circleFolderImageView()
+    let detailListTextField = UITextField(frame: .zero)
     
     weak var textFieldDelegate: DetailTextFieldProtocol?
     
@@ -32,16 +40,25 @@ class DetailListTableViewCell: BaseTableViewCell {
         detailListTextField.snp.makeConstraints { make in
             make.top.equalTo(detailListImageView.snp.bottom).offset(20)
             make.centerX.equalTo(detailListImageView)
-            make.horizontalEdges.equalTo(contentView).inset(12)
-            make.bottom.equalTo(contentView).inset(8)
+            make.height.equalTo(38).priority(.high)
+            make.horizontalEdges.equalTo(contentView.safeAreaLayoutGuide).inset(12)
+            make.bottom.equalTo(contentView.safeAreaLayoutGuide).inset(8)
         }
     }
     
     override func designView() {
         detailListImageView.backgroundColor = .brown
-        detailListTextField.backgroundColor = .cyan
-        
+
         detailListTextField.delegate = self
+        detailListTextField.textAlignment = .center
+        
+        detailListTextField.placeholder = "목록이름"
+        detailListTextField.borderStyle = .roundedRect
+        detailListTextField.clearButtonMode = .whileEditing
+                
+        detailListTextField.backgroundColor = .systemGray4
+        
+        contentView.backgroundColor = .systemGray5
     }
     
     

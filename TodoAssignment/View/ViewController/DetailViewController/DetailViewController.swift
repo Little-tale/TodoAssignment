@@ -7,21 +7,9 @@
 
 import UIKit
 import RealmSwift
-/*
- func fetch(_ type: HomeCollection, sortParam: (keyPath: String, ascending: Bool) = SortType.deadline(ascending: true).sortParam) -> Results<TaskTable> {
- */
+
 
 class DetailViewController: DetailBaseViewController<DetailHomeView> {
-
-    // MARK: 모델 데이터 받을 공간
-//    var modelData: Results<NewToDoTable>! {
-//        didSet {
-//            print("이건 왜 감지하지?")
-//            baseHomeView.tableView.reloadData()
-//        }
-//    }
-    // MARK: 기준이 될 데이터 공간
-    // var centerData : Results<NewToDoTable>!
 
     // MARK: 테스트 단계인 버튼이 키고 아이디가 벨류
     var modelButtonDictionary: [UIButton: ObjectId] = [:]
@@ -30,38 +18,8 @@ class DetailViewController: DetailBaseViewController<DetailHomeView> {
     override func viewDidLoad() {
         super.viewDidLoad()
         //settingActions()
-        
     }
-    // MARK: 테스트를 위한 공간인데 여긴 액션을 따로 작업]
-   
-    
-    
-    
-    // MARK: 액션을 여기서 만들고 정의합니다.
-//    func settingActions(){
-//        let menuIntems: [UIAction] = {
-//            SortSction.allCases.map { section in
-//                return UIAction(title: section.setTitle) { action in
-//                    self.modelData = self.repository.dataSort(dataList: self.centerData, section: section, toggle: true)
-//                }
-//            }
-//        }()
-//
-//        setupSortActionPlus(for: baseHomeView.pullDownbutton, actions: menuIntems)
-//    }
-    
-    
-    
-    
-    // MARK: 해당 코드에서 그냥 이 섹션들은 해당하는 케이스에 대해 true 인가 false 인가로 해보면 될것가틈 bool을 어떻게 처리하지....?
-    //MARK: 정렬방식
-//    private func dataSort(secction: SortSction){
-//       
-//        modelData = repository.dataSort(dataList: centerData ,section: secction, toggle: true)
-//
-//        baseHomeView.tableView.reloadData()
-//        
-//    }
+
   
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -70,36 +28,13 @@ class DetailViewController: DetailBaseViewController<DetailHomeView> {
         print(#function,"*****")
     }
     
-    // MARK: 시작시 세팅을 해주는 메서드
-//    func settingViewDataInfomation(whatInfo: AllListCellCase){
-//        modelData = repository.DetailFilterView(of: whatInfo)
-//        centerData = repository.DetailFilterView(of: whatInfo)
-//    }
-    
-    func settingNewDateInfgomation(whatInfo: AllListCellCase) {
-       // modelData = repository.
-    }
-    
-    // MARK: 검색기준일 경우에만 사용하세요
-//    func settingViewDataSearchCase(data: Results<NewToDoTable>){
-//        modelData = data
-//        centerData = data
-//        print(#function,"***")
-//        baseHomeView.tableView.reloadData()
-//    }
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-//        NotificationCenter.default.addObserver(self, selector: #selector(observerData), name: NSNotification.Name("datas") , object: nil)
+        //MARK: 이시점에서도 이미지 원형 잡아주는것도 좋음
         
     }
-//    @objc
-//    func observerData(sender: Notification){
-//        if let value = sender.userInfo?["data"] as? Bool {
-//            reloadData(bool: value)
-//        }
-//    }
-    
-    
+
     override func dataSourceAndDelegate() {
         baseHomeView.tableView.delegate = self
         baseHomeView.tableView.dataSource = self
@@ -241,6 +176,76 @@ extension DetailViewController {
         }
     }
 }
+
+
+
+
+
+/*
+ // MARK: 모델 데이터 받을 공간
+//    var modelData: Results<NewToDoTable>! {
+//        didSet {
+//            print("이건 왜 감지하지?")
+//            baseHomeView.tableView.reloadData()
+//        }
+//    }
+ // MARK: 기준이 될 데이터 공간
+ // var centerData : Results<NewToDoTable>!
+ 
+ /*
+  // MARK: 테스트를 위한 공간인데 여긴 액션을 따로 작업]
+ 
+  // MARK: 액션을 여기서 만들고 정의합니다.
+//    func settingActions(){
+//        let menuIntems: [UIAction] = {
+//            SortSction.allCases.map { section in
+//                return UIAction(title: section.setTitle) { action in
+//                    self.modelData = self.repository.dataSort(dataList: self.centerData, section: section, toggle: true)
+//                }
+//            }
+//        }()
+//
+//        setupSortActionPlus(for: baseHomeView.pullDownbutton, actions: menuIntems)
+//    }
+  
+  
+  
+  
+  // MARK: 해당 코드에서 그냥 이 섹션들은 해당하는 케이스에 대해 true 인가 false 인가로 해보면 될것가틈 bool을 어떻게 처리하지....?
+  //MARK: 정렬방식
+//    private func dataSort(secction: SortSction){
+//
+//        modelData = repository.dataSort(dataList: centerData ,section: secction, toggle: true)
+//
+//        baseHomeView.tableView.reloadData()
+//
+//    }
+  */
+ // MARK: 시작시 세팅을 해주는 메서드
+//    func settingViewDataInfomation(whatInfo: AllListCellCase){
+//        modelData = repository.DetailFilterView(of: whatInfo)
+//        centerData = repository.DetailFilterView(of: whatInfo)
+//    }
+ */
+
+/*
+ // MARK: 검색기준일 경우에만 사용하세요
+//    func settingViewDataSearchCase(data: Results<NewToDoTable>){
+//        modelData = data
+//        centerData = data
+//        print(#function,"***")
+//        baseHomeView.tableView.reloadData()
+//    }
+ */
+
+/*
+ //    @objc
+ //    func observerData(sender: Notification){
+ //        if let value = sender.userInfo?["data"] as? Bool {
+ //            reloadData(bool: value)
+ //        }
+ //    }
+ */
 /*
  //        var actions: [(String, () -> Void)] = []
  //
