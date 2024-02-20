@@ -10,6 +10,22 @@ import RealmSwift
 // MARK: 잭님이 주신 과제의 원본 섹션
 
 
+enum NewToDoAllFindSection:Int, CaseIterable {
+    
+case collectionCellSection = 1
+case listCellSection
+    
+    var sectionName: String? {
+        switch self {
+        case .collectionCellSection:
+            return nil
+        case .listCellSection:
+            return "나의 목록"
+        }
+    }
+}
+
+
 enum NewToDoList:Int, CaseIterable {
     case memo = 0
     case endDay = 1
@@ -32,7 +48,7 @@ enum NewToDoList:Int, CaseIterable {
         case .flag:
             return "깃발"
         case .folder:
-            return "목록(필수)"
+            return "목록"
         default: return ""
         }
     }

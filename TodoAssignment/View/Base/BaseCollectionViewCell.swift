@@ -21,6 +21,7 @@ class BaseCollectionViewCell: UICollectionViewCell {
         configureHierarchy()
         configureLayout()
         designView()
+        register()
     }
     
     func configureHierarchy(){
@@ -30,6 +31,9 @@ class BaseCollectionViewCell: UICollectionViewCell {
         
     }
     func designView(){
+        
+    }
+    func register() {
         
     }
     

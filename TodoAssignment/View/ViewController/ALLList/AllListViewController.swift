@@ -7,6 +7,7 @@
 
 import UIKit
 import RealmSwift
+import SnapKit
 
 final class AllListViewController: SearchBaseViewController {
 
@@ -46,7 +47,7 @@ final class AllListViewController: SearchBaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setToolBar()
-        allListHomeView.collectionView.reloadData()
+        allListHomeView.tableView.reloadData()
     }
 
 
@@ -56,14 +57,13 @@ final class AllListViewController: SearchBaseViewController {
         self.toolbarItems = allListHomeView.buttonArray
     }
     fileprivate func delegateDataSource(){
-        allListHomeView.collectionView.dataSource = self
-        allListHomeView.collectionView.delegate = self
         
         allListHomeView.tableView.delegate = self
         allListHomeView.tableView.dataSource = self
         
         allListHomeView.tableView.rowHeight = UITableView.automaticDimension
         allListHomeView.tableView.estimatedRowHeight = 100
+        
     }
     // MARK: 홈뷰에서 사용할 메서드
     fileprivate func next(){
@@ -131,6 +131,7 @@ extension AllListViewController : UICollectionViewDelegate, UICollectionViewData
         view.titleLabel.text = "전체"
         return view
     }
+
     
 }
 
@@ -142,28 +143,88 @@ extension AllListViewController : UICollectionViewDelegateFlowLayout {
 
 extension AllListViewController : UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return NewToDoAllFindSection.allCases.count
     }
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        return newtodoFolderList.count
+        let caseSection = NewToDoAllFindSection.allCases[section]
+        switch caseSection {
+        case .collectionCellSection:
+            return caseSection.rawValue
+        case .listCellSection:
+            return newtodoFolderList.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: listTableViewCell.reuseabelIdentifier, for: indexPath) as? listTableViewCell else {
-            return UITableViewCell()
+        let section =  NewToDoAllFindSection.allCases[indexPath.section]
+        
+        switch section {
+        case .collectionCellSection:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: AllListTableInCollectionCell.reuseabelIdentifier, for: indexPath) as? AllListTableInCollectionCell else {
+                return UITableViewCell()
+            }
+            cell.collectionView.delegate = self
+            cell.collectionView.dataSource = self
+            
+            // MARK: prePare에서 하나 여기서 하나 애매하다.
+            cell.collectionView.reloadData()
+            return cell
+            
+        case .listCellSection:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: listTableViewCell.reuseabelIdentifier, for: indexPath) as? listTableViewCell else {
+                return UITableViewCell()
+            }
+            
+            let folder = newtodoFolderList[indexPath.row]
+            
+            cell.countLabel.text = "\(folder.newTodoTable.count)"
+            cell.titleLabel.text = folder.folderName
+            return cell
         }
-        
-        let folder = newtodoFolderList[indexPath.row]
-        
-        cell.countLabel.text = "\(folder.newTodoTable.count)"
-        cell.titleLabel.text = folder.folderName
-        return cell
     }
+
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let titleSection = NewToDoAllFindSection.allCases[section]
+        switch titleSection {
+        case .collectionCellSection:
+            return nil
+        case .listCellSection:
+            let view = UIView()
+            let textLable = UILabel()
+            textLable.text = titleSection.sectionName
+            textLable.font = .systemFont(ofSize: 24, weight: .heavy)
+            textLable.textColor = .systemGray4
+            view.addSubview(textLable)
+            
+            textLable.snp.makeConstraints { make in
+                make.verticalEdges.height.trailing.equalToSuperview()
+                make.leading.equalToSuperview().offset(8)
+            }
+            return view
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print(indexPath.row)
+    }
+
+    
 }
 
 
+
+
+// MARK: 섹션 글자 크기 변경 안됨
+//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+//        let titleSection = NewToDoAllFindSection.allCases[section]
+//        switch titleSection {
+//        case .collectionCellSection:
+//            return 0
+//        case .listCellSection:
+//            return 30
+//        }
+//    }
 
 // MARK: 유저 디폴트로 구현했었던 잔재들
 /* 

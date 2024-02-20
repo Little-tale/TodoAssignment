@@ -67,18 +67,7 @@ class NewTodoViewController: BaseViewController {
         // checSaveButton()
     }
     
-    // MARK: 검사 로직 -> 연습해보기
-//    func checSaveButton(){
-//        guard let text = titleText else {
-//            navigationItem.rightBarButtonItem?.isEnabled = false
-//            return
-//        }
-//        guard text != "" else {
-//            navigationItem.rightBarButtonItem?.isEnabled = false
-//            return
-//        }
-//        navigationItem.rightBarButtonItem?.isEnabled = true
-//    }
+
     
     func deleagateDatasoure(){
         newtodoHomeView.todoTableView.delegate = self
@@ -265,16 +254,26 @@ extension NewTodoViewController: UITableViewDelegate, UITableViewDataSource {
         case .flag:
             return
         case .folder:
-            let vc = AllFolderViewController()
             
-            NotificationCenter.default.addObserver(self, selector: #selector(getFolderData), name: NSNotification.Name("folderData"), object: nil)
-           
-            navigationController?.pushViewController(vc, animated: true)
+            if folder != nil {
+                let vc = AllFolderViewController()
+                NotificationCenter.default.addObserver(self, selector: #selector(getFolderData), name: NSNotification.Name("folderData"), object: nil)
+                navigationController?.pushViewController(vc, animated: true)
+            } else {
+                let vc = NewListViewController()
+                vc.isDone = {
+                    self.folder = self.toDoRepository.firstFolder()
+                    self.reloadTableViewSection(for: .folder)
+                }
+                let nav = UINavigationController(rootViewController: vc)
+                
+                present(nav, animated: true)
+            }
             return
         }
         
     }
-    
+    // MARK: Notification으로 Folder 값 받아오기
     @objc
     func getFolderData(_ sender: Notification) {
         if let value = sender.userInfo?["folderdata"] as? Folder {
@@ -326,7 +325,7 @@ extension NewTodoViewController: TitleTextFieldProtocol {
     
     func textFieldDidChanged(for cell: TitleMemoTableCell, title: String?) {
         newToDoItem.titleText = title
-        // checSaveButton()
+        
     }
     
 }
@@ -367,16 +366,7 @@ extension NewTodoViewController: UIImagePickerControllerDelegate, UINavigationCo
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         print(#function)
         
-        // imagePickerController(_:didFinishPickingMediaWithInfo:) 출력됨
-        //print(picker)
-        
-        // *** [__C.UIImagePickerControllerInfoKey(_rawValue: ......
-        //print("***",info) // 이미지의 정보가 출력됨
-        
-        // MARK: 원본 이미지를 가져오기
-//        if let selectedImage = info[UIImagePickerController.InfoKey.originalImage] {
-//            
-//            print(selectedImage)
+       
 //        }
         // MARK: 거의 정사각형으로(가끔아님) 편집된 사진 가져오기
         if let selectedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage{
@@ -411,6 +401,36 @@ extension NewTodoViewController{
 //        newtodoHomeView.todoTableView.reloadRows(at: <#T##[IndexPath]#>, with: <#T##UITableView.RowAnimation#>)
     }
 }
+
+
+
+// imagePickerController(_:didFinishPickingMediaWithInfo:) 출력됨
+//print(picker)
+
+// *** [__C.UIImagePickerControllerInfoKey(_rawValue: ......
+//print("***",info) // 이미지의 정보가 출력됨
+
+// MARK: 원본 이미지를 가져오기
+//        if let selectedImage = info[UIImagePickerController.InfoKey.originalImage] {
+//
+//            print(selectedImage)
+
+
+// MARK: 검사 로직 -> 연습해보기
+//    func checSaveButton(){
+//        guard let text = titleText else {
+//            navigationItem.rightBarButtonItem?.isEnabled = false
+//            return
+//        }
+//        guard text != "" else {
+//            navigationItem.rightBarButtonItem?.isEnabled = false
+//            return
+//        }
+//        navigationItem.rightBarButtonItem?.isEnabled = true
+//    }
+
+
+
 
 /*
  // print(textView.text)

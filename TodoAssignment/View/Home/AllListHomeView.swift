@@ -13,9 +13,8 @@ final class AllListHomeView: BaseView {
     var whereGoToView: (() -> Void)?
     var goToListViewM: (() -> Void)?
     
-    let tableView = UITableView(frame: .zero)
+    let tableView = UITableView(frame: .zero, style: .insetGrouped)
     
-    let collectionView = UICollectionView(frame: .zero, collectionViewLayout: configureCellLayout())
     
     lazy var leftButton: UIBarButtonItem = {
         let view = UIButton(type: .contactAdd )
@@ -49,28 +48,18 @@ final class AllListHomeView: BaseView {
     lazy var buttonArray = [leftButton, spacerButton, rightButton ]
     
     override func configureHierarchy() {
-        self.addSubview(collectionView)
         self.addSubview(tableView)
     }
     
     
     
     override func configureLayout() {
-        collectionView.snp.makeConstraints { make in
-            make.horizontalEdges.top.equalToSuperview()
-            make.height.equalTo(400)
-        }
         tableView.snp.makeConstraints { make in
-            make.horizontalEdges.bottom.equalToSuperview()
-            make.top.equalTo(collectionView.snp.bottom)
+            make.edges.equalToSuperview()
         }
     }
     override func designView() {
-       
         leftButton.customView?.sizeToFit()
-        collectionView.isScrollEnabled = true
-        collectionView.backgroundColor = .red
-    
     }
     
     
@@ -79,25 +68,10 @@ final class AllListHomeView: BaseView {
         whereGoToView?()
     }
     
-    
-    
-    static func configureCellLayout() -> UICollectionViewFlowLayout {
-        let layout = UICollectionViewFlowLayout()
-        
-        let spacing : CGFloat = 10
-        let cellWidth = UIScreen.main.bounds.width - (spacing * 3)
-        
-        layout.itemSize = CGSize(width: cellWidth / 2, height: (cellWidth) / 4) // 셀의 크기
-        layout.sectionInset = UIEdgeInsets(top: spacing, left: spacing, bottom: spacing, right: spacing)
-        layout.scrollDirection = .vertical
-        return layout
-    }
-    
     override func register() {
-        collectionView.register(ToDoListCollectionViewCell.self, forCellWithReuseIdentifier: ToDoListCollectionViewCell.reuseabelIdentifier)
-        
-        collectionView.register(ALLTilteCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: ALLTilteCollectionReusableView.reuseabelIdentifier)
         tableView.register(listTableViewCell.self, forCellReuseIdentifier: listTableViewCell.reuseabelIdentifier)
+        
+        tableView.register(AllListTableInCollectionCell.self, forCellReuseIdentifier: AllListTableInCollectionCell.reuseabelIdentifier)
     }
 
 }

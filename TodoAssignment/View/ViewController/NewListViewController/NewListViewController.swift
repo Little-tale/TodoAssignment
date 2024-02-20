@@ -23,6 +23,8 @@ class NewListViewController: BaseViewController {
         view = homeView
     }
     
+    var isDone: (()->Void)?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         homeView.tableView.delegate = self
@@ -33,23 +35,47 @@ class NewListViewController: BaseViewController {
     }
     
     func navigationSetting(){
-        let rightButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(saveButtonClicked))
-        
+        let rightButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveButtonClicked))
         navigationItem.rightBarButtonItem = rightButton
+        
+        // MARK: 모달로 보내진 뷰컨만 따로 뒤로가기 다는법
+        if presentingViewController != nil {
+             
+             let leftButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(backButtonClicked))
+             
+             navigationItem.leftBarButtonItem = leftButton
+             
+             return
+        }
+        
+    }
+    @objc
+    func backButtonClicked(){
+       dismiss(animated: true)
     }
     
+    
+    // MARK: 세이브 버튼 눌렀을때 동작
     @objc
     func saveButtonClicked(){
         print(repository.realm.configuration.fileURL)
         let folderString = viewData.folderName.trimmingCharacters(in: .whitespaces)
         print(folderString)
+        
         if folderString == "" {
+            showAlert(title: "이름 필수", message: "이름이 필요합니다.")
             return
         }
-        
         repository.saveNewFolder(folderName: viewData.folderName)
+        
+        if presentingViewController != nil {
+             dismiss(animated: true)
+            isDone?()
+             return
+        }
+        navigationController?.popViewController(animated: true)
+        
     }
-    
 }
 
 extension NewListViewController: UITableViewDelegate, UITableViewDataSource {
@@ -90,8 +116,7 @@ extension NewListViewController: UITableViewDelegate, UITableViewDataSource {
         }
 
     }
-    
-    
+
 }
 
 //MARK: 텍스트 필드 Protocol로 역값전달
@@ -101,3 +126,4 @@ extension NewListViewController: DetailTextFieldProtocol {
         print(textField.text)
     }
 }
+

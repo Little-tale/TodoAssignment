@@ -20,6 +20,7 @@ class BaseTableViewCell: UITableViewCell {
         configureHierarchy()
         configureLayout()
         designView()
+        register()
     }
     
     func configureHierarchy(){
@@ -29,6 +30,10 @@ class BaseTableViewCell: UITableViewCell {
         
     }
     func designView(){
+        
+    }
+    
+    func register(){
         
     }
     
