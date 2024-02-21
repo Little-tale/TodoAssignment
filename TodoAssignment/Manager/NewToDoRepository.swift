@@ -199,6 +199,30 @@ final class NewToDoRepository: TodoRepository{
             return realm.objects(model).where { $0.complite }.sorted(byKeyPath: sortParam.keyPath, ascending: sortParam.ascending)
         }
     }
+    // MARK: 새로 만들려는 스타일
+    func DetailFilterViewForKey(of: AllListCellCase,parama: (keyPath: String, ascanding : Bool) = SortSction.titleSet.parametter(ats: .up)) -> Results<NewToDoTable>{
+        let calender = Calendar.current
+        let start = calender.startOfDay(for: Date())
+        let end = calender.date(byAdding: .day, value: 1, to: start)
+        switch of {
+        case .today:
+                return realm.objects(model).where {
+                    $0.endDay > start && $0.endDay < end
+                }.sorted(byKeyPath: parama.keyPath, ascending: parama.ascanding)
+        case .upcoming:
+            return realm.objects(model).where { $0.endDay > Date() }.sorted(byKeyPath: parama.keyPath, ascending: parama.ascanding)
+        case .all:
+            return realm.objects(model).sorted(byKeyPath: parama.keyPath, ascending: parama.ascanding)
+        case .flag:
+            return realm.objects(model)
+                .where { $0.flagBool }.sorted(byKeyPath: parama.keyPath, ascending: parama.ascanding)
+        case .completed:
+            return realm.objects(model).where { $0.complite }.sorted(byKeyPath: parama.keyPath, ascending: parama.ascanding)
+        }
+    }
+    
+    
+    
     // MARK: 진짜 모르겠습니다...
     // 어떻게 해야 폴더의 0, 1, 2 라는 인덱스가 있는데 그 인덱스 기준을 잡고
     // 그 인덱스별로 정렬이 되는데 Results<> 로 할지 전혀 모르겠다.... -> 뷰컨 모델이....

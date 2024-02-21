@@ -418,7 +418,7 @@ extension NewTodoViewController{
         
         newtodoHomeView.todoTableView.reloadSections(tableIndex, with: .automatic)
         
-        
+
         // MARK: 특정 로우를 리로드 하는 방법도 존재한다.
 //        newtodoHomeView.todoTableView.reloadRows(at: <#T##[IndexPath]#>, with: <#T##UITableView.RowAnimation#>)
     }

@@ -149,18 +149,18 @@ enum SortSction: CaseIterable {
     case prioritySet
     case onlyprioritySet
     
-    var getQuery: String {
-        switch self {
-        case .titleSet:
-            "titleTexts"
-        case .dateSet:
-            "endDay"
-        case .prioritySet:
-            "priorityNumber"
-        case .onlyprioritySet:
-            "priorityNumber"
-        }
-    }
+//    var getQuery: String {
+//        switch self {
+//        case .titleSet:
+//            "titleTexts"
+//        case .dateSet:
+//            "endDay"
+//        case .prioritySet:
+//            "priorityNumber"
+//        case .onlyprioritySet:
+//            "priorityNumber"
+//        }
+//    }
     var setTitle: String {
         switch self {
         case .titleSet:
@@ -173,28 +173,73 @@ enum SortSction: CaseIterable {
             "우선순위만"
         }
     }
+    
+    func parametter(ats: sortAtEnum) -> (String, Bool) {
+        // let me = self
+        switch self {
+        case .titleSet:
+            (getQuery(), ats.at)
+        case .dateSet:
+            (getQuery(), ats.at)
+        case .prioritySet:
+            (getQuery(), ats.at)
+        case .onlyprioritySet:
+            (getQuery(), ats.at)
+        }
+    }
+    
+    private func getQuery() -> String{
+        switch self {
+        case .titleSet:
+            "titleTexts"
+        case .dateSet:
+            "endDay"
+        case .prioritySet:
+            "priorityNumber"
+        case .onlyprioritySet:
+            "priorityNumber"
+        }
+    }
+}
+enum sortAtEnum {
+    case up
+    case down
+    var at: Bool {
+        switch self {
+        case .up:
+            return true
+        case .down:
+            return false
+        }
+    }
 }
 
+
 enum filterSortSection {
+    // MARK: 각 케이스별 오름차순이나 내림차순을 정합니다.
     case title(ascending: Bool)
     case dateSet(ascending: Bool)
     case prioritySet(ascending: Bool)
     case onlyprioritySet(ascending: Bool)
     
+    // MARK: 각 파라미터는 (keyPath: String, Asscending: Bool) 튜플을 반환합니다.
     var parameter:(keyPath: String, ascending: Bool){
         switch self {
         case .title(let ascending):
-            (getQeery(section: self), ascending)
+            return (getQeery(), ascending)
         case .dateSet(let ascending):
-            (getQeery(section: self), ascending)
+            return  (getQeery(), ascending)
         case .prioritySet(let ascending):
-            (getQeery(section: self), ascending)
+            return  (getQeery(), ascending)
         case .onlyprioritySet(let ascending):
-            (getQeery(section: self), ascending)
+           return  (getQeery(), ascending)
         }
     }
     
-    private func getQeery(section: filterSortSection) -> String{
+    
+    // MARK: 각 정렬별 기준인 컬럼을 반환합니다. 이는 외부는 알필요가 없기때문에
+    // private 처리했습니다
+    private func getQeery() -> String{
         switch self {
         case .title:
             "titleTexts"
@@ -204,6 +249,18 @@ enum filterSortSection {
             "priorityNumber"
         case .onlyprioritySet:
             "priorityNumber"
+        }
+    }
+    var setTitle: String {
+        switch self {
+        case .title:
+            "제목순"
+        case .dateSet:
+            "날짜순"
+        case .prioritySet:
+            "우선순위순"
+        case .onlyprioritySet:
+            "우선순위만"
         }
     }
 }
@@ -242,6 +299,7 @@ enum addImageSection: CaseIterable {
         configuration.filter = .any(of: [.videos,.images])
         // 그렇게 만든 콘피규레이션을 PHPickerViewController를 생성할때 전달해줄수 있다.
         let phpPicker = PHPickerViewController(configuration: configuration)
+        
         
         phpPicker.delegate = from as? any PHPickerViewControllerDelegate
         

@@ -18,7 +18,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: scene)
         let nvc = UINavigationController(rootViewController: AllListViewController())
         nvc.isToolbarHidden = false
-        window?.rootViewController = nvc
+        window?.rootViewController = TestViewController() //nvc
         window?.makeKeyAndVisible()
         
     }
