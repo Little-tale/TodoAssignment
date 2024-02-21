@@ -27,8 +27,6 @@ final class AllListViewController: SearchBaseViewController {
     
     lazy var newtodoFolderList = repository.NewToDoFolder()
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
@@ -98,7 +96,6 @@ final class AllListViewController: SearchBaseViewController {
         let vc = CalendarViewController()
         navigationController?.pushViewController(vc, animated: true)
     }
-    
 }
 
 extension AllListViewController : UICollectionViewDelegate, UICollectionViewDataSource {
@@ -126,23 +123,11 @@ extension AllListViewController : UICollectionViewDelegate, UICollectionViewData
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         collectionView.deselectItem(at: indexPath , animated: true)
-        
-        let secction = AllListCellCase.allCases[indexPath.item]
-        
-        if secction == .all {
-            let vc = FolderDetailViewController()
-            vc.folderResults = newtodoFolderList
-            vc.navigationItem.title = secction.name
-            navigationController?.pushViewController(vc, animated: true)
+        let section = AllListCellCase.allCases[indexPath.item]
+        guard let vc = section.nextViewController else {
             return
         }
-        let vc = DetailViewController()
-    
-       // vc.settingViewDataInfomation(whatInfo: secction)
-        vc.viewType = secction
-        vc.navigationItem.title = secction.name
         navigationController?.pushViewController(vc, animated: true)
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
@@ -152,8 +137,6 @@ extension AllListViewController : UICollectionViewDelegate, UICollectionViewData
         view.titleLabel.text = "전체"
         return view
     }
-
-    
 }
 
 extension AllListViewController : UICollectionViewDelegateFlowLayout {
@@ -178,7 +161,6 @@ extension AllListViewController : UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let section =  NewToDoAllFindSection.allCases[indexPath.section]
-        
         switch section {
         case .collectionCellSection:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: AllListTableInCollectionCell.reuseabelIdentifier, for: indexPath) as? AllListTableInCollectionCell else {
@@ -231,14 +213,14 @@ extension AllListViewController : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print(indexPath.row)
 
-        print("*****",newtodoFolderList[indexPath.row].newTodoTable)
+        // print("*****",newtodoFolderList[indexPath.row].newTodoTable)
         
         let folder = newtodoFolderList[indexPath.row]
-        // let test = newtodoFolderList[indexPath.row].newTodoTable
-//        let b = newtodoFolderList.compactMap { $0 }
-//        let c = newtodoFolderList.map { $0 }
-//        let d = [newtodoFolderList[indexPath.row]]
-        let filter = repository.realm.objects(Folder.self).filter("id == %@", folder.id)
+
+        let filter = repository.realm.objects(Folder.self).where {
+            $0.id == folder.id
+        }
+
         let vc = FolderDetailViewController()
         vc.folderResults = filter
         
@@ -248,6 +230,11 @@ extension AllListViewController : UITableViewDelegate, UITableViewDataSource {
     
 }
 
+// let test = newtodoFolderList[indexPath.row].newTodoTable
+//  lazy어쩌고 Results< >
+//        let b = newtodoFolderList.compactMap { $0 }
+//        let c = newtodoFolderList.map { $0 }
+//        let d = [newtodoFolderList[indexPath.row]]
 
 
 

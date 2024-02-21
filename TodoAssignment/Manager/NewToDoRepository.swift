@@ -155,9 +155,10 @@ final class NewToDoRepository: TodoRepository{
         do {
             let model =  realm.object(ofType: model, forPrimaryKey: modle_ID)
             guard let model = model else {
-                
+                print("@@@@이걸던진다고?")
                 throw RealmErrorCase.noHaveTable
             }
+            print("@@@@@@@")
             try realm.write {
                 model.flagBool.toggle()
             }

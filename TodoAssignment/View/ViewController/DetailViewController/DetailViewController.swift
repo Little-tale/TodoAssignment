@@ -9,7 +9,7 @@ import UIKit
 import RealmSwift
 
  // MARK: ****
-class DetailViewController: DetailBaseViewController<DetailHomeView> {
+class DetailViewController: DetailBaseViewController<DetailHomeView>, allListProtocol {
 
     // MARK: 테스트 단계인 버튼이 키고 아이디가 벨류
     var modelButtonDictionary: [UIButton: ObjectId] = [:]
@@ -82,7 +82,6 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource{
             
             success(true)
         }
-        
         let modify = UIContextualAction(style: .normal, title: "깃발" ) { action, view, sucsess in
             view.backgroundColor = .green
             action.backgroundColor = .orange
@@ -164,7 +163,7 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource{
  
 }
 
-extension DetailViewController {
+extension UIViewController {
     // MARK: 우선순위 값을 변경해드립니다.
     func getPrivorityText(number: Int) -> String{
         prioritization.allCases[number].exclamationMark

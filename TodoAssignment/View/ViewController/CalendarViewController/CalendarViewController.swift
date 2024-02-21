@@ -105,7 +105,6 @@ extension CalendarViewController {
     
     @objc
     func toggleOfComplite(_ sender: UIButton) {
-
         print(modelButtonDictionary[sender] ?? "")
         // 버튼 선택상태를 -> 컴플리트 상태값으로
         print(sender.isSelected)
@@ -124,8 +123,5 @@ extension CalendarViewController {
             let alert = AlertManager().showAlert(error: error)
             present(alert, animated: true)
         }
-    }
-    func getPrivorityText(number: Int) -> String{
-        prioritization.allCases[number].exclamationMark
     }
 }
