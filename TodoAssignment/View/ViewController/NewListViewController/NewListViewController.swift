@@ -108,15 +108,7 @@ extension NewListViewController: UITableViewDelegate, UITableViewDataSource {
                 print("**DetailListTableViewCell")
                 return UITableViewCell()
             }
-            
-            // MARK: 이렇게 하면 키보드가 나오면서 두두두둗두두두두 함 매우 기분이 나쁨
-//            if keybordActing == true {
-//                print("******ssss")
-//                cell.detailListTextField.becomeFirstResponder()
-//            }
-//            keybordActing = false
             cell.textFieldDelegate = self
-            
             return cell
         case .listCase:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: OnlyTitleTableViewCell.reuseabelIdentifier, for: indexPath) as? OnlyTitleTableViewCell else {
@@ -134,7 +126,26 @@ extension NewListViewController: UITableViewDelegate, UITableViewDataSource {
         }
 
     }
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+
+}
+
+//MARK: 텍스트 필드 Protocol로 역값전달
+extension NewListViewController: DetailTextFieldProtocol {
+    func textFieldDidChanged(for textField: UITextField) {
+        viewData.folderName = textField.text ?? ""
+        print(textField.text)
+    }
+}
+
+// MARK: 이렇게 하면 키보드가 나오면서 두두두둗두두두두 함 매우 기분이 나쁨
+//            if keybordActing == true {
+//                print("******ssss")
+//                cell.detailListTextField.becomeFirstResponder()
+//            }
+//            keybordActing = false
 //    // MARK: 처음 화면이 로드 될때만 키보드를 올리는 방법 -> 여전히 두둑 끊김
 //    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
 //        let section = DetailListCellCase.allCases[indexPath.section]
@@ -149,21 +160,11 @@ extension NewListViewController: UITableViewDelegate, UITableViewDataSource {
 //                cell.detailListTextField.becomeFirstResponder()
 //                keybordActing.toggle()
 //            }
-//            
+//
 //        }
-//        
+//
 //    }
 /* // wiiDisplay에서 셀 재사용 할게 아니라 이 밑에 코드는 작동이 안됨
  //            guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailListTableViewCell.reuseabelIdentifier, for: indexPath) as? DetailListTableViewCell else {
  //                print("섹션 에러 문제 willDisplay")
  */
-}
-
-//MARK: 텍스트 필드 Protocol로 역값전달
-extension NewListViewController: DetailTextFieldProtocol {
-    func textFieldDidChanged(for textField: UITextField) {
-        viewData.folderName = textField.text ?? ""
-        print(textField.text)
-    }
-}
-

@@ -134,9 +134,31 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource{
         
         modelButtonDictionary[cell.leftButton] = modelData.id
     }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
     
     
-    
+   
+}
+
+extension UIViewController {
+    // MARK: 우선순위 값을 변경해드립니다.
+    func getPrivorityText(number: Int) -> String{
+        prioritization.allCases[number].exclamationMark
+    }
+}
+
+extension DetailViewController {
+    func reloadData(bool: Bool){
+        if bool == true {
+            baseHomeView.tableView.reloadData()
+        }
+    }
+}
+
+
+extension DetailViewController {
     // MARK: 버튼을 누르면 각 버튼을 구분지어 무엇을 눌렀는지
     @objc
     func toggleOfComplite(_ sender: UIButton) {
@@ -162,22 +184,6 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource{
     }
  
 }
-
-extension UIViewController {
-    // MARK: 우선순위 값을 변경해드립니다.
-    func getPrivorityText(number: Int) -> String{
-        prioritization.allCases[number].exclamationMark
-    }
-}
-
-extension DetailViewController {
-    func reloadData(bool: Bool){
-        if bool == true {
-            baseHomeView.tableView.reloadData()
-        }
-    }
-}
-
 
 
 

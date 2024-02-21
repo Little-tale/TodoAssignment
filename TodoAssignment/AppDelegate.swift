@@ -27,7 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 migration.renameProperty(onType: NewToDoTable.className(), from: "memoTexts", to: "memoDetail")
             }
             
-            // 컬럼 결합
+            // 컬럼 결합을 위해 연습하였습니다. titleTexts + memoDetail
             if oldSchemaVersion < 4 {
                 migration.enumerateObjects(ofType: NewToDoTable.className()) { oldObject, newObject in
                     guard let old = oldObject else {return}
@@ -36,6 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     new["testEnumerate"] = "테스트를 위한 글입니다. \(old["titleTexts"]!) 글이있네요! \(old["memoDetail"]!)"
                 }
             }
+            // 새로운 컬럼에 데이터를 바로 넣었습니다. // testNewElement컬럼 추가
             if oldSchemaVersion < 5 {
                 migration.enumerateObjects(ofType: NewToDoTable.className()) { oldObject, newObject in
                     guard let new = newObject else {return}

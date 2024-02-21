@@ -7,6 +7,7 @@
 
 import UIKit
 import RealmSwift
+import PhotosUI
 // MARK: 잭님이 주신 과제의 원본 섹션
 
 
@@ -125,7 +126,7 @@ enum AllListCellCase: CaseIterable {
                 .systemGray5
         }
     }
-    // MARK: 세련님께 세련된 기술을 가르침 받음
+    // MARK: 세련님께 세련된 기술을 가르침 받음 프로토콜 지향방식?
     var nextViewController: allListProtocol? {
         switch self {
         case .today, .upcoming, .flag, .completed:
@@ -227,23 +228,34 @@ enum addImageSection: CaseIterable {
     
     func imageAction(from: UIViewController){
         // MARK: 이미지 피커 컨트롤러 인스턴스 생성
-        let imagePicker = UIImagePickerController()
+//        let imagePicker = UIImagePickerController()
+//        
+//        // MARK: 해당 뷰컨이 프로토콜을 구현 안했을것을 방지
+//        imagePicker.delegate = from as? any UIImagePickerControllerDelegate & UINavigationControllerDelegate
+//        // MARK: 편집 모드를 허용함
+//        imagePicker.allowsEditing = true
+        // MARK: PHPicker 사용하는 방법시작
+        var configuration = PHPickerConfiguration()
+        // 이미지 여러개를 선택할수 있는데 제한도 걸수있다!
+        configuration.selectionLimit = 3
+        // 종류를 필터하여 그것만을 선택할수 있게 할수 있다.
+        configuration.filter = .any(of: [.videos,.images])
+        // 그렇게 만든 콘피규레이션을 PHPickerViewController를 생성할때 전달해줄수 있다.
+        let phpPicker = PHPickerViewController(configuration: configuration)
         
-        // MARK: 해당 뷰컨이 프로토콜을 구현 안했을것을 방지
-        imagePicker.delegate = from as? any UIImagePickerControllerDelegate & UINavigationControllerDelegate
-        // MARK: 편집 모드를 허용함
-        imagePicker.allowsEditing = true
+        phpPicker.delegate = from as? any PHPickerViewControllerDelegate
         
         switch self {
         case .camera:
-            imagePicker.sourceType = .camera
+//            imagePicker.sourceType = .camera
             // 흠 info.plist 에서 권한 이유만 썻는데 잘된다...
-            from.present(imagePicker, animated: true)
+//            from.present(/*imagePicker*/, animated: true)
+            from.present(phpPicker, animated: true)
             break
         case .gallery:
-            imagePicker.sourceType = .savedPhotosAlbum
+//            imagePicker.sourceType = .savedPhotosAlbum
             // MARK: 받아온 뷰컨에서 프레센트 시킴
-            from.present(imagePicker, animated: true)
+            from.present(phpPicker, animated: true)
         case .webImage:
             
             break

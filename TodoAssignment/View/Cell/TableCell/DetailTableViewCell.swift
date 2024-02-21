@@ -88,6 +88,7 @@ final class DetailTableViewCell: BaseTableViewCell {
 //        tagLabel.backgroundColor = .brown
 //        subImageView.backgroundColor = .gray
 //        folderLabel.backgroundColor = .lightGray
+       
     }
     
     // MARK: 텍스트 컬러와 폰트 설정

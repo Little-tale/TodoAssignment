@@ -96,6 +96,10 @@ extension FolderDetailViewController: UITableViewDelegate, UITableViewDataSource
         let flagAction = flagActionForFolder(indexPath: indexPath)
         return UISwipeActionsConfiguration(actions: [deleteAction,flagAction])
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
 }
 // MARK: 스와이프 액션들
 extension FolderDetailViewController {

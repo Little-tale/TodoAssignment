@@ -7,6 +7,7 @@
 
 import UIKit
 import RealmSwift
+import PhotosUI
 
 // MARK: 텍스트 필드가 현재 두개로 구현했는데 1개로 바꾸고 하나는 텍스트 뷰로 수정하자 -> OK
 
@@ -359,16 +360,12 @@ extension NewTodoViewController: UIImagePickerControllerDelegate, UINavigationCo
     //MARK: 취소 버튼을 눌렀을때
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         print(#function)
-        
-        
         dismiss(animated: true)
     }
     // 이미지를 눌렀을때
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         print(#function)
         
-       
-//        }
         // MARK: 거의 정사각형으로(가끔아님) 편집된 사진 가져오기
         if let selectedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage{
             // as? UIImage로 형변환 시도후 성공시
@@ -382,6 +379,30 @@ extension NewTodoViewController: UIImagePickerControllerDelegate, UINavigationCo
         dismiss(animated: true)
     }
 }
+// MARK: PHPickerViewControllerDelegate를 구현한다.
+extension NewTodoViewController : PHPickerViewControllerDelegate {
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        
+        // 현재는 한장만 받을수 있어서 학습을 위해 first만 받을수 있게하였다.
+        let providerOf = results.first?.itemProvider
+        // : NSItemProvider? -> 옵셔널 바인딩
+        if let providerOf = providerOf, // UIImage로 Load가 가능한지?
+           providerOf.canLoadObject(ofClass: UIImage.self) {
+            // 가능하다면 UIImage를 부탁드려요
+            providerOf.loadObject(ofClass: UIImage.self) { reading, error in
+                // MainThread 님께 저의 어께가 무거우니 받아주시게 시전
+                DispatchQueue.main.async {
+                    // 받아주세요!
+                    self.newToDoItem.profileImage = reading as? UIImage
+                    self.reloadTableViewSection(for: .addImage)
+                }
+            }
+        }
+        picker.dismiss(animated: true)
+    }
+}
+
+
 
 // MARK: 특정 섹션만 리로드 하는 방법을 알아보기.
 extension NewTodoViewController{
