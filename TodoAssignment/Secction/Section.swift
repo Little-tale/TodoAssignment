@@ -267,7 +267,7 @@ enum SortSction: CaseIterable {
 //    }
     
 }
-enum testSortSction {
+enum filterSortSection {
     case title(ascending: Bool)
     case dateSet(ascending: Bool)
     case prioritySet(ascending: Bool)
@@ -286,7 +286,7 @@ enum testSortSction {
         }
     }
 
-    private func getQeery(section: testSortSction) -> String{
+    private func getQeery(section: filterSortSection) -> String{
         switch self {
         case .title:
             "titleTexts"

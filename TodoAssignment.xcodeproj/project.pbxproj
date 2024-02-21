@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7B27CC7B2B85B7CB00788BB7 /* FolderDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B27CC7A2B85B7CB00788BB7 /* FolderDetailViewController.swift */; };
+		7B27CC7F2B85B91C00788BB7 /* FolderDetailBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B27CC7E2B85B91C00788BB7 /* FolderDetailBaseViewController.swift */; };
 		7B5A755B2B7D0CE4002A015F /* ToDoListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5A755A2B7D0CE4002A015F /* ToDoListCollectionViewCell.swift */; };
 		7B5A755D2B7D0D00002A015F /* BaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5A755C2B7D0D00002A015F /* BaseCollectionViewCell.swift */; };
 		7B5A75602B7D1B08002A015F /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5A755F2B7D1B08002A015F /* UserDefaultsManager.swift */; };
@@ -68,6 +70,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7B27CC7A2B85B7CB00788BB7 /* FolderDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderDetailViewController.swift; sourceTree = "<group>"; };
+		7B27CC7E2B85B91C00788BB7 /* FolderDetailBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderDetailBaseViewController.swift; sourceTree = "<group>"; };
 		7B5A755A2B7D0CE4002A015F /* ToDoListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListCollectionViewCell.swift; sourceTree = "<group>"; };
 		7B5A755C2B7D0D00002A015F /* BaseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewCell.swift; sourceTree = "<group>"; };
 		7B5A755F2B7D1B08002A015F /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
@@ -141,6 +145,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7B27CC792B85B7AB00788BB7 /* FolderDetailViewController */ = {
+			isa = PBXGroup;
+			children = (
+				7B27CC7A2B85B7CB00788BB7 /* FolderDetailViewController.swift */,
+			);
+			path = FolderDetailViewController;
+			sourceTree = "<group>";
+		};
 		7B5A755E2B7D1AFA002A015F /* Manager */ = {
 			isa = PBXGroup;
 			children = (
@@ -191,6 +203,7 @@
 				7B5A758C2B8043BF002A015F /* DetailBaseViewController */,
 				7B72D3672B7C7E3000DBB1DB /* BaseViewController.swift */,
 				7B5A75932B80EC93002A015F /* SearchBaseViewController.swift */,
+				7B27CC7E2B85B91C00788BB7 /* FolderDetailBaseViewController.swift */,
 			);
 			path = BaseViewController;
 			sourceTree = "<group>";
@@ -250,6 +263,7 @@
 		7B72D3652B7C7E0F00DBB1DB /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				7B27CC792B85B7AB00788BB7 /* FolderDetailViewController */,
 				7BA40E652B8490700053D450 /* NewListViewController */,
 				7B8A81C92B8354B600F2CB73 /* CalendarViewController */,
 				7B5A75742B7E2808002A015F /* DetailViewController */,
@@ -515,6 +529,7 @@
 				7BA40E732B84C4C80053D450 /* FolderTableCell.swift in Sources */,
 				7B72D36E2B7C7FC600DBB1DB /* TitleMemoTableCell.swift in Sources */,
 				7B72D38B2B7CC1E000DBB1DB /* PrioritizationViewController.swift in Sources */,
+				7B27CC7F2B85B91C00788BB7 /* FolderDetailBaseViewController.swift in Sources */,
 				7BA40E6F2B84BDEE0053D450 /* BaseTableView.swift in Sources */,
 				7B5A75892B7F83C9002A015F /* CustomButton.swift in Sources */,
 				7B72D3702B7C7FDE00DBB1DB /* BaseTableViewCell.swift in Sources */,
@@ -531,6 +546,7 @@
 				7B5A75602B7D1B08002A015F /* UserDefaultsManager.swift in Sources */,
 				7B8A81D52B83A1EA00F2CB73 /* URLSessionManager.swift in Sources */,
 				7B8A81D92B83AB6E00F2CB73 /* APIKey.swift in Sources */,
+				7B27CC7B2B85B7CB00788BB7 /* FolderDetailViewController.swift in Sources */,
 				7B72D37F2B7C8EB600DBB1DB /* Section.swift in Sources */,
 				7B5A75812B7F7073002A015F /* ALLTilteCollectionReusableView.swift in Sources */,
 				7B72D3752B7C815300DBB1DB /* OnlyTitleTableViewCell.swift in Sources */,

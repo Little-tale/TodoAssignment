@@ -20,7 +20,7 @@ class DetailBaseViewController<T: BaseView> : BaseViewController {
     
     // Type -> (keyPath: String, ascending: Bool)
     // MARK: 각 정렬 기준을 잡습니다.
-    var sortParam = testSortSction.title(ascending: true).parameter {
+    var sortParam = filterSortSection.title(ascending: true).parameter {
         didSet{
             guard let baseHomeView = baseHomeView as? DetailHomeView  else {
                 return
@@ -34,13 +34,13 @@ class DetailBaseViewController<T: BaseView> : BaseViewController {
         // MARK: 1섹션 3개의 아이템을 정의
         let sortItems = UIMenu(title: "정렬타입", options: .singleSelection, children: [
             UIAction(title: "마감일", handler: { _ in
-                self.sortParam = testSortSction.dateSet(ascending: self.sortParam.ascending).parameter
+                self.sortParam = filterSortSection.dateSet(ascending: self.sortParam.ascending).parameter
             }),
             UIAction(title: "제목순",state: .on ,handler: { _ in
-                self.sortParam = testSortSction.title(ascending: self.sortParam.ascending).parameter
+                self.sortParam = filterSortSection.title(ascending: self.sortParam.ascending).parameter
             }),
             UIAction(title: "우선순위순", handler: { _ in
-                self.sortParam = testSortSction.onlyprioritySet(ascending: self.sortParam.ascending).parameter
+                self.sortParam = filterSortSection.onlyprioritySet(ascending: self.sortParam.ascending).parameter
             })
         ])
         // MARK: 2섹션 2개의 아이템 정의

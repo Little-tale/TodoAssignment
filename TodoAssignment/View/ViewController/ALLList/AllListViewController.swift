@@ -21,7 +21,7 @@ final class AllListViewController: SearchBaseViewController {
 
     // MARK: Realm 데이터 담아둘 공간! !를 권장한다?? -> 물어보기
     var NewTodoListRecords: Results<NewToDoTable>!
-    var NetTodoFolder: Results<Folder>!
+//    var NetTodoFolder: Results<Folder>!
     
     let repository = NewToDoRepository()
     
@@ -128,6 +128,14 @@ extension AllListViewController : UICollectionViewDelegate, UICollectionViewData
         collectionView.deselectItem(at: indexPath , animated: true)
         
         let secction = AllListCellCase.allCases[indexPath.item]
+        
+        if secction == .all {
+            let vc = FolderDetailViewController()
+            vc.folderResults = newtodoFolderList
+            vc.navigationItem.title = secction.name
+            navigationController?.pushViewController(vc, animated: true)
+            return
+        }
         let vc = DetailViewController()
     
        // vc.settingViewDataInfomation(whatInfo: secction)
@@ -224,8 +232,17 @@ extension AllListViewController : UITableViewDelegate, UITableViewDataSource {
         print(indexPath.row)
 
         print("*****",newtodoFolderList[indexPath.row].newTodoTable)
+        
+        let folder = newtodoFolderList[indexPath.row]
         // let test = newtodoFolderList[indexPath.row].newTodoTable
-        print(repository.list[indexPath.row])
+//        let b = newtodoFolderList.compactMap { $0 }
+//        let c = newtodoFolderList.map { $0 }
+//        let d = [newtodoFolderList[indexPath.row]]
+        let filter = repository.realm.objects(Folder.self).filter("id == %@", folder.id)
+        let vc = FolderDetailViewController()
+        vc.folderResults = filter
+        
+        navigationController?.pushViewController(vc, animated: true)
     }
 
     

@@ -41,10 +41,10 @@ final class NewToDoRepository: TodoRepository{
     let folderModel = Folder.self
     
     lazy var list: Results<Folder> = realm.objects(Folder.self)
-   
+    
     
     func NewToDoRepository() -> Results<NewToDoTable> {
-      return realm.objects(model)
+        return realm.objects(model)
     }
     func NewToDoFolder() -> Results<Folder> {
         return realm.objects(folderModel)
@@ -62,7 +62,7 @@ final class NewToDoRepository: TodoRepository{
         }
     }
     
-    // MARK: 데이터 정렬 
+    // MARK: 데이터 정렬
     func dataSort(dataList: Results<NewToDoTable>, section: SortSction, toggle: Bool) -> Results<NewToDoTable>{
         switch section {
         case .onlyprioritySet:
@@ -91,13 +91,13 @@ final class NewToDoRepository: TodoRepository{
         switch section {
         case .today:
             var calender = Calendar.current
-        
+            
             print("***",calender)
-//            calender.locale = Locale.current
+            //            calender.locale = Locale.current
             print("*****",calender)
             
             let start = calender.startOfDay(for: Date())
-//            let start = Date()
+            //            let start = Date()
             let end = calender.date(byAdding: .day, value: 1, to: start)
             let todayIteral = realm.objects(model).where{
                 $0.endDay >= start && $0.endDay < end
@@ -117,7 +117,7 @@ final class NewToDoRepository: TodoRepository{
             print(future)
             return future.count
         case .all:
-    
+            
             return realm.objects(model).count
         case .flag:
             let data =  realm.objects(model).where {
@@ -138,7 +138,7 @@ final class NewToDoRepository: TodoRepository{
             let dataModel = realm.object(ofType: model, forPrimaryKey: model_Id)
             
             guard let dataModel = dataModel else {
-    
+                
                 throw RealmErrorCase.noHaveTable
             }
             // -> toggle도 있지만 이게 더 확실할수도 있을것 같다.
@@ -155,7 +155,7 @@ final class NewToDoRepository: TodoRepository{
         do {
             let model =  realm.object(ofType: model, forPrimaryKey: modle_ID)
             guard let model = model else {
-    
+                
                 throw RealmErrorCase.noHaveTable
             }
             try realm.write {
@@ -187,7 +187,7 @@ final class NewToDoRepository: TodoRepository{
         case .completed:
             return realm.objects(model).where { $0.complite == true }
         }
-      
+        
     }
     
     /// 대소문자 구분안할겁니다....!
@@ -210,19 +210,11 @@ final class NewToDoRepository: TodoRepository{
         let results = NewToDoRepository().filter(predicate)
         return results
     }
-    // 이렇게 되면 가드문이나 if let 무한인디!
-//    func getDateInterval(firstdate: Date) -> ((String, String) -> Void) {
-//        let calendar = Calendar.current
-//        let start = calendar.startOfDay(for: firstdate)
-//        let end = calendar.date(byAdding: .day, value: 1, to: start)
-//        if let end = end {
-//            
-//        }
-//    }
+    
     
     
     // MARK: 두번째 대공사 키패스를 이용한 필터 뷰
-    func DetailFilterViewForKeyPath(of: AllListCellCase, sortParam:(keyPath: String, ascending: Bool) = testSortSction.title(ascending: true).parameter) -> Results<NewToDoTable> {
+    func DetailFilterViewForKeyPath(of: AllListCellCase, sortParam:(keyPath: String, ascending: Bool) = filterSortSection.title(ascending: true).parameter) -> Results<NewToDoTable> {
         let calender = Calendar.current
         let start = calender.startOfDay(for: Date())
         let end = calender.date(byAdding: .day, value: 1, to: start)
@@ -241,8 +233,15 @@ final class NewToDoRepository: TodoRepository{
         case .completed:
             return realm.objects(model).where { $0.complite }.sorted(byKeyPath: sortParam.keyPath, ascending: sortParam.ascending)
         }
-
     }
+    
+//    func FolderFilterViewForKeyPath(of: Folder, sortParam:(keyPath: String, ascending: Bool) = filterSortSection.title(ascending: true).parameter) -> List<NewToDoTable> {
+//        let folderData = of.newTodoTable
+//        
+//        
+//        
+//    }
+    
     
     // MARK: 새로운 폴더 생성하기
     func saveNewFolder(folderName: String){
@@ -282,10 +281,18 @@ final class NewToDoRepository: TodoRepository{
         }
     }
     
-    
-    
 }
-
+/*
+ // 이렇게 되면 가드문이나 if let 무한인디!
+//    func getDateInterval(firstdate: Date) -> ((String, String) -> Void) {
+//        let calendar = Calendar.current
+//        let start = calendar.startOfDay(for: firstdate)
+//        let end = calendar.date(byAdding: .day, value: 1, to: start)
+//        if let end = end {
+//
+//        }
+//    }
+ */
 //enum settingSection: CaseIterable {
 //    case endDay
 //    case titleAt

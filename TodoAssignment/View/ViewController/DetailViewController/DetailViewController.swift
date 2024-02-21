@@ -8,7 +8,7 @@
 import UIKit
 import RealmSwift
 
-
+ // MARK: ****
 class DetailViewController: DetailBaseViewController<DetailHomeView> {
 
     // MARK: 테스트 단계인 버튼이 키고 아이디가 벨류
