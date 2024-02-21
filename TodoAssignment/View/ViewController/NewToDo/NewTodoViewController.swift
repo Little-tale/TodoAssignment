@@ -93,7 +93,7 @@ class NewTodoViewController: BaseViewController {
             return
         }
        
-        let newToDoRecord = NewToDoTable(title: text, memoTexts: data.memoText, endDay: data.dateInfo, tagText: data.tagInfo, priorityNumber: data.prioritizationIndex, flagBool: data.flagBool)
+        let newToDoRecord = NewToDoTable(title: text, memoDetail: data.memoText, endDay: data.dateInfo, tagText: data.tagInfo, priorityNumber: data.prioritizationIndex, flagBool: data.flagBool)
         
         
         if let folder = folder {
@@ -258,6 +258,7 @@ extension NewTodoViewController: UITableViewDelegate, UITableViewDataSource {
                 let vc = AllFolderViewController()
                 vc.beforeFolder = folder
                 NotificationCenter.default.addObserver(self, selector: #selector(getFolderData), name: NSNotification.Name("folderData"), object: nil)
+                
                 navigationController?.pushViewController(vc, animated: true)
             } else {
                 let vc = NewListViewController()

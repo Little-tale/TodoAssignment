@@ -121,7 +121,7 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource{
         cell.dateLabel.text = date
         cell.tagLabel.text = modelData.tagText
         cell.priLabel.text = getPrivorityText(number: prioritynum)
-        cell.subTitleLabel.text = modelData.memoTexts
+        cell.subTitleLabel.text = modelData.memoDetail
         cell.leftButton.isSelected = modelData.complite
         // MARK: 왜 first 인건가 LinkingObjects<Folder>
         cell.folderLabel.text = modelData.folder.first?.folderName

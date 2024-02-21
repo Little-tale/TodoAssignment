@@ -141,300 +141,301 @@ enum AllListCellCase: CaseIterable {
         }
     }
 }
+
+enum SortSction: CaseIterable {
+    case titleSet
+    case dateSet
+    case prioritySet
+    case onlyprioritySet
     
-    enum SortSction: CaseIterable {
-        case titleSet
-        case dateSet
-        case prioritySet
-        case onlyprioritySet
-        
-        var getQuery: String {
-            switch self {
-            case .titleSet:
-                "titleTexts"
-            case .dateSet:
-                "endDay"
-            case .prioritySet:
-                "priorityNumber"
-            case .onlyprioritySet:
-                "priorityNumber"
-            }
+    var getQuery: String {
+        switch self {
+        case .titleSet:
+            "titleTexts"
+        case .dateSet:
+            "endDay"
+        case .prioritySet:
+            "priorityNumber"
+        case .onlyprioritySet:
+            "priorityNumber"
         }
-        var setTitle: String {
-            switch self {
-            case .titleSet:
-                "제목순"
-            case .dateSet:
-                "날짜순"
-            case .prioritySet:
-                "우선순위순"
-            case .onlyprioritySet:
-                "우선순위만"
-            }
+    }
+    var setTitle: String {
+        switch self {
+        case .titleSet:
+            "제목순"
+        case .dateSet:
+            "날짜순"
+        case .prioritySet:
+            "우선순위순"
+        case .onlyprioritySet:
+            "우선순위만"
+        }
+    }
+}
+
+enum filterSortSection {
+    case title(ascending: Bool)
+    case dateSet(ascending: Bool)
+    case prioritySet(ascending: Bool)
+    case onlyprioritySet(ascending: Bool)
+    
+    var parameter:(keyPath: String, ascending: Bool){
+        switch self {
+        case .title(let ascending):
+            (getQeery(section: self), ascending)
+        case .dateSet(let ascending):
+            (getQeery(section: self), ascending)
+        case .prioritySet(let ascending):
+            (getQeery(section: self), ascending)
+        case .onlyprioritySet(let ascending):
+            (getQeery(section: self), ascending)
         }
     }
     
-    enum filterSortSection {
-        case title(ascending: Bool)
-        case dateSet(ascending: Bool)
-        case prioritySet(ascending: Bool)
-        case onlyprioritySet(ascending: Bool)
-        
-        var parameter:(keyPath: String, ascending: Bool){
-            switch self {
-            case .title(let ascending):
-                (getQeery(section: self), ascending)
-            case .dateSet(let ascending):
-                (getQeery(section: self), ascending)
-            case .prioritySet(let ascending):
-                (getQeery(section: self), ascending)
-            case .onlyprioritySet(let ascending):
-                (getQeery(section: self), ascending)
-            }
+    private func getQeery(section: filterSortSection) -> String{
+        switch self {
+        case .title:
+            "titleTexts"
+        case .dateSet:
+            "endDay"
+        case .prioritySet:
+            "priorityNumber"
+        case .onlyprioritySet:
+            "priorityNumber"
         }
-        
-        private func getQeery(section: filterSortSection) -> String{
-            switch self {
-            case .title:
-                "titleTexts"
-            case .dateSet:
-                "endDay"
-            case .prioritySet:
-                "priorityNumber"
-            case .onlyprioritySet:
-                "priorityNumber"
-            }
+    }
+}
+
+
+
+enum addImageSection: CaseIterable {
+    case camera
+    case gallery
+    case webImage
+    
+    var title: String {
+        switch self {
+        case .camera:
+            "카메라 사진"
+        case .gallery:
+            "갤러리에서 고르기"
+        case .webImage:
+            "웹 이미지 고르기"
         }
-        
     }
     
-    enum addImageSection: CaseIterable {
-        case camera
-        case gallery
-        case webImage
+    func imageAction(from: UIViewController){
+        // MARK: 이미지 피커 컨트롤러 인스턴스 생성
+        let imagePicker = UIImagePickerController()
         
-        var title: String {
-            switch self {
-            case .camera:
-                "카메라 사진"
-            case .gallery:
-                "갤러리에서 고르기"
-            case .webImage:
-                "웹 이미지 고르기"
-            }
-        }
+        // MARK: 해당 뷰컨이 프로토콜을 구현 안했을것을 방지
+        imagePicker.delegate = from as? any UIImagePickerControllerDelegate & UINavigationControllerDelegate
+        // MARK: 편집 모드를 허용함
+        imagePicker.allowsEditing = true
         
-        func imageAction(from: UIViewController){
-            // MARK: 이미지 피커 컨트롤러 인스턴스 생성
-            let imagePicker = UIImagePickerController()
+        switch self {
+        case .camera:
+            imagePicker.sourceType = .camera
+            // 흠 info.plist 에서 권한 이유만 썻는데 잘된다...
+            from.present(imagePicker, animated: true)
+            break
+        case .gallery:
+            imagePicker.sourceType = .savedPhotosAlbum
+            // MARK: 받아온 뷰컨에서 프레센트 시킴
+            from.present(imagePicker, animated: true)
+        case .webImage:
             
-            // MARK: 해당 뷰컨이 프로토콜을 구현 안했을것을 방지
-            imagePicker.delegate = from as? any UIImagePickerControllerDelegate & UINavigationControllerDelegate
-            // MARK: 편집 모드를 허용함
-            imagePicker.allowsEditing = true
-            
-            switch self {
-            case .camera:
-                imagePicker.sourceType = .camera
-                // 흠 info.plist 에서 권한 이유만 썻는데 잘된다...
-                from.present(imagePicker, animated: true)
-                break
-            case .gallery:
-                imagePicker.sourceType = .savedPhotosAlbum
-                // MARK: 받아온 뷰컨에서 프레센트 시킴
-                from.present(imagePicker, animated: true)
-            case .webImage:
-                
-                break
-            }
+            break
         }
-        
     }
     
+}
+
+
+//MARK: 상황별 섹션 분리
+enum NewTodo:Int, CaseIterable{
+    case memo = 1
+    case details = 4
+}
+
+enum NewToDo{
+    case memo
+    case details(detailsGroup)
     
-    //MARK: 상황별 섹션 분리
-    enum NewTodo:Int, CaseIterable{
-        case memo = 1
-        case details = 4
-    }
-    
-    enum NewToDo{
-        case memo
-        case details(detailsGroup)
-        
-    }
-    
-    enum detailsGroup{
-        case endDay
-        case tag
-        case prioritization
-        case addImage
-    }
-    
-    
-    
-    //    enum sectionOf {
-    //        case title(ascending: Bool)
-    //        case dateSet(ascending: Bool)
-    //        case prioritySet(ascending: Bool)
-    //        case onlyprioritySet(ascending: Bool)
-    //
-    //        var parameter:(keyPath: String, ascending: Bool){
-    //            switch self {
-    //            case .title(let ascending):
-    //                (getQeery(section: self), ascending)
-    //            case .dateSet(let ascending):
-    //                (getQeery(section: self), ascending)
-    //            case .prioritySet(let ascending):
-    //                (getQeery(section: self), ascending)
-    //            case .onlyprioritySet(let ascending):
-    //                (getQeery(section: self), ascending)
-    //            }
-    //        }
-    //
-    //        private func getQeery(section: sectionOf) -> String{
-    //            switch self {
-    //            case .title:
-    //                "titleTexts"
-    //            case .dateSet:
-    //                "endDay"
-    //            case .prioritySet:
-    //                "priorityNumber"
-    //            case .onlyprioritySet:
-    //                "priorityNumber"
-    //            }
-    //        }
-    //
-    //    }
-    /*
-     // MARK: 이렇게 할 필요가 없음 어느정도는 있겠지만
-     //            let date = DateAssistance().getOnlyDate(date: Date())
-     //            print(Date() )
-     //            guard let dates = date else {
-     //                return 0
-     //            }
-     //            let loadObject = loadRealm.objects(model).where { result in
-     //                result.onlyDate == dates
-     //            }
-     //            print(loadObject.count, dates)
-     */
-    // 예시 let result = realm.objects(CompanyInfo.self).filter("id == 0")
-    // 단 매게변수는 $0 스타일
-    // 와 .... $0 으로 했는데 계속 터지다가
-    // %@ 로 매개변수 받으니 에러가 아나네
-    
-    
-    //enum DetailViewActionCase:String, CaseIterable{
-    //    case endDaySorted = "마감일순"
-    //    case titleSorted = "제목순"
-    //    case priveritSorted = "우선순위 낮음순"
-    //
-    //    var action: UIAction {
-    //        return compltionAction(title: self.rawValue) {
-    //            <#code#>
-    //        }
-    //    }
-    //
-    //    private func compltionAction(title: String, compltionHanler: @escaping (() -> Void) ) -> UIAction {
-    //
-    //        let action = UIAction(title: title) { _ in
-    //            compltionHanler()
-    //        }
-    //        return action
-    //    }
-    //}
-    
-    
-    /*
-     // 2.1 이때 클래스의 속성(어튜류뷰트 or 컬럼)을 필터링하여 필요한 값만 가져올수 있습니다.
-     //        let loadObjectFilter = loadRealm.objects(NewToDoTable.self).where { myObject in
-     //            myObject.titleTexts == ""
-     //            myObject.memoTexts == ""
-     //            // .... etc
-     //        }
-     
-     // 2.2 MARK: 역관계 쿼리 알아보기
-     
-     // 3. MARK: 가져온 데이터의 갯수를 가져옵니다.
-     */
-    
-    // MARK: TagInfo Case
-    //enum tagInfoCase: CaseIterable {
-    //    case none
-    //    case
-    //}
-    //    var getTableCell: UITableViewCell.AccessoryType {
-    //        switch self {
-    //        case .memo:
-    //            return TitleMemoTableCell.AccessoryType
-    //        case .endDay:
-    //            return OnlyTitleTableViewCell.self
-    //        case .tag:
-    //            return TitleMemoTableCell.self
-    //        case .prioritization:
-    //            return TitleMemoTableCell.self
-    //        case .addImage:
-    //            return TitleMemoTableCell.self
-    //        case .flag:
-    //            return TitleMemoTableCell.self
-    //        }
-    //    }
-    
-    /// 불명확 type, 존재  type
-    /// coordinator, 라우터 --> 일단 다음에 시도하는 걸로
-    //    var nextView: UIViewController? {
-    //        switch self {
-    //        case .memo:
-    //            nil
-    //        case .endDay:
-    //            DatePickerViewController()
-    //        case .tag:
-    //            nil
-    //        case .prioritization:
-    //            nil
-    //        case .addImage:
-    //            nil
-    //        }
-    //    }
-    
-    // MARK: 디플리게이트 되었습니다 RealmManager를 가셔서 이용해 주세요!
-    //    var howMany: Int {
-    //        // MARK: Realm 값 불러오는 시점
-    //        // 1. 값을 가져올 구조체를 생성합니다.
-    //        // 딱히 디테일뷰에는 떠오르는 것이 없어서 여기를 왔다.
-    //        // 표현식
-    //        // "progressMinutes > 1 AND assignee == $0", "Ali"
-    //
-    //        let loadRealm = try! Realm()
-    //        let model = NewToDoTable.self
-    //        switch self {
-    //        case .today:
-    //            // 현재 캘린더 생성
-    //            let calender = Calendar.current
-    //            // 캘린더 시작 날짜 현재 설정 ->
-    //            let start = calender.startOfDay(for: Date())
-    //            //DateAssistance().
-    //            let end = calender.date(byAdding: .day, value: 1, to: start)
-    //            // print(start, end) // 이둘의 사이를 하면 됨
-    //
-    //            // MiGration 알아보기 SQL 언어 -> 둘다 하면 좋다.
-    //            let data = loadRealm.objects(model).filter("endDay > %@ AND endDay < %@", start, end ?? "")
-    //            //let data = loadRealm.objects(model).filter("endDay > \(start)")
-    //            return data.count
-    //        case .upcoming:
-    //            //MARK: 쿼리 언어를 통해 해결하는 방법
-    //            //  https://www.mongodb.com/docs/realm/realm-query-language/
-    //            let loadObject = loadRealm.objects(model).filter("endDay >= %@", Date())
-    //            // 수정된 사항
-    //            return loadObject.count
-    //        case .all:
-    //            let loadObject = loadRealm.objects(model)
-    //            return loadObject.count
-    //        case .flag:
-    //            return 0
-    //        case .completed:
-    //            return 0
-    //        }
-    //    }
-    
-    // func
+}
+
+enum detailsGroup{
+    case endDay
+    case tag
+    case prioritization
+    case addImage
+}
+
+
+
+//    enum sectionOf {
+//        case title(ascending: Bool)
+//        case dateSet(ascending: Bool)
+//        case prioritySet(ascending: Bool)
+//        case onlyprioritySet(ascending: Bool)
+//
+//        var parameter:(keyPath: String, ascending: Bool){
+//            switch self {
+//            case .title(let ascending):
+//                (getQeery(section: self), ascending)
+//            case .dateSet(let ascending):
+//                (getQeery(section: self), ascending)
+//            case .prioritySet(let ascending):
+//                (getQeery(section: self), ascending)
+//            case .onlyprioritySet(let ascending):
+//                (getQeery(section: self), ascending)
+//            }
+//        }
+//
+//        private func getQeery(section: sectionOf) -> String{
+//            switch self {
+//            case .title:
+//                "titleTexts"
+//            case .dateSet:
+//                "endDay"
+//            case .prioritySet:
+//                "priorityNumber"
+//            case .onlyprioritySet:
+//                "priorityNumber"
+//            }
+//        }
+//
+//    }
+/*
+ // MARK: 이렇게 할 필요가 없음 어느정도는 있겠지만
+ //            let date = DateAssistance().getOnlyDate(date: Date())
+ //            print(Date() )
+ //            guard let dates = date else {
+ //                return 0
+ //            }
+ //            let loadObject = loadRealm.objects(model).where { result in
+ //                result.onlyDate == dates
+ //            }
+ //            print(loadObject.count, dates)
+ */
+// 예시 let result = realm.objects(CompanyInfo.self).filter("id == 0")
+// 단 매게변수는 $0 스타일
+// 와 .... $0 으로 했는데 계속 터지다가
+// %@ 로 매개변수 받으니 에러가 아나네
+
+
+//enum DetailViewActionCase:String, CaseIterable{
+//    case endDaySorted = "마감일순"
+//    case titleSorted = "제목순"
+//    case priveritSorted = "우선순위 낮음순"
+//
+//    var action: UIAction {
+//        return compltionAction(title: self.rawValue) {
+//            <#code#>
+//        }
+//    }
+//
+//    private func compltionAction(title: String, compltionHanler: @escaping (() -> Void) ) -> UIAction {
+//
+//        let action = UIAction(title: title) { _ in
+//            compltionHanler()
+//        }
+//        return action
+//    }
+//}
+
+
+/*
+ // 2.1 이때 클래스의 속성(어튜류뷰트 or 컬럼)을 필터링하여 필요한 값만 가져올수 있습니다.
+ //        let loadObjectFilter = loadRealm.objects(NewToDoTable.self).where { myObject in
+ //            myObject.titleTexts == ""
+ //            myObject.memoTexts == ""
+ //            // .... etc
+ //        }
+ 
+ // 2.2 MARK: 역관계 쿼리 알아보기
+ 
+ // 3. MARK: 가져온 데이터의 갯수를 가져옵니다.
+ */
+
+// MARK: TagInfo Case
+//enum tagInfoCase: CaseIterable {
+//    case none
+//    case
+//}
+//    var getTableCell: UITableViewCell.AccessoryType {
+//        switch self {
+//        case .memo:
+//            return TitleMemoTableCell.AccessoryType
+//        case .endDay:
+//            return OnlyTitleTableViewCell.self
+//        case .tag:
+//            return TitleMemoTableCell.self
+//        case .prioritization:
+//            return TitleMemoTableCell.self
+//        case .addImage:
+//            return TitleMemoTableCell.self
+//        case .flag:
+//            return TitleMemoTableCell.self
+//        }
+//    }
+
+/// 불명확 type, 존재  type
+/// coordinator, 라우터 --> 일단 다음에 시도하는 걸로
+//    var nextView: UIViewController? {
+//        switch self {
+//        case .memo:
+//            nil
+//        case .endDay:
+//            DatePickerViewController()
+//        case .tag:
+//            nil
+//        case .prioritization:
+//            nil
+//        case .addImage:
+//            nil
+//        }
+//    }
+
+// MARK: 디플리게이트 되었습니다 RealmManager를 가셔서 이용해 주세요!
+//    var howMany: Int {
+//        // MARK: Realm 값 불러오는 시점
+//        // 1. 값을 가져올 구조체를 생성합니다.
+//        // 딱히 디테일뷰에는 떠오르는 것이 없어서 여기를 왔다.
+//        // 표현식
+//        // "progressMinutes > 1 AND assignee == $0", "Ali"
+//
+//        let loadRealm = try! Realm()
+//        let model = NewToDoTable.self
+//        switch self {
+//        case .today:
+//            // 현재 캘린더 생성
+//            let calender = Calendar.current
+//            // 캘린더 시작 날짜 현재 설정 ->
+//            let start = calender.startOfDay(for: Date())
+//            //DateAssistance().
+//            let end = calender.date(byAdding: .day, value: 1, to: start)
+//            // print(start, end) // 이둘의 사이를 하면 됨
+//
+//            // MiGration 알아보기 SQL 언어 -> 둘다 하면 좋다.
+//            let data = loadRealm.objects(model).filter("endDay > %@ AND endDay < %@", start, end ?? "")
+//            //let data = loadRealm.objects(model).filter("endDay > \(start)")
+//            return data.count
+//        case .upcoming:
+//            //MARK: 쿼리 언어를 통해 해결하는 방법
+//            //  https://www.mongodb.com/docs/realm/realm-query-language/
+//            let loadObject = loadRealm.objects(model).filter("endDay >= %@", Date())
+//            // 수정된 사항
+//            return loadObject.count
+//        case .all:
+//            let loadObject = loadRealm.objects(model)
+//            return loadObject.count
+//        case .flag:
+//            return 0
+//        case .completed:
+//            return 0
+//        }
+//    }
+
+// func

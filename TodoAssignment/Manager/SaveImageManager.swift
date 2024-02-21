@@ -12,13 +12,11 @@ enum fileManagerError: Error{
 }
 
 
-class SaveImageManager {
+final class SaveImageManager {
     // 파일 매니저
-    let fileManager = FileManager.default
+    private let fileManager = FileManager.default
     // MARK: 도큐먼트의 위치를 찾습니다.
     lazy var documets = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
-    let imagePath = "Image"
-    
     
     /// 사진을 저장합니다.(경로 -> Image)
     func saveImageToDocument(image: UIImage, filename: String){

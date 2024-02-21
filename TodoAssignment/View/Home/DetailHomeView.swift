@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class DetailHomeView: BaseView{
+final class DetailHomeView: BaseView{
     let tableView = UITableView(frame: .zero, style: .insetGrouped)
     
     lazy var pullDownbutton: UIButton = {

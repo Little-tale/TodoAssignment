@@ -17,9 +17,6 @@ protocol TodoRepository {
     /// 새로운 테이블을 저장합니다.
     func createOfRecord(object: Object)
     
-    /// 데이터 정렬을 해줍니다. 섹션별로 해드립니다.
-    func dataSort(dataList: Results<NewToDoTable>, section: SortSction, toggle: Bool) -> Results<NewToDoTable>
-    
     /// 테이블을 주시면 지워드립니다.
     func removeAt(_ item: NewToDoTable) -> Void
     
@@ -62,19 +59,7 @@ final class NewToDoRepository: TodoRepository{
         }
     }
     
-    // MARK: 데이터 정렬
-    func dataSort(dataList: Results<NewToDoTable>, section: SortSction, toggle: Bool) -> Results<NewToDoTable>{
-        switch section {
-        case .onlyprioritySet:
-            return dataList.where {
-                $0.priorityNumber > 0
-            }
-        case .prioritySet :
-            return dataList.sorted(byKeyPath: section.getQuery, ascending: false)
-        default :
-            return dataList.sorted(byKeyPath: section.getQuery, ascending: toggle)
-        }
-    }
+ 
     
     func removeAt(_ item: NewToDoTable) {
         do {
@@ -86,11 +71,11 @@ final class NewToDoRepository: TodoRepository{
         }
     }
     
-    
+    // MARK: 각 컬렉션뷰 셀에 갯수를 보여줍니다.
     func collctionListViewDisPatchForCount(_ section: AllListCellCase) -> Int {
         switch section {
         case .today:
-            var calender = Calendar.current
+            let calender = Calendar.current
             
             print("***",calender)
             //            calender.locale = Locale.current
@@ -103,7 +88,6 @@ final class NewToDoRepository: TodoRepository{
                 $0.endDay >= start && $0.endDay < end
             }
             
-            print("*****",todayIteral, start, end)
             return todayIteral.count
         case .upcoming:
             //// MMMMMMMMMM
@@ -150,6 +134,7 @@ final class NewToDoRepository: TodoRepository{
             throw RealmErrorCase.cantWriteObject
         }
     }
+    
     // MARK: 깃발을 토글합니다.
     func toggleOf(modle_ID: ObjectId){
         do {
@@ -168,33 +153,12 @@ final class NewToDoRepository: TodoRepository{
         }
     }
     
-    
-    /// DepleCate 예정이요니 이동 부탁드립니다.
-    func DetailFilterView(of: AllListCellCase) -> Results<NewToDoTable>{
-        switch of {
-        case .today:
-            let calender = Calendar.current
-            let start = calender.startOfDay(for: Date())
-            let end = calender.date(byAdding: .day, value: 1, to: start)
-            return realm.objects(model).where {
-                $0.endDay > start && $0.endDay < end
-            }
-        case .upcoming:
-            return realm.objects(model).where { $0.endDay > Date() }
-        case .all:
-            return realm.objects(model)
-        case .flag:
-            return realm.objects(model).where { $0.flagBool == true }
-        case .completed:
-            return realm.objects(model).where { $0.complite == true }
-        }
-        
-    }
-    
-    /// 대소문자 구분안할겁니다....!
+    /// 대소문자 구분안할겁니다....! 텍스트 검사
     func DetailFilterOfText(of: String) -> Results<NewToDoTable>{
         return realm.objects(model).where { $0.titleTexts.contains(of, options: .caseInsensitive) }
     }
+    
+    
     // MARK: FS캘린더 에서 사용할 Predicate 방법 필터
     func CalendarFilter(date : Date) -> Results<NewToDoTable>? {
         let calendar = Calendar.current
@@ -205,7 +169,7 @@ final class NewToDoRepository: TodoRepository{
             return nil
         }
         // MARK: 프레디케이트를 생성합니다.
-        // 애플문서 검색 또는 필터링을 위해 일련의 입력 값을 테스트하는 데 사용되는 논리 조건입니다.
+        // 애플문서: 검색 또는 필터링을 위해 일련의 입력 값을 테스트하는 데 사용되는 논리 조건입니다.
         let predicate = NSPredicate(format: "endDay >= %@ && endDay < %@", start as NSDate, end as NSDate)
         
         let results = NewToDoRepository().filter(predicate)
@@ -235,14 +199,14 @@ final class NewToDoRepository: TodoRepository{
             return realm.objects(model).where { $0.complite }.sorted(byKeyPath: sortParam.keyPath, ascending: sortParam.ascending)
         }
     }
-    
-//    func FolderFilterViewForKeyPath(of: Folder, sortParam:(keyPath: String, ascending: Bool) = filterSortSection.title(ascending: true).parameter) -> List<NewToDoTable> {
-//        let folderData = of.newTodoTable
-//        
-//        
+    // MARK: 진짜 모르겠습니다...
+    // 어떻게 해야 폴더의 0, 1, 2 라는 인덱스가 있는데 그 인덱스 기준을 잡고
+    // 그 인덱스별로 정렬이 되는데 Results<> 로 할지 전혀 모르겠다.... -> 뷰컨 모델이....
+//    func FolderFilterViewForKeyPath(sortParam:(keyPath: String, ascending: Bool) = filterSortSection.title(ascending: true).parameter) -> List<NewToDoTable> {
+//        realm.objects(folderModel.self).map
 //        
 //    }
-    
+//    
     
     // MARK: 새로운 폴더 생성하기
     func saveNewFolder(folderName: String){
@@ -281,8 +245,55 @@ final class NewToDoRepository: TodoRepository{
             print(error.localizedDescription)
         }
     }
-    
 }
+
+/*
+ 
+ /// 데이터 정렬을 해줍니다. 섹션별로 해드립니다.
+ func dataSort(dataList: Results<NewToDoTable>, section: SortSction, toggle: Bool) -> Results<NewToDoTable>
+ 
+ 
+ /// DepleCate 예정이요니 이동 부탁드립니다.
+ func DetailFilterView(of: AllListCellCase) -> Results<NewToDoTable>{
+     switch of {
+     case .today:
+         let calender = Calendar.current
+         let start = calender.startOfDay(for: Date())
+         let end = calender.date(byAdding: .day, value: 1, to: start)
+         return realm.objects(model).where {
+             $0.endDay > start && $0.endDay < end
+         }
+     case .upcoming:
+         return realm.objects(model).where { $0.endDay > Date() }
+     case .all:
+         return realm.objects(model)
+     case .flag:
+         return realm.objects(model).where { $0.flagBool == true }
+     case .completed:
+         return realm.objects(model).where { $0.complite == true }
+     }
+     
+ }
+ */
+
+/*
+ // MARK: 데이터 정렬
+ func dataSort(dataList: Results<NewToDoTable>, section: SortSction, toggle: Bool) -> Results<NewToDoTable>{
+     switch section {
+     case .onlyprioritySet:
+         return dataList.where {
+             $0.priorityNumber > 0
+         }
+     case .prioritySet :
+         return dataList.sorted(byKeyPath: section.getQuery, ascending: false)
+     default :
+         return dataList.sorted(byKeyPath: section.getQuery, ascending: toggle)
+     }
+ }
+ */
+
+
+
 /*
  // 이렇게 되면 가드문이나 if let 무한인디!
 //    func getDateInterval(firstdate: Date) -> ((String, String) -> Void) {

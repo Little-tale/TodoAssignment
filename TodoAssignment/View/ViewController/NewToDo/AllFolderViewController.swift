@@ -52,6 +52,7 @@ extension AllFolderViewController: UITableViewDelegate, UITableViewDataSource {
         }
         cell.rightImage.isHidden = true
         let data = folderList[indexPath.row]
+        
         if let beforeFolder = beforeFolder {
             if data == beforeFolder{
                 cell.checkPrepare(bool: true)

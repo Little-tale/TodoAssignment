@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AlertManager {
+final class AlertManager {
     
     func showAlert(title: String, message: String) -> UIAlertController{
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
@@ -53,12 +53,6 @@ class AlertManager {
         }
         return action
     }
-    
-    func settingActionSheet(title: String,message: String? = nil,
-                            actions: @escaping()->Void) {
-        
-    }
-    
     
 }
 

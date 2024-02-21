@@ -9,12 +9,14 @@ import UIKit
 import SnapKit
 import RealmSwift
 
-class FolderDetailViewController: FolderDetailBaseViewController<DetailHomeView> , allListProtocol{
+final class FolderDetailViewController: FolderDetailBaseViewController<DetailHomeView> , allListProtocol{
     /// 버튼: 아이디
-    var modelButtonDic: [UIButton: ObjectId] = [:]
-    let imageManager = SaveImageManager()
-    let fileManager = SaveImageManager()
+    private var modelButtonDic: [UIButton: ObjectId] = [:]
+    private let imageManager = SaveImageManager()
+    private let fileManager = SaveImageManager()
     // folderResults 참고
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,7 +25,6 @@ class FolderDetailViewController: FolderDetailBaseViewController<DetailHomeView>
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         homeView.tableView.reloadData()
     }
     
@@ -57,7 +58,7 @@ extension FolderDetailViewController: UITableViewDelegate, UITableViewDataSource
         cell.dateLabel.text = folderList.endDay?.description
         cell.folderLabel.text = folderList.folder.first?.folderName
         cell.mainLabel.text = folderList.titleTexts
-        cell.subTitleLabel.text = folderList.memoTexts
+        cell.subTitleLabel.text = folderList.memoDetail
         cell.priLabel.text = getPrivorityText(number: folderList.priorityNumber)
         
         let image = imageManager.loadImageToDocuments(fileCase: .image, fileNameOfID: "\(folderList.id)")

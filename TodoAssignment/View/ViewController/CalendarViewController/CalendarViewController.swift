@@ -89,7 +89,7 @@ extension CalendarViewController {
         cell.dateLabel.text = date
         cell.tagLabel.text = modelData.tagText
         cell.priLabel.text = getPrivorityText(number: prioritynum)
-        cell.subTitleLabel.text = modelData.memoTexts
+        cell.subTitleLabel.text = modelData.memoDetail
         cell.leftButton.isSelected = modelData.complite
         cell.leftButton.addTarget(self, action: #selector(toggleOfComplite), for: .touchUpInside)
         cell.folderLabel.text = modelData.folder.first?.folderName
