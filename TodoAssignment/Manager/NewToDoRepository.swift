@@ -39,6 +39,8 @@ final class NewToDoRepository: TodoRepository{
     let realm = try! Realm()
     let model = NewToDoTable.self
     let folderModel = Folder.self
+    
+    lazy var list: Results<Folder> = realm.objects(Folder.self)
    
     
     func NewToDoRepository() -> Results<NewToDoTable> {
@@ -279,6 +281,8 @@ final class NewToDoRepository: TodoRepository{
             print(error.localizedDescription)
         }
     }
+    
+    
     
 }
 

@@ -21,10 +21,13 @@ final class AllListViewController: SearchBaseViewController {
 
     // MARK: Realm 데이터 담아둘 공간! !를 권장한다?? -> 물어보기
     var NewTodoListRecords: Results<NewToDoTable>!
+    var NetTodoFolder: Results<Folder>!
     
     let repository = NewToDoRepository()
     
     lazy var newtodoFolderList = repository.NewToDoFolder()
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,6 +47,8 @@ final class AllListViewController: SearchBaseViewController {
         
         navigationSetting()
         checkFolder()
+        
+        
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -218,8 +223,9 @@ extension AllListViewController : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print(indexPath.row)
 
-        print(newtodoFolderList[indexPath.row].newTodoTable)
-        
+        print("*****",newtodoFolderList[indexPath.row].newTodoTable)
+        // let test = newtodoFolderList[indexPath.row].newTodoTable
+        print(repository.list[indexPath.row])
     }
 
     
