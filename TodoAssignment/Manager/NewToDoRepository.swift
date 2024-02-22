@@ -200,7 +200,7 @@ final class NewToDoRepository: TodoRepository{
         }
     }
     // MARK: 새로 만들려는 스타일
-    func DetailFilterViewForKey(of: AllListCellCase,parama: (keyPath: String, ascanding : Bool) = SortSction.titleSet.parametter(ats: .up)) -> Results<NewToDoTable>{
+    func DetailFilterViewForKey(of: AllListCellCase, parama: (keyPath: String, ascanding : Bool) = SortSction.titleSet.parametter(ats: .up)) -> Results<NewToDoTable> {
         let calender = Calendar.current
         let start = calender.startOfDay(for: Date())
         let end = calender.date(byAdding: .day, value: 1, to: start)

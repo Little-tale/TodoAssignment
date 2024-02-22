@@ -19,6 +19,8 @@ class TestViewController: BaseViewController {
         view.backgroundColor = .white
     }
     
+    
+    
     override func configureHierarchy() {
         view.addSubview(button)
         view.addSubview(scrollView)
@@ -66,11 +68,9 @@ class TestViewController: BaseViewController {
         scrollView.contentSize = testImageView.bounds.size
         
         scrollView.delegate = self
-        
         scrollView.minimumZoomScale = 1.0
         scrollView.maximumZoomScale = 6.0
-        
-        
+        testImageView.backgroundColor = .red
     }
     
     @objc

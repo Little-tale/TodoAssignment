@@ -11,10 +11,6 @@ import UIKit
 class FolderDetailBaseViewController<T:BaseView>: BaseViewController {
     
     let homeView = T()
-    var folder: Folder?
-    
-    var repository = NewToDoRepository()
-    lazy var folderResults = repository.NewToDoFolder()
     
     override func loadView() {
         self.view = homeView

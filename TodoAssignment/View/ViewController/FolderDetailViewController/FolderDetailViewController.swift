@@ -15,12 +15,33 @@ final class FolderDetailViewController: FolderDetailBaseViewController<DetailHom
     private let imageManager = SaveImageManager()
     private let fileManager = SaveImageManager()
     // folderResults 참고
+    var folder: Folder?
     
+    var repository = NewToDoRepository()
+    lazy var folderResults = repository.NewToDoFolder()
     
+    var folderList: [Int: Results<NewToDoTable>] = [:]
+    var sortedParam = filterSortSection.title(ascending: true).parameter {
+        didSet{
+            for (i, folder) in folderResults.enumerated() {
+                folderList[i] = folder.newTodoTable.sorted(byKeyPath: sortedParam.keyPath, ascending: sortedParam.ascending)
+            }
+            homeView.tableView.reloadData()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        firstSorted()
+        settingBarButton()
         navigationController?.navigationBar.prefersLargeTitles = false
+        
+    }
+    
+    func firstSorted(){
+        for (i, folder) in folderResults.enumerated() {
+            folderList[i] = folder.newTodoTable.sorted(byKeyPath: "titleTexts", ascending: true)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -39,21 +60,25 @@ final class FolderDetailViewController: FolderDetailBaseViewController<DetailHom
 }
 extension FolderDetailViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        folderResults.count
+        return folderResults.count
     }
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let folderList = folderResults[section]
-        return folderList.newTodoTable.count
+        // let folderList = folderResults[section] // -> 하위 리스트 <tables>
+        return folderList[section]?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let folderList = folderResults[indexPath.section].newTodoTable[indexPath.row]
         
+        let test = folderResults[indexPath.section].newTodoTable
         guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailTableViewCell.reuseabelIdentifier, for: indexPath) as? DetailTableViewCell else {
             return UITableViewCell()
         }
+        guard let folderList = folderList[indexPath.section]?[indexPath.row] else {
+            return UITableViewCell()
+        }
+        
         print("@@@@",folderList)
         cell.dateLabel.text = folderList.endDay?.description
         cell.folderLabel.text = folderList.folder.first?.folderName
@@ -158,4 +183,38 @@ extension FolderDetailViewController {
         }
     }
     
+}
+
+extension FolderDetailViewController{
+    func settingBarButton(){
+        // MARK: 1섹션 3개의 아이템을 정의
+        let sortItems = UIMenu(title: "정렬타입", options: .singleSelection, children: [
+            UIAction(title: "마감일", handler: { _ in
+                self.sortedParam = filterSortSection.dateSet(ascending: self.sortedParam.ascending).parameter
+            }),
+            UIAction(title: "제목순",state: .on ,handler: { _ in
+                self.sortedParam = filterSortSection.title(ascending: self.sortedParam.ascending).parameter
+            }),
+            UIAction(title: "우선순위순", handler: { _ in
+                self.sortedParam = filterSortSection.onlyprioritySet(ascending: self.sortedParam.ascending).parameter
+            })
+        ])
+        // MARK: 2섹션 2개의 아이템 정의
+        let sortAt = UIMenu(title: "방식", options: .singleSelection,children: [
+            UIAction(title: "오름차순",state: .on ,handler: { _ in
+                self.sortedParam.ascending = true
+            }),
+            UIAction(title: "내림차순", handler: { _ in
+                self.sortedParam.ascending = false
+            })
+        ])
+        
+        // MARK: 사용할 버튼을 가져옵니다.
+        let button = homeView.pullDownbutton
+        // MARK: 버튼메뉴에 2개의 섹션을 넣습니다.
+        button.menu = UIMenu(children: [sortItems, sortAt])
+        // MARK: 누르자마자 나오게 합니다.
+        button.showsMenuAsPrimaryAction = true
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: button)
+    }
 }

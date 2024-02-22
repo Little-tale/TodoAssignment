@@ -220,7 +220,7 @@ extension AllListViewController : UITableViewDelegate, UITableViewDataSource {
         let filter = repository.realm.objects(Folder.self).where {
             $0.id == folder.id
         }
-
+        
         let vc = FolderDetailViewController()
         vc.folderResults = filter
         

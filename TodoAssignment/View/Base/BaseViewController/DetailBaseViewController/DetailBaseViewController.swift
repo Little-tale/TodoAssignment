@@ -52,6 +52,7 @@ class DetailBaseViewController<T: BaseView> : BaseViewController {
                 self.sortParam.ascending = false
             })
         ])
+        
         guard let baseHomeView = baseHomeView as? DetailHomeView  else {
             return
         }
