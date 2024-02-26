@@ -13,6 +13,14 @@ extension UIView {
     }
 }
 
+// MARK: 노티피케이션 이름 확장
+extension Notification.Name {
+    static let getImage = Notification.Name(rawValue: "getImage")
+    static let getString = Notification.Name(rawValue: "getString")
+    
+
+}
+
 extension UIViewController {
     func showAlert(title: String, message: String){
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)

@@ -66,6 +66,9 @@
 		7BA40E712B84BE5E0053D450 /* AllFolderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA40E702B84BE5E0053D450 /* AllFolderViewController.swift */; };
 		7BA40E732B84C4C80053D450 /* FolderTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA40E722B84C4C80053D450 /* FolderTableCell.swift */; };
 		7BA40E752B84D5A50053D450 /* AllListTableInCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA40E742B84D5A50053D450 /* AllListTableInCollectionCell.swift */; };
+		7BF232792B89B04A009DE0D8 /* TestViewCon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF232782B89B04A009DE0D8 /* TestViewCon.swift */; };
+		7BF2327B2B89B25C009DE0D8 /* TestImageColCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF2327A2B89B25C009DE0D8 /* TestImageColCell.swift */; };
+		7BF2327E2B89B2FA009DE0D8 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 7BF2327D2B89B2FA009DE0D8 /* Kingfisher */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -126,6 +129,8 @@
 		7BA40E702B84BE5E0053D450 /* AllFolderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllFolderViewController.swift; sourceTree = "<group>"; };
 		7BA40E722B84C4C80053D450 /* FolderTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderTableCell.swift; sourceTree = "<group>"; };
 		7BA40E742B84D5A50053D450 /* AllListTableInCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllListTableInCollectionCell.swift; sourceTree = "<group>"; };
+		7BF232782B89B04A009DE0D8 /* TestViewCon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewCon.swift; sourceTree = "<group>"; };
+		7BF2327A2B89B25C009DE0D8 /* TestImageColCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestImageColCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,6 +142,7 @@
 				7B8A81D32B8357F400F2CB73 /* FSCalendar in Frameworks */,
 				7B5A756F2B7DEADE002A015F /* Realm in Frameworks */,
 				7B72D3732B7C807B00DBB1DB /* SnapKit in Frameworks */,
+				7BF2327E2B89B2FA009DE0D8 /* Kingfisher in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -260,6 +266,7 @@
 		7B72D3652B7C7E0F00DBB1DB /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				7BF232782B89B04A009DE0D8 /* TestViewCon.swift */,
 				7B27CC792B85B7AB00788BB7 /* FolderDetailViewController */,
 				7BA40E652B8490700053D450 /* NewListViewController */,
 				7B8A81C92B8354B600F2CB73 /* CalendarViewController */,
@@ -288,6 +295,7 @@
 			children = (
 				7B72D36C2B7C7FAD00DBB1DB /* TableCell */,
 				7B5A755A2B7D0CE4002A015F /* ToDoListCollectionViewCell.swift */,
+				7BF2327A2B89B25C009DE0D8 /* TestImageColCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -427,6 +435,7 @@
 				7B5A756E2B7DEADE002A015F /* Realm */,
 				7B5A75702B7DEADE002A015F /* RealmSwift */,
 				7B8A81D22B8357F400F2CB73 /* FSCalendar */,
+				7BF2327D2B89B2FA009DE0D8 /* Kingfisher */,
 			);
 			productName = TodoAssignment;
 			productReference = 7B72D34D2B7C7D9800DBB1DB /* TodoAssignment.app */;
@@ -460,6 +469,7 @@
 				7B72D3712B7C807B00DBB1DB /* XCRemoteSwiftPackageReference "SnapKit" */,
 				7B5A756D2B7DEADE002A015F /* XCRemoteSwiftPackageReference "realm-swift" */,
 				7B8A81D12B8357F400F2CB73 /* XCRemoteSwiftPackageReference "FSCalendar" */,
+				7BF2327C2B89B2FA009DE0D8 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = 7B72D34E2B7C7D9800DBB1DB /* Products */;
 			projectDirPath = "";
@@ -494,6 +504,7 @@
 				7B5A757C2B7F24AF002A015F /* NewToDoRepository.swift in Sources */,
 				7B72D3912B7CD6CF00DBB1DB /* AllListHomeView.swift in Sources */,
 				7BA40E692B84918C0053D450 /* DetailListTableViewCell.swift in Sources */,
+				7BF2327B2B89B25C009DE0D8 /* TestImageColCell.swift in Sources */,
 				7B72D3842B7CAFAB00DBB1DB /* DateAssistance.swift in Sources */,
 				7B8A81D02B83560B00F2CB73 /* CalendarHomeView.swift in Sources */,
 				7B5A755B2B7D0CE4002A015F /* ToDoListCollectionViewCell.swift in Sources */,
@@ -501,6 +512,7 @@
 				7B8A81C82B83429000F2CB73 /* SaveImageManager.swift in Sources */,
 				7B5A755D2B7D0D00002A015F /* BaseCollectionViewCell.swift in Sources */,
 				7B5A758B2B803827002A015F /* ErrorAssistance.swift in Sources */,
+				7BF232792B89B04A009DE0D8 /* TestViewCon.swift in Sources */,
 				7BA40E672B8491200053D450 /* ListHomeView.swift in Sources */,
 				7BA40E642B84906A0053D450 /* NewListViewController.swift in Sources */,
 				7B72D3682B7C7E3000DBB1DB /* BaseViewController.swift in Sources */,
@@ -788,6 +800,14 @@
 				minimumVersion = 2.8.4;
 			};
 		};
+		7BF2327C2B89B2FA009DE0D8 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.11.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -810,6 +830,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 7B8A81D12B8357F400F2CB73 /* XCRemoteSwiftPackageReference "FSCalendar" */;
 			productName = FSCalendar;
+		};
+		7BF2327D2B89B2FA009DE0D8 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7BF2327C2B89B2FA009DE0D8 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

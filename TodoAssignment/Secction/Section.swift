@@ -282,46 +282,48 @@ enum addImageSection: CaseIterable {
             "웹 이미지 고르기"
         }
     }
-    
-    func imageAction(from: UIViewController){
-        // MARK: 이미지 피커 컨트롤러 인스턴스 생성
+}
+/*
+ func imageAction(from: UIViewController){
+     // MARK: 이미지 피커 컨트롤러 인스턴스 생성
 //        let imagePicker = UIImagePickerController()
-//        
+//
 //        // MARK: 해당 뷰컨이 프로토콜을 구현 안했을것을 방지
 //        imagePicker.delegate = from as? any UIImagePickerControllerDelegate & UINavigationControllerDelegate
 //        // MARK: 편집 모드를 허용함
 //        imagePicker.allowsEditing = true
-        // MARK: PHPicker 사용하는 방법시작
-        var configuration = PHPickerConfiguration()
-        // 이미지 여러개를 선택할수 있는데 제한도 걸수있다!
-        configuration.selectionLimit = 3
-        // 종류를 필터하여 그것만을 선택할수 있게 할수 있다.
-        configuration.filter = .any(of: [.videos,.images])
-        // 그렇게 만든 콘피규레이션을 PHPickerViewController를 생성할때 전달해줄수 있다.
-        let phpPicker = PHPickerViewController(configuration: configuration)
-        
-        
-        phpPicker.delegate = from as? any PHPickerViewControllerDelegate
-        
-        switch self {
-        case .camera:
-//            imagePicker.sourceType = .camera
-            // 흠 info.plist 에서 권한 이유만 썻는데 잘된다...
-//            from.present(/*imagePicker*/, animated: true)
-            from.present(phpPicker, animated: true)
-            break
-        case .gallery:
-//            imagePicker.sourceType = .savedPhotosAlbum
-            // MARK: 받아온 뷰컨에서 프레센트 시킴
-            from.present(phpPicker, animated: true)
-        case .webImage:
-            
-            break
-        }
-    }
-    
-}
+     // MARK: PHPicker 사용하는 방법시작
+     var configuration = PHPickerConfiguration()
+     // 이미지 여러개를 선택할수 있는데 제한도 걸수있다!
+     configuration.selectionLimit = 3
+     // 종류를 필터하여 그것만을 선택할수 있게 할수 있다.
+     configuration.filter = .any(of: [.videos,.images])
+     // 그렇게 만든 콘피규레이션을 PHPickerViewController를 생성할때 전달해줄수 있다.
+     let phpPicker = PHPickerViewController(configuration: configuration)
+     
+     
+     phpPicker.delegate = from as? any PHPickerViewControllerDelegate
+     
+     switch self {
+     case .camera:
 
+         from.present(phpPicker, animated: true)
+         break
+     case .gallery:
+//            imagePicker.sourceType = .savedPhotosAlbum
+         // MARK: 받아온 뷰컨에서 프레센트 시킴
+         from.present(phpPicker, animated: true)
+     case .webImage:
+         
+         break
+     }
+ }
+ */
+/*
+ //            imagePicker.sourceType = .camera
+             // 흠 info.plist 에서 권한 이유만 썻는데 잘된다...
+ //            from.present(/*imagePicker*/, animated: true)
+ */
 
 //MARK: 상황별 섹션 분리
 enum NewTodo:Int, CaseIterable{

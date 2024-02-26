@@ -47,7 +47,6 @@ final class NewToDoTable: Object{
     
     @Persisted var testNewElement: Int // 새로운 컬럼 바로 값넣기
     
-    
     // MARK: 폴더와 공생을 위한 링크 정확히는 부모가 누군지 알기 위함
     @Persisted(originProperty: "newTodoTable" ) var folder:LinkingObjects<Folder>
     
@@ -70,3 +69,51 @@ final class NewToDoTable: Object{
     
 }
 
+// 폴더 모델
+class Folder2: Object {
+    @Persisted(primaryKey: true) var id: ObjectId
+    @Persisted var name: String
+    @Persisted var memos: List<Memo2>
+} // ResultsMemo2
+
+// 메모 모델
+class Memo2: Object {
+    @Persisted(primaryKey: true) var id: ObjectId
+    @Persisted var title: String
+    @Persisted var contents: String?
+    @Persisted var photo: String? // 사진 파일의 이름 또는 경로
+    @Persisted var regDate: Date
+    @Persisted var phone: String?
+    @Persisted var detailMemo: String?
+    @Persisted var location: Location2 // 위치 정보 (id)
+    
+    convenience
+    init(title: String, contents: String? = nil, photo: String? = nil, regDate: Date, phone: String? = nil, detailMemo: String? = nil, location: Location2) {
+        self.init()
+        self.title = title
+        self.contents = contents
+        self.photo = photo
+        self.regDate = regDate
+        self.phone = phone
+        self.detailMemo = detailMemo
+        self.location = location
+    }
+}
+
+// 위치 정보 모델
+class Location2: Object {
+    @Persisted(primaryKey: true) var id: ObjectId
+    
+    // MARK: 링킹 역방향 참조 예시
+    let testRelat = LinkingObjects(fromType: Memo2.self, property: "location")
+    
+    @Persisted var longitude: String
+    @Persisted var latitude: String
+    
+    convenience
+    init(longitude: String, latitude: String) {
+        self.init()
+        self.longitude = longitude
+        self.latitude = latitude
+    }
+}

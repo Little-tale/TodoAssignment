@@ -20,7 +20,6 @@ final class SaveImageManager {
     
     /// 사진을 저장합니다.(경로 -> Image)
     func saveImageToDocument(image: UIImage, filename: String){
-    
         do {
             let directory = try findFullUrl(fileCase: .image)
             // MARK: Directory를 생성합니다.
@@ -51,6 +50,61 @@ final class SaveImageManager {
         }
        
     }
+    // MARK: Data 이미지 저장
+    func saveImageData(filecase: FileCase ,data: Data? = nil, image: UIImage? = nil, fileName: String) {
+        let documents = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first
+        guard var documents = documents else {
+            return
+        }
+        documents.append(path: filecase.path) // 여기서 해도 될듯
+        do {
+            try fileManager.createDirectory(at: documents, withIntermediateDirectories: false, attributes: nil)
+        } catch (let error) {
+            print(error.localizedDescription)
+        }
+        let fileUrl = documents.appendingPathComponent( String(filecase.dataType(fileID: fileName)))
+        
+        let datas: Data? = {
+            switch filecase {
+            case .image:
+                return image?.jpegData(compressionQuality: 0.5)
+            case .webImage:
+                return data
+            }
+        }()
+        
+        if let datas = datas {
+            do{
+                try datas.write(to: fileUrl)
+            }catch {
+                print(error.localizedDescription)
+            }
+        }
+        
+    }
+    /*
+     switch filecase {
+     case .image:
+         guard let datas = image?.jpegData(compressionQuality: 0.5) else {
+             return
+         }
+         do {
+             try datas.write(to: fileUrl)
+         }catch{
+             print(error.localizedDescription)
+         }
+     case .webImage:
+         guard let datas = data else{
+             return
+         }
+         do {
+             try datas.write(to: fileUrl)
+         }catch{
+             print(error.localizedDescription)
+         }
+     }
+     */
+    
     
     //MARK: 파일을 불러옵니다.
     func loadImageToDocuments(fileCase: FileCase, fileNameOfID: String) -> UIImage?{
@@ -90,7 +144,7 @@ final class SaveImageManager {
     // 디렉토리 생성 여부 검사
     private func findFullUrl(fileCase: FileCase) throws -> URL{
         switch fileCase {
-        case .image:
+        case .image, .webImage:
             // 도큐먼츠가 존재하는가?
             guard var documets = documets else {
                 // 없으면 에러
@@ -104,16 +158,17 @@ final class SaveImageManager {
     
     enum FileCase {
         case image
+        case webImage
         
         var path: String{
             switch self {
-            case .image:
+            case .image, .webImage:
                 return "Image"
             }
         }
         func dataType(fileID: String) -> String{
             switch self {
-            case .image:
+            case .image, .webImage:
                 "\(fileID).jpeg"
             }
         }

@@ -8,6 +8,7 @@
 import UIKit
 import RealmSwift
 import PhotosUI
+import Kingfisher
 
 // MARK: 텍스트 필드가 현재 두개로 구현했는데 1개로 바꾸고 하나는 텍스트 뷰로 수정하자 -> OK
 
@@ -21,8 +22,14 @@ struct NewToDoItem {
     var flagBool: Bool // 깃발 기본은 False 로 할 예정
     var prioritizationIndex: Int // 우선순위인덱스 기본은 0일 예정
     var profileImage: UIImage?
-    
+    var profileImageData: Data?
     var folder: Folder?
+    
+    init(){
+        self.flagBool = false
+        self.prioritizationIndex = 0
+    }
+    
 }
 
 class NewTodoViewController: BaseViewController {
@@ -31,7 +38,7 @@ class NewTodoViewController: BaseViewController {
     let alertManager = AlertManager()
     
     // MARK: 하나의 구조체 관리 // 하나로 묶어서 관리하려 했으나 타이틀, 메모 텍스트는 변화할때는 리로드가 필요가 없는데 지금 리로드 되고 있다.
-    var newToDoItem = NewToDoItem(flagBool: false, prioritizationIndex: 0) 
+    var newToDoItem = NewToDoItem()
 
     
     let toDoRepository = NewToDoRepository()
@@ -93,6 +100,7 @@ class NewTodoViewController: BaseViewController {
             showAlert(title: "No Title", message: "타이틀은 필수입니다!")
             return
         }
+        
        
         let newToDoRecord = NewToDoTable(title: text, memoDetail: data.memoText, endDay: data.dateInfo, tagText: data.tagInfo, priorityNumber: data.prioritizationIndex, flagBool: data.flagBool)
         
@@ -105,11 +113,15 @@ class NewTodoViewController: BaseViewController {
         
         // MARK: 사진 저장하는 시점
         
-        if let image = newToDoItem.profileImage {
-            saveImageFileManager.saveImageToDocument(image: image, filename: "\(newToDoRecord.id)")
+        if newToDoItem.profileImageData != nil {
+            let imageData = newToDoItem.profileImageData!
+            saveImageFileManager.saveImageData(filecase: .webImage,data: imageData, fileName: "\(newToDoRecord.id)")
+        }else{
+            if let image = newToDoItem.profileImage {
+                saveImageFileManager.saveImageToDocument(image: image, filename: "\(newToDoRecord.id)")
+            }
+            
         }
-        
-        
         navigationController?.popViewController(animated: true)
     }
 
@@ -165,6 +177,14 @@ extension NewTodoViewController: UITableViewDelegate, UITableViewDataSource {
             
             cell.prepareForCell(profileImage: true)
             cell.profileImageView.image = newToDoItem.profileImage
+            
+            guard let imageData = newToDoItem.profileImageData else {
+                break
+            }
+            if let imageData = UIImage(data: imageData){
+                cell.profileImageView.image = imageData
+            }
+            /////////!!!!!!!!!!!!!!!
             break
         case .flag: // MARK: 클로저가 강하게 self를 참조하면 ARC가 인스턴스를 메모리에서 해제 잘 못함
             cell.prepareForCell(switchButton: true)
@@ -298,6 +318,11 @@ extension NewTodoViewController: UITableViewDelegate, UITableViewDataSource {
         reloadTableViewSection(for: .tag)
     }
     
+    
+}
+// MARK: Action구역
+// MARK: Enum에서 매개변수로 ViewController를 받는것 부터 수정
+extension NewTodoViewController {
     // MARK: 액션 넣어주기 Test 버전 -> 1차 실패 강함참조로 인해 보임 -> 2차 성공
     // 1차 실패시 클로저에서 즉시 실행해 버려서 액션 시트가 나오지 않음
     // 2차시에는 바로 액션으로 변환하는 대신 약한 참조로 바로 액션이 나오게 하는것을 방지
@@ -305,13 +330,53 @@ extension NewTodoViewController: UITableViewDelegate, UITableViewDataSource {
         let actions = addImageSection.allCases.map { section in
             alertManager.actionSetting(title: section.title) {
                 [weak self] in
-                section.imageAction(from: self!)
+                self?.actionAction(section)
             }
         }
         return actions
     }
+    func actionAction(_ section: addImageSection) {
+        switch section {
+        case .camera:
+            let imagePicker = UIImagePickerController()
+            imagePicker.sourceType = .camera
+            imagePicker.delegate = self
+            imagePicker.allowsEditing = true
+            present(imagePicker, animated: true)
+        case .gallery:
+            var configurataion = PHPickerConfiguration()
+            configurataion.selectionLimit = 1
+            configurataion.filter = .any(of: [.images])
+            let phpPic = PHPickerViewController(configuration: configurataion)
+            
+            phpPic.delegate = self
+            present(phpPic, animated: true)
+            return
+        case .webImage:
+            let vc = TestViewCon()
+            
+            NotificationCenter.default.addObserver(self, selector: #selector(getData), name: .getImage, object: nil)
+            
+            navigationController?.pushViewController(vc, animated: true)
+            return
+        }
+    }
     
 }
+// MARK: @objc
+extension NewTodoViewController {
+    @objc
+    func getData(_ sender: Notification) {
+        if let data = sender.object as? Data {
+            newToDoItem.profileImageData = data
+            newToDoItem.profileImage = nil
+            reloadTableViewSection(for: .addImage)
+        }
+    }
+}
+
+
+
 // MARK: 딜리게이트 패턴일수도 있는 프로토콜 방법인데 둘의 차이는 잘 와 닿지는 않는것 같다.
 extension NewTodoViewController: selectedPrioritization {
     func getPrioritization(for AllViewContoller: UIViewController, prioitiNum: Int) {
@@ -372,6 +437,7 @@ extension NewTodoViewController: UIImagePickerControllerDelegate, UINavigationCo
             print(selectedImage)
             
             newToDoItem.profileImage = selectedImage
+            newToDoItem.profileImageData = nil
             reloadTableViewSection(for: .addImage)
         }
         

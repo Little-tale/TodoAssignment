@@ -224,9 +224,11 @@ extension AllListViewController : UITableViewDelegate, UITableViewDataSource {
         let vc = FolderDetailViewController()
         vc.folderResults = filter
         
+       
+        
         navigationController?.pushViewController(vc, animated: true)
     }
-
+    
     
 }
 

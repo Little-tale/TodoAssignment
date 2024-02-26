@@ -269,6 +269,23 @@ final class NewToDoRepository: TodoRepository{
             print(error.localizedDescription)
         }
     }
+    
+    
+    func moveFolder(table: NewToDoTable, moveFolder: Folder){
+        if let currntFolder = table.folder.first{
+            do {
+                try realm.write {
+                    if let index = currntFolder.newTodoTable.firstIndex(of: table) {
+                        currntFolder.newTodoTable.remove(at: index)
+                        moveFolder.newTodoTable.append(table)
+                    }
+                }
+            } catch {
+             print(error)
+            }
+        }
+    }
+    
 }
 
 /*
